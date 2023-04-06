@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 // import Header from './Header';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from '@fortawesome/free-solid-svg-icons';
+import '../css/Header.css'
 
 // const Header = (props) => {
 
@@ -64,7 +65,7 @@ const Header = () => {
     const MainHeader = () => {
         return (
             <>
-            <div>메인 페이지</div>
+            <div class="headerText">메인 페이지</div>
             </>
         );
     };
@@ -72,7 +73,7 @@ const Header = () => {
     const GroupHeader = () => {
         return (
             <>
-            <div>그룹 페이지</div>
+            <div class="headerText">그룹 페이지</div>
             </>
         );
     };
@@ -80,7 +81,7 @@ const Header = () => {
     const ProfileHeader = () => {
         return (
             <>
-            <div>프로필 페이지</div>
+            <div class="headerText">프로필 페이지</div>
             </>
         );
     };
