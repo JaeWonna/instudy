@@ -3,16 +3,40 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from "react-router-dom";
 import BottomNav from './BottomNav';
+import { BrowserRouter } from 'react-router-dom';
+import { RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import NotFound from './pages/NotFound';
+import HomeLayout from './components/common/layouts/HomeLayout';
+import Groups from './pages/Group';
+import Profile from './pages/Profile';
+import SignUp from './containers/sign/sign_up/SignUp';
+import GroupMainView from './components/group/GroupMainView';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <NotFound />,
+    children: [
+      { index: true, path: "/", element: <HomeLayout /> }, //index로 '/' 메인페이지 지정
+      { path: "/signUp", element: <SignUp />},
+      { path: "/group", element: <Groups /> },
+      { path: "/group/:id", element: <GroupMainView />},
+      {
+        path: "/profile",
+        element: <Profile />
+      },
+    ],
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-  <BottomNav /> 
-   {/* bottom nav가 항상 떠있도록 index.js에서 호출 */}
-    <App />
-  </BrowserRouter>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,6 +1,7 @@
 import {Container, Row, Col} from 'react-bootstrap';
 import HomeCard from "../../Home/HomeCard";
 import React, { useState, useEffect } from "react";
+import SignIn from '../../../containers/sign/sign_in/SignIn';
 
 function HomeLayout() {
     const [menu, setMenu] = useState([]);
@@ -18,10 +19,8 @@ function HomeLayout() {
 
     return (
         <>
-
-                <Row>
-            <div>메인페이지입니다</div>
-                </Row>
+        <div>메인 페이지입니다</div>
+        <SignIn />
 
             {/* <Row>
                     <h2>메뉴</h2>
