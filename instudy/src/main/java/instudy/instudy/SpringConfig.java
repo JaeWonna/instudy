@@ -16,6 +16,7 @@ public class SpringConfig {
     public SpringConfig(UserRepository userRepository, GroupRepository groupRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
+
     }
 
     @Bean
