@@ -1,13 +1,11 @@
 package instudy.instudy.controller;
 
+import instudy.instudy.domain.User;
+import instudy.instudy.repository.UserRepository;
 import instudy.instudy.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -20,9 +18,15 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public void createForm(@RequestBody Map<String, String> ParamMap) {
-        System.out.println("aaaaaaaasdasdasdasdasd");
-        System.out.println(ParamMap);
+    public void postCreateForm(@RequestBody Map<String, String> paramMap) {
+        System.out.println(paramMap);
+        String userId = paramMap.get("id");
+        String password = paramMap.get("password");
+        String name = paramMap.get("name");
+        String email = paramMap.get("email");
+        System.out.println(name);
+        User newUser = new User(userId, password, name, email);
+        userService.join(newUser);
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)

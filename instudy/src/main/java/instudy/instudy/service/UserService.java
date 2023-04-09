@@ -13,15 +13,15 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public String Join(User user) {
-        validateDuplicateMember(user);//중복 회원 검증
+    public String join(User user) {
+//        validateDuplicateMember(user);//중복 회원 검증
         userRepository.save(user);
-        return user.getId();
+        return user.getUserId();
     }
 
 
     private void validateDuplicateMember(User user) {
-        userRepository.findById(user.getId())
+        userRepository.findById(user.getUserId())
                 .ifPresent(m -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
