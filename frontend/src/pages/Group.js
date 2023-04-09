@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 import groupMember from '../img/groupMember.jpg'; 
 import { Link } from "react-router-dom";
+import GroupCreateModal from "../components/group/GroupCreateModal";
 
 
 const Group = () => {
@@ -42,6 +43,10 @@ const Group = () => {
     //    </>
     // );
 
+    function handleClick() {
+        return <GroupCreateModal />;
+    }
+
     return (
         <>
         {
@@ -57,6 +62,8 @@ const Group = () => {
                 </>
             ))
         }
+        <Button onClick={handleClick}>그룹 생성(추후 1. 이미지로 변경 2. 정렬 예정 3. 모달 안 뜸) </Button>
+
         </>
     )
 

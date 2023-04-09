@@ -13,6 +13,7 @@ import Groups from './pages/Group';
 import Profile from './pages/Profile';
 import SignUp from './containers/sign/sign_up/SignUp';
 import GroupMainView from './components/group/GroupMainView';
+import GroupCreateModal from './components/group/GroupCreateModal';
 
 const router = createBrowserRouter([
   {
@@ -23,11 +24,16 @@ const router = createBrowserRouter([
       { index: true, path: "/", element: <HomeLayout /> }, //index로 '/' 메인페이지 지정
       { path: "/signUp", element: <SignUp />},
       { path: "/group", element: <Groups /> },
-      { path: "/group/:id", element: <GroupMainView />},
+      { path: "/group/:id", element: <GroupMainView 
+      // group={group}
+      />},
       {
         path: "/profile",
         element: <Profile />
       },
+
+      // 실행화면 테스트
+      { path: "/groupCreateModal", element: <GroupCreateModal />},
     ],
   },
 ]);
