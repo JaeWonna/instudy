@@ -1,57 +1,48 @@
 package instudy.instudy.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+import javax.persistence.*;
+import java.util.List;
+
+@Getter @Setter
 @Entity
 public class StudyGroup {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private Long groupId;
+    @Column
     private String groupName;
+    @Column
     private String description;
-    private Long fixedNumber;
-    private Long currentNumber;
+    @Column
+    private String manager;
+    @Column
+    private Long capacity;
+    @Column @ElementCollection
+    private List<String> member;
+    @Column @ElementCollection
+    private List<String> groupStack;
 
-    public Long getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Long groupId) {
+    public StudyGroup(Long groupId, String groupName, String description, String manager, Long capacity, List<String> member, List<String> groupStack) {
         this.groupId = groupId;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
         this.groupName = groupName;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
+        this.manager = manager;
+        this.capacity = capacity;
+        this.member = member;
+        this.groupStack = groupStack;
     }
 
-    public Long getFixedNumber() {
-        return fixedNumber;
+    public StudyGroup() {
+
     }
 
-    public void setFixedNumber(Long fixedNumber) {
-        this.fixedNumber = fixedNumber;
-    }
-
-    public Long getCurrentNumber() {
-        return currentNumber;
-    }
-
-    public void setCurrentNumber(Long currentNumber) {
-        this.currentNumber = currentNumber;
+    public StudyGroup(String groupName, String description, String manager, Long capacity) {
+        this.groupName = groupName;
+        this.description = description;
+        this.manager = manager;
+        this.capacity = capacity;
     }
 }
