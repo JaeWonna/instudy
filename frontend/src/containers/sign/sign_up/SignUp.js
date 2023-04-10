@@ -24,6 +24,9 @@ const SignUp = () => {
                 email: values.email,
             })
             .then((response) => {
+                if (response.data === false) {  //userId가 중복일 때
+                    alert("이미 사용중인 아이디입니다.");
+                }
                 console.log(response);
             })
             .catch();
@@ -31,7 +34,7 @@ const SignUp = () => {
 
     return (
         <>
-            <Form>
+            <Form >
                 <Form.Group className="mb-3">
                     <Form.Label>Id</Form.Label>
                     <Form.Control name="input_id" value={values.id} onChange={handleChange('id')} placeholder="Enter Id" />
