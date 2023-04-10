@@ -18,7 +18,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
-    public void postCreateForm(@RequestBody Map<String, String> paramMap) {
+    public boolean postCreateForm(@RequestBody Map<String, String> paramMap) {
         System.out.println(paramMap);
         String userId = paramMap.get("id");
         String password = paramMap.get("password");
@@ -26,7 +26,10 @@ public class UserController {
         String email = paramMap.get("email");
         System.out.println(name);
         User newUser = new User(userId, password, name, email);
-        userService.join(newUser);
+        if (userService.join(newUser)) {
+            return true;    //정상적으로 저장되면 true return
+        }
+        else return false;  //userId가 중복이면 false return
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
