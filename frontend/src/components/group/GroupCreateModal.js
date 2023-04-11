@@ -1,12 +1,20 @@
 import { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
-import { forms } from 'mdb-ui-kit';
-import '../group/GroupCreateModal.scss'
+import '../group/GroupCreateModal.css';
+// import { Autocomplete, Checkbox, TextField } from "@mui/material";
+// import { tags } from '../../assets/tag/tags'
+// import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+// import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const GroupCreateModal = (props) => {
   const closeModal = () => {
     props.setModalOpen(false);
   }
+
+  const [selectedSkillTags, setSelectedSkillTags] = useState([]);
+
+  // const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  // const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
     return (
         <div>    
@@ -28,21 +36,43 @@ const GroupCreateModal = (props) => {
       <form>
       <Container>
         <Row>
-          <b>그룹 이름(groupName)</b>
         <div class="form-outline mb-4">
     <input type="text" id="form4Example1" class="form-control" />
-    <label class="form-label" for="form4Example1">Name</label>
+    <label class="form-label" for="form4Example1">그룹 이름(groupName)</label>
   </div>
   </Row>
         <Row>
-          <b>그룹 설명(description)</b>
           <div class="form-outline mb-4">
     <textarea class="form-control" id="form4Example3" rows="4"></textarea>
-    <label class="form-label" for="form4Example3">Message</label>
+    <label class="form-label" for="form4Example3">그룹 설명(description)</label>
   </div>
           </Row>
         <Row>
           <b>공부 종류 키워드(projectStack)</b>
+          {/* <Autocomplete
+                                multiple
+                                options={tags.tech}
+                                disableCloseOnSelect
+                                getOptionLabel={(option) => option.label}
+                                value={selectedSkillTags}
+                                onChange={(event, newValue) => {
+                                    setSelectedSkillTags(newValue);
+                                }}
+                                renderOption={(props, option, { selected }) => (
+                                    <li {...props}>
+                                        <Checkbox
+                                            icon={icon}
+                                            checkedIcon={checkedIcon}
+                                            style={{ marginRight: 8 }}
+                                            checked={selected}
+                                        />
+                                        {option.label}
+                                    </li>
+                                )}
+                                renderInput={(params) => (
+                                    <TextField {...params} label="이 프로젝트에서 사용하는 기술은..." placeholder="기술" />
+                                )}
+                            /> */}
           </Row>
         <Row>
           <b>그룹 정원(capacity)</b>
