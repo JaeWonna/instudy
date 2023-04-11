@@ -33,9 +33,18 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public void signin(@RequestBody Map<String, String> ParamMap) {
+    public boolean signin(@RequestBody Map<String, String> ParamMap) {
         System.out.println("로그인 테스트");
         System.out.println(ParamMap);
+        String userId = ParamMap.get("email");
+        String password = ParamMap.get("passwd");
+        if (userService.login(userId, password) != null) {
+            System.out.println("로그인 성공!");
+            return true;
+        } else {
+            System.out.println("로그인 실패");
+            return false;
+        }
     }
 
 //

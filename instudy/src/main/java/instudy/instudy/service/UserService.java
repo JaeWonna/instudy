@@ -37,5 +37,15 @@ public class UserService {
         else return true; //userId가 중복이 아니면 true return
     }
 
+//    public void login(User user) {
+//        if (userRepository.findByUserId(user.getUserId()) == null) {
+//            System.out.println("아이디 없음");
+//        }
+//    }
 
+    public User login(String userId, String password) {
+        return userRepository.findByUserId(userId)
+                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
+    }
 }
