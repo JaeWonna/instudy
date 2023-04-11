@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
 import '../group/GroupCreateModal.css';
-// import { Autocomplete, Checkbox, TextField } from "@mui/material";
-// import { tags } from '../../assets/tag/tags'
-// import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-// import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import { tags } from '../../assets/tag/tags'
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
 const GroupCreateModal = (props) => {
   const closeModal = () => {
@@ -13,8 +13,8 @@ const GroupCreateModal = (props) => {
 
   const [selectedSkillTags, setSelectedSkillTags] = useState([]);
 
-  // const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-  // const checkedIcon = <CheckBoxIcon fontSize="small" />;
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
     return (
         <div>    
@@ -49,7 +49,7 @@ const GroupCreateModal = (props) => {
           </Row>
         <Row>
           <b>공부 종류 키워드(projectStack)</b>
-          {/* <Autocomplete
+          <Autocomplete
                                 multiple
                                 options={tags.tech}
                                 disableCloseOnSelect
@@ -70,9 +70,9 @@ const GroupCreateModal = (props) => {
                                     </li>
                                 )}
                                 renderInput={(params) => (
-                                    <TextField {...params} label="이 프로젝트에서 사용하는 기술은..." placeholder="기술" />
+                                    <TextField {...params} label="이 그룹에서 공부하려는 것은..." placeholder="키워드" />
                                 )}
-                            /> */}
+                            />
           </Row>
         <Row>
           <b>그룹 정원(capacity)</b>
