@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import groupMember from '../img/groupMember.jpg'; 
 import { Link } from "react-router-dom";
@@ -22,29 +22,10 @@ const Group = () => {
         width: '70px',
     }
 
-    // return (
-    //    <>
-    //    {
-    //     group.map((group) => (
-    //         <>
-    //         <Container>
-    //             <Row>{" "}</Row>
-    //         <Row>{group.content}</Row>
-    //         <Row><Link to={group.link}>{group.content}</Link></Row>
-    //         <hr/>
-    //         </Container>
-    //         </>
-    //     ))
-    //    }
-    //          <div class="flex-shrink-0">
-    //               <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
+    const [modalOpen, setModalOpen] = useState(false);
 
-    //           </div>
-    //    </>
-    // );
-
-    function handleClick() {
-        return <GroupCreateModal />;
+    const showModal = () => {
+        setModalOpen(true);
     }
 
     return (
@@ -62,7 +43,10 @@ const Group = () => {
                 </>
             ))
         }
-        <Button onClick={handleClick}>그룹 생성(추후 1. 이미지로 변경 2. 정렬 예정 3. 모달 안 뜸) </Button>
+        <button type="button" class="btn btn-primary btn-floating btn-lg" onClick={showModal}>
+  <i class="fab fa-airbnb fa-lg pe-none"></i>
+</button>
+{modalOpen && <GroupCreateModal setModalOpen={setModalOpen} />}
 
         </>
     )

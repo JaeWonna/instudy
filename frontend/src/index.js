@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       },
 
       // 실행화면 테스트
-      { path: "/groupCreateModal", element: <GroupCreateModal />},
+      { path: "/*", element: <GroupCreateModal />}, // import 오류
     ],
   },
 ]);
