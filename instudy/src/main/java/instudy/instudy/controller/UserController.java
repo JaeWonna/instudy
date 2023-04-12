@@ -5,6 +5,8 @@ import instudy.instudy.repository.UserRepository;
 import instudy.instudy.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 @CrossOrigin(origins = "*")
@@ -33,13 +35,16 @@ public class UserController {
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public boolean signin(@RequestBody Map<String, String> ParamMap) {
+    public boolean signin(@RequestBody Map<String, String> ParamMap, HttpServletRequest request) {
         System.out.println("로그인 테스트");
         System.out.println(ParamMap);
         String userId = ParamMap.get("email");
         String password = ParamMap.get("passwd");
-        if (userService.login(userId, password) != null) {
+        User loginUser = userService.login(userId, password);
+        if (loginUser != null) {
             System.out.println("로그인 성공!");
+            HttpSession session = request.getSession(); // 세션이 있으면(true) 있는 세션 반환, 없으면(false) 신규 세션을 생성하여 반환
+            session.setAttribute(SessionConstants.LOGIN_USER, loginUser);   // 세션에 로그인 유저 정보 보관
             return true;
         } else {
             System.out.println("로그인 실패");
