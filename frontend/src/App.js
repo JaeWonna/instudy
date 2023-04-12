@@ -23,16 +23,25 @@ function App() {
 }
 
 export default App;*/
+import React, { useState, createContext, useContext } from 'react';
 import { Outlet } from "react-router-dom";
 import './App.css';
 import BottomNav from "./BottomNav";
 import Header from "./components/Header";
 import Footer from './components/Footer';
 
+
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  const MyContext = React.createContext({ isLoggedIn: true });
+
   return (
     <>
-    <Header />
+<MyContext.Provider value={{ isLoggedIn: true }}>
+    <Header MyContext={MyContext} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
+    </MyContext.Provider>
     <Outlet />
     <Footer />
     <BottomNav />

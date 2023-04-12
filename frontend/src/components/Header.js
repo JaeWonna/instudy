@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, createContext, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Nav, Navbar, Button, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -60,7 +60,7 @@ import '../css/Header.css'
 
 // export default Header;
 
-const Header = () => {
+const Header = (props) => {
 
     const MainHeader = () => {
         return (
@@ -89,8 +89,14 @@ const Header = () => {
     const textStyle = {
         marginTop: '58px',
     }
+
+    const MyContext = props.MyContext;
+
+    const { isLoggedIn } = props.isLoggedIn;
+
     return (
         <>
+
         <header>
 
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -105,8 +111,17 @@ const Header = () => {
                         </div>
            </div>
            <div class="row">
-           <div class="col-8"></div>
-           <div class="col-4"><FontAwesomeIcon icon={faBell} /></div>
+           <div class="col-9">
+
+           {isLoggedIn ? (
+        <button type="button" class="btn btn-dark" onClick={() => props.setIsLoggedIn(false)}>로그아웃</button>
+      ) : (
+        <button type="button" class="btn btn-dark" onClick={() => props.setIsLoggedIn(true)}>로그인</button>
+      )}
+
+
+           </div>
+           <div class="col-3"><FontAwesomeIcon icon={faBell} /></div>
            </div>
     </div>
   </nav>
@@ -115,6 +130,7 @@ const Header = () => {
     <h1 class="mb-3">Heading</h1>
   </div>
 </header>
+
         </>
     );
 };
