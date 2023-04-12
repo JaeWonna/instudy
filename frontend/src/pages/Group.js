@@ -3,6 +3,7 @@ import {Container, Row, Col, Button} from 'react-bootstrap';
 import groupMember from '../img/groupMember.jpg'; 
 import { Link } from "react-router-dom";
 import GroupCreateModal from "../components/group/GroupCreateModal";
+import '../css/Group.css';
 
 
 const Group = () => {
@@ -30,23 +31,37 @@ const Group = () => {
 
     return (
         <>
+        <Container>
         {
             group.map(group => (
                 <>
-                <Container>
+                {/* <Container> */}
                 <Row>{" "}</Row>
                 <Row><Link to={`/group/${group.id}`} key={group.id}>
                     {group.content}
                 </Link></Row>
                 <hr/>
-                </Container>
+                {/* </Container> */}
                 </>
             ))
         }
-        <button type="button" class="btn btn-primary btn-floating btn-lg" onClick={showModal}>
+        <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+
+        <div class="d-flex justify-content-end align-items-end">
+
+<GroupCreateModal />
+
+</div>
+        </div>
+       
+        </Container>
+        
+        {/* <button type="button" class="btn btn-primary btn-floating btn-lg" onClick={showModal}>
   <i class="fab fa-airbnb fa-lg pe-none"></i>
 </button>
-{modalOpen && <GroupCreateModal setModalOpen={setModalOpen} />}
+{modalOpen &&  */}
+
 
         </>
     )

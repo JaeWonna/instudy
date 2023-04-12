@@ -5,6 +5,8 @@ import { Autocomplete, Checkbox, TextField } from "@mui/material";
 import { tags } from '../../assets/tag/tags'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const GroupCreateModal = (props) => {
   const closeModal = () => {
@@ -17,12 +19,32 @@ const GroupCreateModal = (props) => {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
     return (
-        <div>    
-          <h1>그룹 생성 모달 컴포넌트입니다</h1>   
+        <div>     
+<div class="row">
+        <div class="col-md-12 col-lg-6"></div>
 
-          <button type="button" class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-  Launch demo modal
+        <div class="d-flex justify-content-end align-items-end">
+
+<div className="rounded-icon">
+<FontAwesomeIcon icon={faSearch} />
+</div>
+
+</div>
+        </div>
+
+        <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+
+        <div class="d-flex justify-content-end align-items-end">
+
+<div className="rounded-icon">
+<button style={null} data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+<FontAwesomeIcon icon={faPlus} />
 </button>
+</div>
+
+</div>
+        </div>
 
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
