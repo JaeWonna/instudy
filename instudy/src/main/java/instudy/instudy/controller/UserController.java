@@ -52,6 +52,15 @@ public class UserController {
         }
     }
 
+    @PostMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();   //세션이 존재하는 경우 현재 세션 무효화
+        }
+        return "redirect:/";     // "/" 경로로 리다이렉트
+    }
+
 //
 //    @PostMapping("/signUp")
 //    public String create(MemberForm form) {
