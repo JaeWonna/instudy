@@ -4,12 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Getter @Setter
 @Entity(name = "user") // 테이블 명 user
+@Getter @Setter
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
+    @Column(name = "user_id")
     private Long id;
 
     @Column
@@ -31,4 +34,10 @@ public class User {
     public User() {
 
     }
+
+    @OneToMany(mappedBy = "user")
+    private List<UserStudyGroup> userStudyGroups = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Todo> todos = new ArrayList<>();
 }

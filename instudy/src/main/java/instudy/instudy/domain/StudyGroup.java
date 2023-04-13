@@ -4,45 +4,24 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity(name = "studygroup")
 @Getter @Setter
-@Entity
 public class StudyGroup {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "studygroup_id")
+    private Long id;
+
     private Long groupId;
-    @Column
     private String groupName;
-    @Column
     private String description;
-    @Column
-    private String manager;
-    @Column
-    private Long capacity;
-    @Column @ElementCollection
-    private List<String> member;
-    @Column @ElementCollection
-    private List<String> groupStack;
+    private Long fixedNumber;
+    private Long currentNumber;
 
-    public StudyGroup(Long groupId, String groupName, String description, String manager, Long capacity, List<String> member, List<String> groupStack) {
-        this.groupId = groupId;
-        this.groupName = groupName;
-        this.description = description;
-        this.manager = manager;
-        this.capacity = capacity;
-        this.member = member;
-        this.groupStack = groupStack;
-    }
+    @OneToMany(mappedBy = "studygroup")
+    private List<UserStudyGroup> userStudyGroups = new ArrayList<>();
 
-    public StudyGroup() {
-
-    }
-
-    public StudyGroup(String groupName, String description, String manager, Long capacity) {
-        this.groupName = groupName;
-        this.description = description;
-        this.manager = manager;
-        this.capacity = capacity;
-    }
 }
