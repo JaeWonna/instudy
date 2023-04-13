@@ -55,9 +55,11 @@ const SignIn = (props) => {
                 if (res.data === true) {
                     console.log("======================", "로그인 성공");
                     sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
-                    sessionStorage.setItem("name", res.data.name); // sessionStorage에 id를 user_id라는 key 값으로 저장
+                    sessionStorage.setItem("password", inputPw); // sessionStorage에 id를 user_id라는 key 값으로 저장
+                    alert(sessionStorage.getItem("user_id"));
                     // 작업 완료 되면 페이지 이동(새로고침)
                     document.location.href = "/";
+
                 } else {
                     alert("아이디 또는 비밀번호가 맞지 않습니다.");
                 }
