@@ -43,8 +43,8 @@ public class UserController {
         User loginUser = userService.login(userId, password);
         if (loginUser != null) {
             System.out.println("로그인 성공!");
-            HttpSession session = request.getSession(); // 세션이 있으면(true) 있는 세션 반환, 없으면(false) 신규 세션을 생성하여 반환
-            session.setAttribute(SessionConstants.LOGIN_USER, loginUser);   // 세션에 로그인 유저 정보 보관
+//            HttpSession session = request.getSession(); // 세션이 있으면(true) 있는 세션 반환, 없으면(false) 신규 세션을 생성하여 반환
+//            session.setAttribute(SessionConstants.LOGIN_USER, loginUser);   // 세션에 로그인 유저 정보 보관
             return true;
         } else {
             System.out.println("로그인 실패");
