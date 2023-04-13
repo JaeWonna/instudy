@@ -87,7 +87,7 @@ const Header = (props) => {
     };
 
     const textStyle = {
-        marginTop: '58px',
+        marginTop: '0px',
     }
 
     const MyContext = props.MyContext;
@@ -126,7 +126,7 @@ const Header = (props) => {
     </div>
   </nav>
 
-  <div class="p-5 text-center bg-light" style={textStyle}>
+  <div class="p-3 text-center" style={textStyle}>
     <h1 class="mb-3">Heading</h1>
   </div>
 </header>
