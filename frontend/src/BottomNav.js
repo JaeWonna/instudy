@@ -13,46 +13,62 @@ const BottomNav = () => {
   const [activeNav, setActiveNav] = useState(1);
 
     return (
+      <>
 <nav class="navbar fixed-bottom">
-  <div class="container row" style={{float: 'none', margin:'100 auto'}}>
-    <div class="col-md-3" style={{float: 
-      'none', margin:'0 auto'}}>
+  
+  <div className="container row" style={{ display: 'flex', justifyContent: 'center' }}>
 
-    <div class="card">
+
+    <div class="card" style={{ margin: '20px', width: '80%' }}>
   <div class="card-body">
 
     <Container>
       <Row>
 
   <Col>
-      <Link to="/" className="nav-link" onClick={() => setActiveNav(1)}>
+  <a class="navbar-brand" href="/" onClick={() => setActiveNav(1)}>
         <FontAwesomeIcon icon={faHome} className={activeNav === 1 ? "nav-item active" : "nav-item"} />
-        </Link>
+        </a>
         </Col>
 
         <Col>
-      <Link to="/group" className="nav-link" onClick={() => setActiveNav(2)}>
+        <a class="navbar-brand" href="/group" onClick={() => setActiveNav(2)}>
         <FontAwesomeIcon icon={faUsers} className={activeNav === 2 ? "nav-item active" : "nav-item"} />
-        </Link>
+        </a>
         </Col>
 
         <Col>
-      <Link to="/profile" className="nav-link" onClick={() => setActiveNav(3)}>
+        <a class="navbar-brand" href="/profile" onClick={() => setActiveNav(3)}>
         <FontAwesomeIcon icon={faAddressCard} className={activeNav === 3 ? "nav-item active" : "nav-item"} />
-        </Link>
+        </a>
         </Col>
 
         </Row>
         </Container>
 
     </div>
+
+<style>{`
+        @media (max-width: 768px) {
+          div {
+            flex-direction: column;
+            align-items: center;
+          }
+          Card {
+            width: 100%;
+          }
+        }
+      `}</style>
+
+</div>
+
 </div>
 
 
-    </div>
-  </div>
-
 </nav>
+
+</>
+
     );
 };
 
