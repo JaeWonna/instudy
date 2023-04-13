@@ -7,6 +7,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
+import Form from 'react-bootstrap/Form';
 
 const GroupCreateModal = (props) => {
   const closeModal = () => {
@@ -55,21 +56,31 @@ const GroupCreateModal = (props) => {
       </div>
       <div class="modal-body">
 
-      <form>
+      <Form>
       <Container>
         <Row>
-        <div class="form-outline mb-4">
+
+        {/* <div class="form-outline mb-4">
     <input type="text" id="form4Example1" class="form-control" />
     <label class="form-label" for="form4Example1">그룹 이름(groupName)</label>
-  </div>
+  </div> */}
+
+  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+        <Form.Label>그룹 이름(groupName)</Form.Label>
+        <Form.Control type="email" placeholder="그룹 이름을 입력하세요" />
+      </Form.Group>
+
   </Row>
         <Row>
-          <div class="form-outline mb-4">
-    <textarea class="form-control" id="form4Example3" rows="4"></textarea>
-    <label class="form-label" for="form4Example3">그룹 설명(description)</label>
-  </div>
+
+  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>그룹 설명(description)</Form.Label>
+        <Form.Control as="textarea" rows={3} placeholder="그룹 설명을 입력하세요" />
+      </Form.Group>
+
           </Row>
         <Row>
+
           <b>공부 종류 키워드(projectStack)</b>
           <Autocomplete
                                 multiple
@@ -95,12 +106,13 @@ const GroupCreateModal = (props) => {
                                     <TextField {...params} label="이 그룹에서 공부하려는 것은..." placeholder="키워드" />
                                 )}
                             />
+
           </Row>
         <Row>
+
           <b>그룹 정원(capacity)</b>
-          <div class="col-12">
-    <label class="visually-hidden" for="inlineFormSelectPref">Preference</label>
-    <select class="select">
+          <div class="col-3">
+          <Form.Select aria-label="Default select example">
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
@@ -109,17 +121,18 @@ const GroupCreateModal = (props) => {
       <option value="6">6</option>
       <option value="7">7</option>
       <option value="8">8</option>
-    </select>
+      </Form.Select>
   </div>
+
           </Row>
         </Container>
 
-        </form>
+        </Form>
 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary">그룹 생성</button>
       </div>
     </div>
   </div>
