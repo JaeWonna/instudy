@@ -19,8 +19,20 @@ function HomeLayout() {
 
     return (
         <>
-        <div>메인 페이지입니다</div>
-        <SignIn />
+        <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+        <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">로그인</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <SignIn />
+  </div>
+</div>
+        </div>
+        <div class="col-md-3"></div>
+</div>
+        
 
             {/* <Row>
                     <h2>메뉴</h2>
