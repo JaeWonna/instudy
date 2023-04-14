@@ -1,75 +1,45 @@
-import React, { useState } from 'react';
-// 사용할 아이콘 import
+import { Container, Row, Col, Card, Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faUsers, faAddressCard } from '@fortawesome/free-solid-svg-icons';
-import { Link } from "react-router-dom";
-import {Container, Row, Col} from 'react-bootstrap';
 
+function BottomNav() {
+  const textStyle = {
+    writingMode: 'horizontal-tb', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', 
+  }
 
-import './css/BottomNav.css';
-
-const BottomNav = () => {
-  // 현재 선택된 아이콘을 관리하는 state
-  const [activeNav, setActiveNav] = useState(1);
-
-    return (
-      <>
-<nav class="navbar fixed-bottom">
+  const NavStyle = {
+    padding: '0 50px'
+  }
   
-  <div className="container row" style={{ display: 'flex', justifyContent: 'center' }}>
+  return (
+
+    <Navbar fixed="bottom">
+      
+
+      <Nav className="mx-auto">
+
+        <Nav.Link href="/" style={NavStyle}>
+        <FontAwesomeIcon icon={faHome} />
+        <Row style={textStyle}><span>홈</span></Row>
+          </Nav.Link>
+
+            <Nav.Link href="/group" style={NavStyle}>
+        <FontAwesomeIcon icon={faUsers} />
+        <Row style={textStyle}><span>그룹</span></Row>
+          </Nav.Link>
 
 
-    <div class="card" style={{ margin: '20px', width: '80%' }}>
-  <div class="card-body">
-
-    <Container>
-      <Row>
-
-  <Col>
-  <a class="navbar-brand" href="/" onClick={() => setActiveNav(1)}>
-        <FontAwesomeIcon icon={faHome} className={activeNav === 1 ? "nav-item active" : "nav-item"} />
-        </a>
-        </Col>
-
-        <Col>
-        <a class="navbar-brand" href="/group" onClick={() => setActiveNav(2)}>
-        <FontAwesomeIcon icon={faUsers} className={activeNav === 2 ? "nav-item active" : "nav-item"} />
-        </a>
-        </Col>
-
-        <Col>
-        <a class="navbar-brand" href="/profile" onClick={() => setActiveNav(3)}>
-        <FontAwesomeIcon icon={faAddressCard} className={activeNav === 3 ? "nav-item active" : "nav-item"} />
-        </a>
-        </Col>
-
-        </Row>
-        </Container>
-
-    </div>
-
-<style>{`
-        @media (max-width: 768px) {
-          div {
-            flex-direction: column;
-            align-items: center;
-          }
-          Card {
-            width: 100%;
-          }
-        }
-      `}</style>
-
-</div>
-
-</div>
+            <Nav.Link href="/profile" style={NavStyle}>
+        <FontAwesomeIcon icon={faAddressCard} />
+        <Row style={textStyle}><span>프로필</span></Row>
+          </Nav.Link>
 
 
-</nav>
+      </Nav>   
+      
+    </Navbar>
 
-</>
-
-    );
-};
+  );
+}
 
 export default BottomNav;
