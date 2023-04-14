@@ -1,23 +1,17 @@
 import profile from '../img/profile.png';
 import ProfileGroupView from '../views/ProfileGroupView';
-import { Container, Row } from 'react-bootstrap';
-import TodoList from '../components/Profile/TodoList'
-import TodoCreate from '../components/Profile/TodoCreate'
+import { Container } from 'react-bootstrap';
+import Todo from  '../components/Profile/Todo'
 
 import {
     MDBCard,
     MDBCardBody,
     MDBCardTitle,
-    MDBCardSubTitle,
-    MDBCardText,
-    MDBCardLink,
-    MDBContainer,
-    MDBCol
 } from 'mdb-react-ui-kit';
 
 
-
 export default function Feed() {
+
     return (
         <>
         {/*<div>프로필 페이지입니다</div>*/}
@@ -38,14 +32,6 @@ export default function Feed() {
                     </div>
                 </div>
                 <div className="col-lg-8">
-                 {/*   <MDBCard className="border-top100">
-                    <div>
-                        <Container>
-                           <Row>가입한 스터디 그룹(정렬 필요)</Row>
-                        <ProfileGroupView />
-                        </Container>
-                    </div>
-                    </MDBCard>*/}
                     <div className="card">
                         가입한 스터디 그룹(정렬 필요)
                         <div className="card-body">
@@ -54,17 +40,11 @@ export default function Feed() {
                             </Container>
                         </div>
                     </div>
+                    {/*todolist*/}
                     <MDBCard className="mt-4">
                         <MDBCardBody>
                             <MDBCardTitle><h4 className="text-center my-3 pb-3">To Do App</h4></MDBCardTitle>
-                            <TodoCreate/>
-                            <TodoList/>
-                            {/*<MDBCardSubTitle>Card subtitle</MDBCardSubTitle>*/}
-                            {/*<MDBCardText>*/}
-                            {/*    Some quick example text to build on the card title and make up the bulk of the card's content.*/}
-                            {/*</MDBCardText>*/}
-                            {/*<MDBCardLink href='#'>Card link</MDBCardLink>*/}
-                            {/*<MDBCardLink href='#'>Another link</MDBCardLink>*/}
+                            <Todo/>
                         </MDBCardBody>
                     </MDBCard>
                 </div>

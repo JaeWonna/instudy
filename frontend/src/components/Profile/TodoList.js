@@ -1,6 +1,8 @@
 import TodoItem from '../Profile/TodoItem'
+import { useState } from "react";
 
-const TodoList = ({ todos, onDelete }) => {
+const TodoList = ({todos, onDelete}) => {
+
     return (
         <div className={TodoList}>
             <div className="card-body p-4">
@@ -14,7 +16,9 @@ const TodoList = ({ todos, onDelete }) => {
                     </tr>
                     </thead>
 
-                    <TodoItem/>
+                    {todos.map((todo) => (
+                        <TodoItem todo ={todo} key = {todo.id} onDelete={onDelete}/>
+                    ))}
 
                 </table>
 
