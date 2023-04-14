@@ -8,9 +8,22 @@ import {
     MDBCardBody,
     MDBCardTitle,
 } from 'mdb-react-ui-kit';
+import {useEffect} from "react";
+import axios from "axios";
 
 
 export default function Feed() {
+
+    useEffect(()=> {
+        axios
+            .post("/profile", {
+                user_id: sessionStorage.getItem("user_id")
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch();
+    }, []);
 
     return (
         <>
