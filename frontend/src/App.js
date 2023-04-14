@@ -29,13 +29,14 @@ import './App.css';
 import BottomNav from "./BottomNav";
 import Header from "./components/Header";
 import Footer from './components/Footer';
-
-
+import GroupBottomNav from './components/group/GroupBottomNav';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const MyContext = React.createContext({ isLoggedIn: true });
+
+  const path = window.location.pathname;
 
   return (
     <>
@@ -43,8 +44,10 @@ function App() {
     <Header MyContext={MyContext} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>
     </MyContext.Provider>
     <Outlet />
+    {/* <BottomNavBar /> */}
     <Footer />
-    <BottomNav />
+    {path === '/group' ? <GroupBottomNav /> : <BottomNav /> }
+    
     </>
   );
 }
