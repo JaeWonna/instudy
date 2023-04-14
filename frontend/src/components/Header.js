@@ -127,7 +127,7 @@ const Header = (props) => {
   </nav>
 
   <div class="p-3 text-center" style={textStyle}>
-    <h1 class="mb-3">Heading</h1>
+    <h1 class="mb-3"><br/></h1>
   </div>
 </header>
 
