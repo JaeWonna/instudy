@@ -33,13 +33,13 @@ public class GroupController {
 
     }
 
-    @PostMapping(value = "/group/new")  //그룹 등록
-    public String create(GroupForm form) {
-        StudyGroup group = new StudyGroup();
-        group.setGroupName(form.getName());
-        groupService.groupJoin(group);
-        return "redirect:/";
-    }
+//    @PostMapping(value = "/group/new")  //그룹 등록
+//    public String create(GroupForm form) {
+//        StudyGroup group = new StudyGroup();
+//        group.setGroupName(form.getName());
+//        groupService.groupJoin(group);
+//        return "redirect:/";
+//    }
 
 //    @GetMapping("/group")
 //    @ResponseBody

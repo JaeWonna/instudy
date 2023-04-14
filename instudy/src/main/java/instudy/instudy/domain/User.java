@@ -11,8 +11,7 @@ import java.util.List;
 @Getter @Setter
 public class User {
 
-    @Id @GeneratedValue
-    @Column(name = "user_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -35,9 +34,9 @@ public class User {
 
     }
 
-    @OneToMany(mappedBy = "user")
-    private List<UserStudyGroup> userStudyGroups = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<UserStudyGroup> userStudyGroups = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    private List<Todo> todos = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    private List<Todo> todos = new ArrayList<>();
 }
