@@ -116,7 +116,9 @@ const Header = (props) => {
            {isLoggedIn ? (
         <button type="button" class="btn btn-dark" onClick={() => props.setIsLoggedIn(false)}>로그아웃</button>
       ) : (
+        <Link to="/signIn">
         <button type="button" class="btn btn-dark" onClick={() => props.setIsLoggedIn(true)}>로그인</button>
+        </Link>
       )}
 
 

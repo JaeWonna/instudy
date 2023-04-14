@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import SignUp from './containers/sign/sign_up/SignUp';
 import GroupMainView from './components/group/GroupMainView';
 import GroupCreateModal from './components/group/GroupCreateModal';
+import SignIn from './containers/sign/sign_in/SignIn';
 // import { Provider } from 'react-redux';
 
 const router = createBrowserRouter([
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, path: "/", element: <HomeLayout /> }, //index로 '/' 메인페이지 지정
+      { path: "/signIn", element: <SignIn />},
       { path: "/signUp", element: <SignUp />},
       { path: "/group", element: <Groups /> },
       { path: "/group/:id", element: <GroupMainView 

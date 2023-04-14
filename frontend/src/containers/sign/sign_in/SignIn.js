@@ -69,6 +69,14 @@ const SignIn = (props) => {
 
     return (
         <>
+                <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+        <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">로그인</h5>
+    <p class="card-text">인스터디는 스터디 그룹 관리 및 그룹별 공유 일기 플랫폼입니다</p>
+
             <Form>
                 <Form.Group className="mb-3" controlId="formGroupEmail">
                     <Form.Label>아이디</Form.Label>
@@ -88,6 +96,12 @@ const SignIn = (props) => {
             </Button>
             <Button variant="success" onClick={onClickSignUp}>회원가입</Button>{' '}
             {/*<Button onclick={() => props.history.push('/')}>뒤로가기</Button>*/}
+
+            </div>
+</div>
+        </div>
+        <div class="col-md-3"></div>
+</div>
 
         </>
 
