@@ -48,4 +48,11 @@ public class UserService {
                 .filter(m -> m.getPassword().equals(password))
                 .orElse(null);
     }
+
+    public User profile(String userId) {
+        return userRepository.findByUserId(userId)
+//                .filter(m -> m.getPassword().equals(password))
+                .orElse(null);
+//        return userRepository.findByUserId(userId);
+    }
 }

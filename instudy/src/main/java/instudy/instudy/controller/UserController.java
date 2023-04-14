@@ -52,14 +52,23 @@ public class UserController {
         }
     }
 
-    @PostMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();   //세션이 존재하는 경우 현재 세션 무효화
-        }
-        return "redirect:/";     // "/" 경로로 리다이렉트
+    @RequestMapping(value="/profile", method = RequestMethod.POST)
+    public User profile(@RequestBody Map<String, String> ParamMap) {
+        System.out.println("프로필 테스트");
+        System.out.println(ParamMap);
+        String userId = ParamMap.get("user_id");
+        System.out.println(userId);
+        return userService.profile(userId);
     }
+
+//    @PostMapping("/logout")
+//    public String logout(HttpServletRequest request) {
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            session.invalidate();   //세션이 존재하는 경우 현재 세션 무효화
+//        }
+//        return "redirect:/";     // "/" 경로로 리다이렉트
+//    }
 
 //
 //    @PostMapping("/signUp")
