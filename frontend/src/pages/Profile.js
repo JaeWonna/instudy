@@ -8,21 +8,24 @@ import {
     MDBCardBody,
     MDBCardTitle,
 } from 'mdb-react-ui-kit';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 
 export default function Feed() {
-
+    const [loginUser, setLoginUser] = useState({});
+    const navigate = useNavigate();
     useEffect(()=> {
-        axios
-            .post("/profile", {
-                user_id: sessionStorage.getItem("user_id")
-            })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch();
+        const storedUser = sessionStorage.getItem("loginUser");
+        console.log("test");
+        console.log(storedUser);
+        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+            const parsedUser = JSON.parse(storedUser).data;
+            setLoginUser(parsedUser);
+        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+            navigate("/signIn");
+        }
     }, []);
 
     return (
@@ -34,9 +37,9 @@ export default function Feed() {
                         <div className="card-body text-center">
                             <img src={profile} className="img-thumbnail" alt="..."/>
                             {/*<img id="hz" src="../img/profile.png" alt="랜덤짤" width="304" height="228"/>*/}
-                            <h5 className="my-3">John Smith</h5>
+                            <h5 className="my-3">{loginUser.user_name}</h5>
                             <p className="text-muted mb-1">Full Stack Developer</p>
-                            <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
+                            <p className="text-muted mb-4">{loginUser.email}</p>
                             <div className="d-flex justify-content-center mb-2">
                                 <button type="button" className="btn btn-primary">Follow</button>
                                 <button type="button" className="btn btn-outline-primary ms-1">Message</button>

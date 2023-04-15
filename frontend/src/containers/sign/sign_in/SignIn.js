@@ -57,10 +57,8 @@ const SignIn = (props) => {
                     sessionStorage.setItem("loginUser", JSON.stringify(res)); // sessionStorage에 로그인한 유저 정보를 loginUser key 값으로 저장
                     const user = JSON.parse(sessionStorage.getItem("loginUser"));// loginUser 값의 String 을 가져와 JSON 형태로 다시 Parse 진행
                     alert(user.data.userId);
-
                     // 작업 완료 되면 페이지 이동(새로고침)
                     // document.location.href = "/";
-
                 } else {
                     alert("아이디 또는 비밀번호가 맞지 않습니다.");
                 }
