@@ -27,28 +27,27 @@ public class UserController {
         String name = paramMap.get("name");
         String email = paramMap.get("email");
         System.out.println(name);
-        User newUser = new User(userId, password, name, email);
-        if (userService.join(newUser)) {
-            return true;    //정상적으로 저장되면 true return
-        }
-        else return false;  //userId가 중복이면 false return
+        User newUser = new User(userId, password, name, email, "false");
+        //userId가 중복이면 false return
+        return userService.join(newUser);    //정상적으로 저장되면 true return
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
-    public boolean signin(@RequestBody Map<String, String> ParamMap, HttpServletRequest request) {
+    public User signin(@RequestBody Map<String, String> ParamMap) {
         System.out.println("로그인 테스트");
         System.out.println(ParamMap);
         String userId = ParamMap.get("email");
         String password = ParamMap.get("passwd");
         User loginUser = userService.login(userId, password);
         if (loginUser != null) {
+            loginUser.setSignIn("true");
             System.out.println("로그인 성공!");
 //            HttpSession session = request.getSession(); // 세션이 있으면(true) 있는 세션 반환, 없으면(false) 신규 세션을 생성하여 반환
 //            session.setAttribute(SessionConstants.LOGIN_USER, loginUser);   // 세션에 로그인 유저 정보 보관
-            return true;
+            return loginUser;
         } else {
             System.out.println("로그인 실패");
-            return false;
+            return null;
         }
     }
 

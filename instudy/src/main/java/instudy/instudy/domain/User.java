@@ -22,12 +22,15 @@ public class User {
     private String user_name;
     @Column
     private String email;
+    @Column
+    private String signIn; //로그인 상태
 
-    public User(String userId, String password, String user_name, String email) {
+    public User(String userId, String password, String user_name, String email, String signIn) {
         this.userId = userId;
         this.password = password;
         this.user_name = user_name;
         this.email = email;
+        this.signIn = signIn;
     }
 
     public User() {
