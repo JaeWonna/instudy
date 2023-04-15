@@ -52,13 +52,14 @@ const SignIn = (props) => {
                 //     sessionStorage.setItem("name", res.data.name); // sessionStorage에 id를 user_id라는 key 값으로 저장
                 // }
                 console.log(res);
-                if (res.data === true) {
+                if (res.data.signIn === "true") {
                     console.log("======================", "로그인 성공");
-                    sessionStorage.setItem("user_id", inputId); // sessionStorage에 id를 user_id라는 key 값으로 저장
-                    sessionStorage.setItem("password", inputPw); // sessionStorage에 id를 user_id라는 key 값으로 저장
-                    alert(sessionStorage.getItem("user_id"));
+                    sessionStorage.setItem("loginUser", JSON.stringify(res)); // sessionStorage에 로그인한 유저 정보를 loginUser key 값으로 저장
+                    const user = JSON.parse(sessionStorage.getItem("loginUser"));// loginUser 값의 String 을 가져와 JSON 형태로 다시 Parse 진행
+                    alert(user.data.userId);
+
                     // 작업 완료 되면 페이지 이동(새로고침)
-                    document.location.href = "/";
+                    // document.location.href = "/";
 
                 } else {
                     alert("아이디 또는 비밀번호가 맞지 않습니다.");
