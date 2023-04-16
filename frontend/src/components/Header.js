@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 // import Header from './Header';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faHome } from '@fortawesome/free-solid-svg-icons';
 import '../css/Header.css'
 
 // const Header = (props) => {
@@ -102,13 +102,30 @@ const Header = (props) => {
   <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
     <div class="container-fluid">
     <div className="TextBox">
-                        <div>
+                        <div style={{display: 'flex'}}>
+
+                        <div class="col-3">
+                            <Link to="/">
+                            <FontAwesomeIcon icon={faHome}  />
+                            </Link>
+                        </div>
+
+{/* <div class="col-">
                         <Routes>
                        <Route path="/" element={<MainHeader/>}/>
             <Route path="/group" element={<GroupHeader/>}/>
             <Route path="/profile" element={<ProfileHeader/>}/>
             </Routes>
+            </div> */}
+
                         </div>
+           </div>
+           <div class="row">
+           <Routes>
+                       <Route path="/" element={<MainHeader/>}/>
+            <Route path="/group" element={<GroupHeader/>}/>
+            <Route path="/profile" element={<ProfileHeader/>}/>
+            </Routes>
            </div>
            <div class="row">
            <div class="col-9">
