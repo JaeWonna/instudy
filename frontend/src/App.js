@@ -25,6 +25,7 @@ function App() {
 export default App;*/
 import React, { useState, createContext, useContext } from 'react';
 import { Outlet } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
 import BottomNav from "./BottomNav";
 import Header from "./components/Header";
@@ -38,6 +39,8 @@ function App() {
 
   const path = window.location.pathname;
 
+  console.log(path)
+
   return (
     <>
 <MyContext.Provider value={{ isLoggedIn: true }}>
@@ -46,7 +49,13 @@ function App() {
     <Outlet />
     {/* <BottomNavBar /> */}
     <Footer />
-    {path === '/group' ? <GroupBottomNav /> : <BottomNav /> }
+    {/* {path === '/group' ? <GroupBottomNav /> : <BottomNav /> } */}
+    {/* <BrowserRouter> */}
+    <Routes>
+      <Route  path="/" element={<BottomNav />} />
+      <Route  path="/group" element={<GroupBottomNav />} />
+    </Routes>
+    {/* </BrowserRouter> */}
     
     </>
   );
