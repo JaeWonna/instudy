@@ -9,8 +9,7 @@ const ProfileGroupCard = (props) => {
         <Container>
             <div class="card">
             <div class="card-body">
-                {props.groupsName}
-                프로필 그룹 카드 컴포넌트
+                {props.group}
                 <div className="col-12">
                     <button type="button" className="btn btn-primary">그룹으로 이동</button>
                 </div>
