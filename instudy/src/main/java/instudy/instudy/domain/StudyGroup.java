@@ -12,17 +12,17 @@ public class StudyGroup {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long groupId;
+
     private String groupName;
     private String description;
     private String manager;
-    private Long capacity;
+    private int capacity;
     @ElementCollection
     private List<String> member;
     @ElementCollection
     private List<String> groupStack;
 
-    public StudyGroup(Long groupId, String groupName, String description, String manager, Long capacity, List<String> member, List<String> groupStack) {
-        this.groupId = groupId;
+    public StudyGroup(String groupName, String description, String manager, int capacity, List<String> member, List<String> groupStack) {
         this.groupName = groupName;
         this.description = description;
         this.manager = manager;
@@ -35,10 +35,4 @@ public class StudyGroup {
 
     }
 
-    public StudyGroup(String groupName, String description, String manager, Long capacity) {
-        this.groupName = groupName;
-        this.description = description;
-        this.manager = manager;
-        this.capacity = capacity;
-    }
 }
