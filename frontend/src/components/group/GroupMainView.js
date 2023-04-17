@@ -8,7 +8,7 @@ import 'mdb-ui-kit/css/mdb.min.css';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const GroupMainView = (props) => {
-    const id = useParams();
+    const {id} = useParams();
 
     const imgStyle = {
         width: '70px',
@@ -41,37 +41,12 @@ const GroupMainView = (props) => {
 
     console.log(1)
 
-//     const mdModal = (props) => {
-//         return (
-//             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-//   <div class="modal-dialog">
-//     <div class="modal-content">
-//       <div class="modal-header">
-//         <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-//         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-//       </div>
-//       <div class="modal-body">...</div>
-//       <div class="modal-footer">
-//       <div class="flex-shrink-0">
-//                   <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
-
-//               </div>
-//               <div class="flex-shrink-0">
-//                   <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
-
-//               </div>
-//       </div>
-//     </div>
-//   </div>
-// </div>
-//         )
-//     }
-
     console.log(setClickedNum)
     console.log(setModal)
 
     return (
         <div>
+            <p>그룹{id}</p>
             {
                 title.map((content, idx) => 
                 <div class="card" style={ cardStyle } key={idx} 
@@ -100,7 +75,7 @@ const GroupMainView = (props) => {
         <Row><b>그룹원 진행상황</b></Row>
         <div class="row">
         <div class="col-md-3"><button type="button" class="btn btn-success">완료</button></div>
-        </div>
+       
         <div class="d-flex align-items-center mb-4">
               <div class="flex-shrink-0">
                   <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
@@ -109,6 +84,7 @@ const GroupMainView = (props) => {
             </div>
         <div class="row">
         <div class="col-md-3"><button type="button" class="btn btn-warning">진행중</button></div>
+        </div>
         </div>
         <div class="row">
         <div class="col-md-3"><button type="button" class="btn btn-danger">시작전</button></div>
@@ -129,6 +105,10 @@ const GroupMainView = (props) => {
   </div>
 </div>
                         </div>
+
+
+
+                        
                         </div>
                 )
             }
