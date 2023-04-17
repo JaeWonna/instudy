@@ -6,6 +6,8 @@ import * as mdb from 'mdb-ui-kit';
 import { Modal } from 'mdb-ui-kit';
 import 'mdb-ui-kit/css/mdb.min.css';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const GroupMainView = (props) => {
     const {id} = useParams();
@@ -66,38 +68,54 @@ const GroupMainView = (props) => {
         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <Container>
-        <Row><b>기간</b></Row>
-        <Row>하드코딩</Row>
-        <Row><b>상세 설명</b></Row>
-        <Row>하드코딩</Row>
-        <hr/>
-        <Row><b>그룹원 진행상황</b></Row>
-        <div class="row">
-        <div class="col-md-3"><button type="button" class="btn btn-success">완료</button></div>
-       
-        <div class="d-flex align-items-center mb-4">
-              <div class="flex-shrink-0">
+
+      <div class="container">
+<div class="row">
+    <div class="col-md">
+    <b>기간</b>
+    </div>
+    <div class="col-md">
+    하드코딩
+    </div>
+    <div class="col-md">
+    <b>상세 설명</b>
+    </div>
+    <div class="col-md">
+    하드코딩
+    </div>
+  </div>
+        
+<hr />
+<div class="row">
+  <div class="col-4"><button type="button" class="btn btn-success">완료</button></div>
+  <div class="col-4">              <div class="flex-shrink-0">
                   <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
 
-              </div>
-            </div>
-        <div class="row">
-        <div class="col-md-3"><button type="button" class="btn btn-warning">진행중</button></div>
+              </div></div>
+
+</div>
+<div class="row">
+  <div class="col-4"><button type="button" class="btn btn-warning">진행중</button></div>
+
+</div>
+<div class="row">
+  <div class="col-4"><button type="button" class="btn btn-danger">시작전</button></div>
+
+</div>
         </div>
-        </div>
-        <div class="row">
-        <div class="col-md-3"><button type="button" class="btn btn-danger">시작전</button></div>
-        </div>
-        </Container>
+
       </div>
       <div class="modal-footer">
       <div class="flex-shrink-0">
-                  <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
+      <div className="rounded-icon">
+      <FontAwesomeIcon icon={faPen} />
+      </div>
 
               </div>
               <div class="flex-shrink-0">
-                  <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
+              <div className="rounded-icon">
+              <FontAwesomeIcon icon={faTrash} />
+              </div>
 
               </div>
       </div>
