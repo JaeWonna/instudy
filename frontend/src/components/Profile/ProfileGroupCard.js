@@ -4,14 +4,19 @@ import Col from 'react-bootstrap/Col';
 
 const ProfileGroupCard = (props) => {
     console.log(props)
+
+    function handleClick() {
+        window.location.href = props.path;
+    }
+    
     return (
         <>
         <Container>
             <div class="card">
             <div class="card-body">
-                {props.group}
+                {props.name}
                 <div className="col-12">
-                    <button type="button" className="btn btn-primary">그룹으로 이동</button>
+                    <button type="button" className="btn btn-primary" onClick={handleClick}>그룹으로 이동</button>
                 </div>
                 </div>
             </div>
