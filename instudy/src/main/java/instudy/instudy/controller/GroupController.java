@@ -1,10 +1,13 @@
 package instudy.instudy.controller;
 
 import instudy.instudy.domain.StudyGroup;
+import instudy.instudy.domain.User;
 import instudy.instudy.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -18,28 +21,28 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group", method = RequestMethod.POST)
-    public void createGroup(@RequestBody Map<String, String> paramMap){
+    public boolean createGroup(@RequestBody Map<String, String> paramMap){
+        System.out.println(paramMap);
+        String groupName = paramMap.get("groupName");
+        String description = paramMap.get("description");
+        String manager = "";
+        int capacity = 1;
+        List<String> member = new ArrayList<>();
+        List<String> groupStack = new ArrayList<>();
 
-        String groupName = paramMap.get("");
-        String description = paramMap.get("");
-        String manager = paramMap.get("");
-        String getCapacity = paramMap.get("");
-        Long capacity = Long.parseLong(getCapacity);
+        StudyGroup newStudyGroup = new StudyGroup(groupName, description, manager, capacity, member, groupStack);
+        return groupService.groupJoin(newStudyGroup);
+
+//        String manager = paramMap.get("");
+//        String getCapacity = paramMap.get("");
+//        Long capacity = Long.parseLong(getCapacity);
 //        Long capacity = paramMap.get("");
 //        String groupName = paramMap.get("");
 
-        StudyGroup newGroup = new StudyGroup(groupName, description, manager, capacity);
+//        StudyGroup newGroup = new StudyGroup(groupName, description, manager, capacity);
 //        groupService.groupJoin(newGroup);
 
     }
-
-//    @PostMapping(value = "/group/new")  //그룹 등록
-//    public String create(GroupForm form) {
-//        StudyGroup group = new StudyGroup();
-//        group.setGroupName(form.getName());
-//        groupService.groupJoin(group);
-//        return "redirect:/";
-//    }
 
 //    @GetMapping("/group")
 //    @ResponseBody

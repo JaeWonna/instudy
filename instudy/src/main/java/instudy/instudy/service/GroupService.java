@@ -1,6 +1,7 @@
 package instudy.instudy.service;
 
 import instudy.instudy.domain.StudyGroup;
+import instudy.instudy.domain.User;
 import instudy.instudy.repository.GroupRepository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,18 +20,23 @@ public class GroupService {
     /**
      * 그룹 가입
      */
-    public String groupJoin(StudyGroup studyGroup) {
-        //같은 이름의 회원 존재x
-        validateDuplicateGroup(studyGroup);//중복 회원 검증
-        groupRepository.save(studyGroup);
-        return studyGroup.getGroupName();
-    }
+//    public String groupJoin(StudyGroup studyGroup) {
+//        //같은 이름의 회원 존재x
+//        validateDuplicateGroup(studyGroup);//중복 회원 검증
+//        groupRepository.save(studyGroup);
+//        return studyGroup.getGroupName();
+//    }
+//
+//    private void validateDuplicateGroup(StudyGroup studyGroup) {
+//        groupRepository.findByGroupName(studyGroup.getGroupName())
+//                .ifPresent(m -> {
+//                    throw new IllegalStateException("이미 존재하는 그룹명입니다.");
+//                });
+//    }
 
-    private void validateDuplicateGroup(StudyGroup studyGroup) {
-        groupRepository.findByGroupName(studyGroup.getGroupName())
-                .ifPresent(m -> {
-                    throw new IllegalStateException("이미 존재하는 그룹명입니다.");
-                });
+    public boolean groupJoin(StudyGroup studyGroup) {
+        groupRepository.save(studyGroup);
+        return true;
     }
 
     /**
