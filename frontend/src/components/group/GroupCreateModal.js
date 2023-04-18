@@ -29,6 +29,7 @@ const GroupCreateModal = (props) => {
           .post('/group', {
               groupName: group.groupName,
               description: group.description,
+              manager: props.manager,
           })
           .then((res) => {
 
