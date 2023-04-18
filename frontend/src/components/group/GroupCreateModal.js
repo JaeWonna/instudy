@@ -8,11 +8,33 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Form from 'react-bootstrap/Form';
+import axios from "axios";
 
 const GroupCreateModal = (props) => {
   const closeModal = () => {
     props.setModalOpen(false);
   }
+
+  const [group, setGroup] = useState({
+      groupName: '',
+      description: '',
+  });
+
+    const handleChange = (prop) => (event) => {
+        setGroup({...group, [prop]: event.target.value});
+    }
+
+  const createGroup = () => {
+      axios
+          .post('/group', {
+              groupName: group.groupName,
+              description: group.description,
+          })
+          .then((res) => {
+
+          })
+          .catch();
+  };
 
   const [selectedSkillTags, setSelectedSkillTags] = useState([]);
 
@@ -67,7 +89,7 @@ const GroupCreateModal = (props) => {
 
   <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
         <Form.Label>그룹 이름(groupName)</Form.Label>
-        <Form.Control type="email" placeholder="그룹 이름을 입력하세요" />
+        <Form.Control type="email" placeholder="그룹 이름을 입력하세요" onChange={handleChange('groupName')} />
       </Form.Group>
 
   </Row>
@@ -75,7 +97,7 @@ const GroupCreateModal = (props) => {
 
   <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label>그룹 설명(description)</Form.Label>
-        <Form.Control as="textarea" rows={3} placeholder="그룹 설명을 입력하세요" />
+        <Form.Control as="textarea" rows={3} placeholder="그룹 설명을 입력하세요" onChange={handleChange('description')} />
       </Form.Group>
 
           </Row>
@@ -132,7 +154,7 @@ const GroupCreateModal = (props) => {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">그룹 생성</button>
+        <button type="button" class="btn btn-primary" onClick={() => createGroup()}>그룹 생성</button>
       </div>
     </div>
   </div>
