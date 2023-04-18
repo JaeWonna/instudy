@@ -25,7 +25,7 @@ public class GroupController {
         System.out.println(paramMap);
         String groupName = paramMap.get("groupName");
         String description = paramMap.get("description");
-        String manager = "";
+        String manager = paramMap.get("manager");
         int capacity = 1;
         List<String> member = new ArrayList<>();
         List<String> groupStack = new ArrayList<>();
