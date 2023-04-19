@@ -20,7 +20,7 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @RequestMapping(value = "/group", method = RequestMethod.POST)
+    @RequestMapping(value = "/group/new", method = RequestMethod.POST)
     public boolean createGroup(@RequestBody Map<String, String> paramMap){
         System.out.println(paramMap);
         String groupName = paramMap.get("groupName");
