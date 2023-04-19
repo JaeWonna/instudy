@@ -26,7 +26,7 @@ const GroupCreateModal = (props) => {
 
   const createGroup = () => {
       axios
-          .post('/group', {
+          .post('/group/new', {
               groupName: group.groupName,
               description: group.description,
               manager: props.manager,
