@@ -4,6 +4,7 @@ import instudy.instudy.domain.StudyGroup;
 import instudy.instudy.domain.User;
 import instudy.instudy.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -18,6 +19,12 @@ public class GroupController {
 //    @Autowired
     public GroupController(GroupService groupService) {
         this.groupService = groupService;
+    }
+
+    @RequestMapping(value = "/groups", method = RequestMethod.POST)
+    public void list(@RequestBody Map<String, String> paramMap, Model model){
+        List<StudyGroup> groups = groupService.findGroups();
+        model.addAttribute("groups", groups);
     }
 
     @RequestMapping(value = "/group/new", method = RequestMethod.POST)
