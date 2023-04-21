@@ -34,7 +34,7 @@ public class Todo {
 
 }
 
-// 커밋용입니다
+// 커밋용입니다!
 
 //
 //    id (기본키) Long
