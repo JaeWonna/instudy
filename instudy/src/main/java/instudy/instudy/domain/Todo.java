@@ -19,7 +19,6 @@ public class Todo {
     @JoinColumn(name = "user_id")
     private User user;
 
-    // 여기부터 새로 추가한내용
     private String todo_text;
 
     private String status;
@@ -35,7 +34,7 @@ public class Todo {
 
 }
 
-// 커밋용
+// 커밋용입니다
 
 //
 //    id (기본키) Long
