@@ -46,6 +46,11 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    //해당 유저가 포함된 그룹 리스트 조회
+    public List<StudyGroup> findUserGroups(String userName) {
+        return groupRepository.findAll();
+    }
+
     public Optional<StudyGroup> findOne(String groupName) {
         return groupRepository.findByGroupName(groupName);
     }

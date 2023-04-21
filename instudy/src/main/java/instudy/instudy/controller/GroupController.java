@@ -23,7 +23,8 @@ public class GroupController {
 
     @RequestMapping(value = "/groups", method = RequestMethod.POST)
     public void list(@RequestBody Map<String, String> paramMap, Model model){
-        List<StudyGroup> groups = groupService.findGroups();
+        String loginUser = paramMap.get("loginUser");
+        List<StudyGroup> groups = groupService.findUserGroups(loginUser);
         model.addAttribute("groups", groups);
     }
 
