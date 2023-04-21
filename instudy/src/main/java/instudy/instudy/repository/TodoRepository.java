@@ -12,8 +12,6 @@ import java.util.Optional;
 public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     Todo save(Todo todo);
-
-    Optional<Todo> findByStatus(String status);
 }
 
-// 커밋용!
+// 커밋용!!
