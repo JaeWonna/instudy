@@ -21,11 +21,13 @@ public class GroupController {
         this.groupService = groupService;
     }
 
+    //그룹 조회
     @RequestMapping(value = "/groups", method = RequestMethod.POST)
-    public void list(@RequestBody Map<String, String> paramMap, Model model){
+    public List<StudyGroup> list(@RequestBody Map<String, String> paramMap){
         String loginUser = paramMap.get("loginUser");
+        System.out.println("로그인유저 : " + loginUser);
         List<StudyGroup> groups = groupService.findUserGroups(loginUser);
-        model.addAttribute("groups", groups);
+        return groups;
     }
 
     @RequestMapping(value = "/group/new", method = RequestMethod.POST)
