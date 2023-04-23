@@ -1,5 +1,6 @@
 import React, {useRef, useState} from "react";
 import { TextField } from "@mui/material";
+import axios from "axios";
 
 const TodoCreate = ({ onCreate }) => {
     const todoInput = useRef();
@@ -21,6 +22,15 @@ const TodoCreate = ({ onCreate }) => {
         console.log(inputData);
         onCreate(inputData);
         todoInput.current.value ="";
+        axios
+            .post('/todo', {
+                todo_text: inputData,
+                status: "READY",
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch();
     }
 
     const handleChange = (e) => {
