@@ -1,27 +1,26 @@
 package instudy.instudy.domain;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
-
-import static javax.persistence.FetchType.LAZY;
 
 @Entity(name = "todo") // 테이블 명 todo
 @Getter @Setter
 public class Todo {
 
-    @Id @GeneratedValue
-    private Long id;
-
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long todo_id;
+    @Column
     private String todo_text;
-
+    @Column
     private String status;
+
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User user;
+//
+//    private String todo_text;
+//
+//    private String status;
 
     public Todo(String todo_text, String status) {
         this.todo_text = todo_text;
@@ -34,7 +33,6 @@ public class Todo {
 
 }
 
-// 커밋용입니다!!
 
 //
 //    id (기본키) Long
