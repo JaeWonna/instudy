@@ -14,9 +14,9 @@ public class Todo {
     @Column
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private User user;
+//    @ManyToOne(fetch = LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User user;
 //
 //    private String todo_text;
 //
