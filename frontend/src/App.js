@@ -53,7 +53,9 @@ function App() {
     {/* <BrowserRouter> */}
     <Routes>
       <Route  path="/" element={<BottomNav />} />
-      <Route  path="/group" element={<GroupBottomNav />} />
+        <Route  path="/profile" element={<BottomNav />} />
+        <Route  path="/group" element={<BottomNav />} />
+      <Route  path="/group/:id" element={<GroupBottomNav />} />
     </Routes>
     {/* </BrowserRouter> */}
     
