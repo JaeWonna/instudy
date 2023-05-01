@@ -122,7 +122,7 @@ const Header = (props) => {
            </div>
            <div class="row">
            <Routes>
-                       <Route path="/" element={<MainHeader/>}/>
+                       <Route path="/main" element={<MainHeader/>}/>
             <Route path="/group" element={<GroupHeader/>}/>
             <Route path="/profile" element={<ProfileHeader/>}/>
             </Routes>

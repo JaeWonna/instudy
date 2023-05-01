@@ -3,7 +3,7 @@ import GroupBottomNav from "../../components/group/GroupBottomNav";
 
 const NavRoutes = [
     {
-        path: '/',
+        path: '/main',
         element: <BottomNav />,
         name: '기본네비바',
         description: '기본네비바',

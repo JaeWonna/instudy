@@ -16,6 +16,7 @@ import GroupMainView from './components/group/GroupMainView';
 import GroupCreateModal from './components/group/GroupCreateModal';
 import SignIn from './containers/sign/sign_in/SignIn';
 // import { Provider } from 'react-redux';
+import Fadeout from "./components/common/layouts/Fadeout";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,8 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
-      { index: true, path: "/", element: <HomeLayout /> }, //index로 '/' 메인페이지 지정
+      { index: true, path: "/", element: <Fadeout /> }, //index로 '/' 메인페이지 지정
+      { index: true, path: "/main", element: <HomeLayout /> }, //index로 '/' 메인페이지 지정
       { path: "/signIn", element: <SignIn />},
       { path: "/signUp", element: <SignUp />},
       { path: "/group", element: <Groups /> },
