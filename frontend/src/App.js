@@ -2,10 +2,10 @@ import React, { createContext, useContext, useState } from 'react';
 import { Outlet } from "react-router-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import './App.css';
-import BottomNav from "./BottomNav";
 import Header from "./components/Header";
 import Footer from './components/Footer';
-import GroupBottomNav from './components/group/GroupBottomNav';
+import NavRoutes from "./api/route/NavRoutes";
+import HomeLayout from "./components/common/layouts/HomeLayout";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -19,10 +19,9 @@ function App() {
                 <Outlet />
                 <Footer />
                 <Routes>
-                    <Route  path="/" element={<BottomNav />} />
-                    <Route  path="/profile" element={<BottomNav />} />
-                    <Route  path="/group" element={<BottomNav />} />
-                    <Route  path="/group/:id" element={<GroupBottomNav />} />
+                    <Route>
+                        {NavRoutes.map((route) => <Route path={route.path} element={route.element} key={route.path} />)}
+                    </Route>
                 </Routes>
             </div>
         </MyContext.Provider>
