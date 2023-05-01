@@ -1,13 +1,15 @@
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileGroupCard = (props) => {
     console.log(props)
+    const navigate = useNavigate();
 
-    function handleClick() {
-        window.location.href = props.path;
-    }
+    const handleClick = () => {
+        navigate(props.path);
+    };
     
     return (
         <>
