@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
 import '../group/GroupCreateModal.css';
-import { Autocomplete, Checkbox, TextField } from "@mui/material";
+import {Autocomplete, Checkbox, FormHelperText, InputLabel, TextField} from "@mui/material";
 import { tags } from '../../assets/tag/tags'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -9,6 +9,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faPlus } from '@fortawesome/free-solid-svg-icons'
 import Form from 'react-bootstrap/Form';
 import axios from "axios";
+import FormControl from '@mui/material/FormControl';
+import {Input} from "@mui/icons-material";
 
 const GroupCreateModal = (props) => {
   const closeModal = () => {
@@ -88,18 +90,24 @@ const GroupCreateModal = (props) => {
     <label class="form-label" for="form4Example1">그룹 이름(groupName)</label>
   </div> */}
 
-  <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-        <Form.Label>그룹 이름(groupName)</Form.Label>
-        <Form.Control type="email" placeholder="그룹 이름을 입력하세요" onChange={handleChange('groupName')} />
-      </Form.Group>
+  {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
+  {/*      <Form.Label>그룹 이름(groupName)</Form.Label>*/}
+  {/*      <Form.Control type="email" placeholder="그룹 이름을 입력하세요" onChange={handleChange('groupName')} />*/}
+  {/*    </Form.Group>*/}
 
-  </Row>
-        <Row>
+  {/*</Row>*/}
+  {/*      <Row>*/}
 
-  <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>그룹 설명(description)</Form.Label>
-        <Form.Control as="textarea" rows={3} placeholder="그룹 설명을 입력하세요" onChange={handleChange('description')} />
-      </Form.Group>
+  {/*<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">*/}
+  {/*      <Form.Label>그룹 설명(description)</Form.Label>*/}
+  {/*      <Form.Control as="textarea" rows={3} placeholder="그룹 설명을 입력하세요" onChange={handleChange('description')} />*/}
+  {/*    </Form.Group>*/}
+
+            <FormControl>
+                <InputLabel htmlFor="my-input">그룹 설명(description)</InputLabel>
+                <Input id="my-input" aria-describedby="my-helper-text" />
+                <FormHelperText id="my-helper-text">그룹 설명을 입력하세요</FormHelperText>
+            </FormControl>
 
           </Row>
         <Row>
