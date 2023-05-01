@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
 import '../group/GroupCreateModal.css';
-import {Autocomplete, Checkbox, FormHelperText, InputLabel, TextField} from "@mui/material";
+import {Autocomplete, Box, Checkbox, FormHelperText, InputLabel, MenuItem, TextField, Typography} from "@mui/material";
 import { tags } from '../../assets/tag/tags'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -44,6 +44,29 @@ const GroupCreateModal = (props) => {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+    const currencies = [
+        {
+            value: '1',
+            label: '1',
+        },
+        {
+            value: '2',
+            label: '2',
+        },
+        {
+            value: '3',
+            label: '3',
+        },
+        {
+            value: '4',
+            label: '4',
+        },
+        {
+            value: '5',
+            label: '5',
+        },
+    ];
+
     return (
         <div>     
 <div class="row">
@@ -76,89 +99,74 @@ const GroupCreateModal = (props) => {
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">그룹 생성하기</h5>
+          <Typography variant='h5' my={1}>그룹 생성하기</Typography>
         <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
-      <Form>
-      <Container>
-        <Row>
+          <Box
+              component="form"
+              sx={{
+                  '& .MuiTextField-root': { m: 1, width: '90%' },
+              }}
+              noValidate
+              autoComplete="off"
+          >
+              <div>
+                  <TextField
+                      id="outlined-multiline-flexible"
+                      label="그룹 이름"
+                      multiline
+                      maxRows={4}
+                  />
 
-        {/* <div class="form-outline mb-4">
-    <input type="text" id="form4Example1" class="form-control" />
-    <label class="form-label" for="form4Example1">그룹 이름(groupName)</label>
-  </div> */}
+                  <TextField
+                      id="outlined-multiline-static"
+                      label="그룹 설명"
+                      multiline
+                      rows={4}
+                      defaultValue="Default Value"
+                  />
+              </div>
 
-  {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
-  {/*      <Form.Label>그룹 이름(groupName)</Form.Label>*/}
-  {/*      <Form.Control type="email" placeholder="그룹 이름을 입력하세요" onChange={handleChange('groupName')} />*/}
-  {/*    </Form.Group>*/}
-
-  {/*</Row>*/}
-  {/*      <Row>*/}
-
-  {/*<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">*/}
-  {/*      <Form.Label>그룹 설명(description)</Form.Label>*/}
-  {/*      <Form.Control as="textarea" rows={3} placeholder="그룹 설명을 입력하세요" onChange={handleChange('description')} />*/}
-  {/*    </Form.Group>*/}
-
-            <FormControl>
-                <InputLabel htmlFor="my-input">그룹 설명(description)</InputLabel>
-                <Input id="my-input" aria-describedby="my-helper-text" />
-                <FormHelperText id="my-helper-text">그룹 설명을 입력하세요</FormHelperText>
-            </FormControl>
-
-          </Row>
-        <Row>
-
-          <b>공부 종류 키워드(projectStack)</b>
-          <Autocomplete
-                                multiple
-                                options={tags.tech}
-                                disableCloseOnSelect
-                                getOptionLabel={(option) => option.label}
-                                value={selectedSkillTags}
-                                onChange={(event, newValue) => {
-                                    setSelectedSkillTags(newValue);
-                                }}
-                                renderOption={(props, option, { selected }) => (
-                                    <li {...props}>
-                                        <Checkbox
-                                            icon={icon}
-                                            checkedIcon={checkedIcon}
-                                            style={{ marginRight: 8 }}
-                                            checked={selected}
-                                        />
-                                        {option.label}
-                                    </li>
-                                )}
-                                renderInput={(params) => (
-                                    <TextField {...params} label="이 그룹에서 공부하려는 것은..." placeholder="키워드" />
-                                )}
-                            />
-
-          </Row>
-        <Row>
-
-          <b>그룹 정원(capacity)</b>
-          <div class="col-3">
-          <Form.Select aria-label="Default select example">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      </Form.Select>
-  </div>
-
-          </Row>
-        </Container>
-
-        </Form>
+              <b>공부 종류 키워드(projectStack)</b>
+              <Autocomplete
+                  multiple
+                  options={tags.tech}
+                  disableCloseOnSelect
+                  getOptionLabel={(option) => option.label}
+                  value={selectedSkillTags}
+                  onChange={(event, newValue) => {
+                      setSelectedSkillTags(newValue);
+                  }}
+                  renderOption={(props, option, { selected }) => (
+                      <li {...props}>
+                          <Checkbox
+                              icon={icon}
+                              checkedIcon={checkedIcon}
+                              style={{ marginRight: 8 }}
+                              checked={selected}
+                          />
+                          {option.label}
+                      </li>
+                  )}
+                  renderInput={(params) => (
+                      <TextField {...params} label="이 그룹에서 공부하려는 것은..." placeholder="키워드" />
+                  )}
+              />
+              <TextField
+                  id="outlined-select-currency"
+                  select
+                  label="Select"
+                  defaultValue="1"
+              >
+                  {currencies.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                      </MenuItem>
+                  ))}
+              </TextField>
+          </Box>
 
       </div>
       <div class="modal-footer">
