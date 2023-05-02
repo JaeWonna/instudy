@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import {Grid, Typography} from "@mui/material";
 
 function Fadeout() {
     useEffect(() => {
@@ -10,7 +11,12 @@ function Fadeout() {
         return () => clearTimeout(timeoutId);
     }, []);
 
-    return <div><FontAwesomeIcon icon={faLinkedin} />Instudy</div>;
+    return <div>
+        <Grid container alignItems="center">
+        <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: '100px'}}/>
+        <Typography variant="h1">Instudy</Typography>
+    </Grid>
+    </div>
 }
 
 export default Fadeout;
