@@ -5,6 +5,8 @@ import instudy.instudy.repository.TodoRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class TodoService {
@@ -17,5 +19,9 @@ public class TodoService {
     public boolean join(Todo newTodo) {
         todoRepository.save(newTodo);
         return true;
+    }
+
+    public List<Todo> findAllTodo() {
+        return todoRepository.findAll();
     }
 }
