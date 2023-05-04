@@ -1,8 +1,19 @@
 import TodoItem from '../Profile/TodoItem'
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 const TodoList = ({todos, onDelete}) => {
 
+    useEffect(() => {
+        axios
+            .post("/todo/read", {
+
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch();
+    }, []);
     return (
         <div className={TodoList}>
             <div className="card-body p-4">
