@@ -24,4 +24,8 @@ public class TodoService {
     public List<Todo> findAllTodo() {
         return todoRepository.findAll();
     }
+
+    public void deleteTodo(Todo todo) {
+        todoRepository.delete(todo);
+    }
 }
