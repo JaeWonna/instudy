@@ -13,32 +13,26 @@ public class Todo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long todo_id;
+
     @Column
     private String todo_text;
-//    @Column
-//    private String status;
-
 
     @Enumerated(EnumType.STRING)
     private StudyStatus studyStatus;
-    
-//    @ManyToOne(fetch = LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
-//
-//    private String todo_text;
-//
-//    private String status;
 
-    public Todo(String todo_text) {
+    public Todo(String todo_text, StudyStatus studyStatus) {
         this.todo_text = todo_text;
         this.studyStatus = READY;
     }
+
 
     public Todo() {
 
     }
 
+    public Todo(String todo_text) {
+        this.todo_text = todo_text;
+    }
 }
 
 
