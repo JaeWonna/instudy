@@ -22,15 +22,6 @@ const TodoCreate = ({ onCreate }) => {
         console.log(inputData);
         onCreate(inputData);
         todoInput.current.value ="";
-        axios
-            .post('/todo', {
-                todo_text: inputData,
-                status: "READY",
-            })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch();
     }
 
     const handleChange = (e) => {
@@ -40,7 +31,7 @@ const TodoCreate = ({ onCreate }) => {
     return (
         <>
             <div className="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
-                <div className="col-12">
+                <div className="col-10">
                     <TextField
                         focused
                         fullWidth
@@ -54,7 +45,7 @@ const TodoCreate = ({ onCreate }) => {
                         onChange={handleChange}
                     />
                 </div>
-                <div className="col-12">
+                <div className="col-2 p-0">
                     <button type="button" className="btn btn-primary" onClick={onClickButton}>Save</button>
                 </div>
             </div>
