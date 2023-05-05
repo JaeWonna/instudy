@@ -17,6 +17,5 @@ public class Image {
 
     private byte[] data;
 
-    // Getter, Setter, Constructor 생략
 }
 
