@@ -28,4 +28,8 @@ public class TodoService {
     public void deleteTodo(Todo todo) {
         todoRepository.delete(todo);
     }
+
+    public void updateStatus(Todo todo) {
+
+    }
 }
