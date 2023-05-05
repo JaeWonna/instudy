@@ -32,6 +32,7 @@ const Todo = () => {
     const onCreate = (todo) => {
         const newItem = {
             text : todo,
+            status : "READY",
             /*group_id : group_id,*/
             id : dataId.current,
         };
@@ -40,6 +41,7 @@ const Todo = () => {
         //데이터 저장
         axios.post("/todo", {
             todo_text : newItem.text,
+            study_status : newItem.status
             /*group_id : newItem.group_id*/
         }).then((response) => {
             // console.log(response)
@@ -64,14 +66,12 @@ const Todo = () => {
         axios.post("/todo/delete", {
             todo_text : text,
         }).then((response) =>{
-
-        })
-
         //데이터 불러오기
-        axios.post("/todo/read", {
+            axios.post("/todo/read", {
 
-        }).then((response) =>{
-            setTodos(response.data);
+            }).then((response) =>{
+                setTodos(response.data);
+            })
         })
     }
 
