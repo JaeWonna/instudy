@@ -32,4 +32,12 @@ public class TodoController {
         List<Todo> allTodo = todoService.findAllTodo();
         return allTodo;
     }
+
+    @RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
+    public String postDeleteTodo(@RequestBody Map<String, String> paramMap) {
+        String todo_text = paramMap.get("todo_text");
+        Todo deleteTodo = new Todo(todo_text);
+        todoService.deleteTodo(deleteTodo);
+        return "delete";
+    }
 }
