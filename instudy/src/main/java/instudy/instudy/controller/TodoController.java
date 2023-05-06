@@ -33,16 +33,6 @@ public class TodoController {
         return allTodo;
     }
 
-//    @RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
-//    public String postDeleteTodo(@RequestBody Map<String, String> paramMap) {
-//        String todo_text = paramMap.get("todo_text");
-//        System.out.println(todo_text);
-//        Todo deleteTodo = new Todo(todo_text, StudyStatus.READY);
-//        System.out.println(deleteTodo);
-//        todoService.deleteTodo(deleteTodo);
-//        return "delete";
-//    }
-
     @RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
     public String postDeleteTodo(@RequestBody Map<String, String> paramMap) {
         String todoText = paramMap.get("todoText");
@@ -51,10 +41,10 @@ public class TodoController {
     }
 
     @RequestMapping(value = "/todo/updateStatus", method = RequestMethod.POST)
-    public String postUpdateStatus(@RequestBody Map<String, String> paramMap) {
+    public StudyStatus postUpdateStatus(@RequestBody Map<String, String> paramMap) {
         String todoText = paramMap.get("todoText");
-        Todo finishTodo = new Todo(todoText, StudyStatus.FINISH);
+        Todo finishTodo = new Todo(todoText, StudyStatus.READY);
         todoService.updateStatus(finishTodo);
-        return "updateStatus";
+        return StudyStatus.FINISH;
     }
 }

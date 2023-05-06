@@ -35,6 +35,17 @@ public class TodoService {
     }
 
     public void updateStatus(Todo todo) {
+        if (todo.getStudyStatus() == StudyStatus.READY) {
+            todo.setStudyStatus(StudyStatus.FINISH);
+            todoRepository.save(todo);
+        }
 
+//        if (todo.getStudyStatus() == StudyStatus.READY) {
+//            Todo existingTodo = todoRepository.findByTodoText(todo.getTodoText());
+//            if (existingTodo != null) {
+//                existingTodo.setStudyStatus(StudyStatus.FINISH);
+//                Todo mergedTodo = todoRepository.save(existingTodo.merge(todo));
+//            }
+//        }
     }
 }
