@@ -2,16 +2,19 @@ import profile from '../img/profile.png';
 import ProfileGroupView from '../views/ProfileGroupView';
 import { Container } from 'react-bootstrap';
 import Todo from  '../components/Profile/Todo'
+import MyCalendar from '../components/Profile/MyCalendar'
+import "react-datepicker/dist/react-datepicker.css";
+import * as React from 'react';
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 import {
     MDBCard,
     MDBCardBody,
     MDBCardTitle,
 } from 'mdb-react-ui-kit';
-import {useEffect, useState} from "react";
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
-
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 
 export default function Feed() {
     const [loginUser, setLoginUser] = useState({});
@@ -40,6 +43,9 @@ export default function Feed() {
                             <h5 className="my-3">{loginUser.user_name}</h5>
                             <p className="text-muted mb-1">Full Stack Developer</p>
                             <p className="text-muted mb-4">{loginUser.email}</p>
+                            <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <MyCalendar/>
+                            </LocalizationProvider>
                             <div className="d-flex justify-content-center mb-2">
                                 <button type="button" className="btn btn-primary">Follow</button>
                                 <button type="button" className="btn btn-outline-primary ms-1">Message</button>
@@ -56,6 +62,7 @@ export default function Feed() {
                             </Container>
                         </div>
                     </div>
+
                     {/*todolist*/}
                     <MDBCard className="mt-4">
                         <MDBCardBody>
