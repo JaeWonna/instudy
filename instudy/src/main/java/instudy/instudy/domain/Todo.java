@@ -12,26 +12,27 @@ import static instudy.instudy.domain.StudyStatus.STUDY;
 public class Todo {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long todo_id;
+    private Long todoId;
 
-    @Column
-    private String todo_text;
+    @Column(nullable = false)
+    private String todoText;
 
     @Enumerated(EnumType.STRING)
     private StudyStatus studyStatus;
 
-    public Todo(String todo_text, StudyStatus studyStatus) {
-        this.todo_text = todo_text;
-        this.studyStatus = READY;
+    public Todo(String todoText, StudyStatus studyStatus) {
+        this.todoText = todoText;
+        this.studyStatus = studyStatus;
     }
 
+    public Todo() {}
 
-    public Todo() {
-
-    }
-
-    public Todo(String todo_text) {
-        this.todo_text = todo_text;
+    @Override
+    public String toString() {
+        return "Todo{" +
+                "todoText='" + todoText + '\'' +
+                ", studyStatus='" + studyStatus + '\'' +
+                '}';
     }
 }
 
