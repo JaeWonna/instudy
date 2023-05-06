@@ -2,20 +2,21 @@ import React, {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 
 const TodoItem = ({ todo, onDelete }) => {
-    const { id, study_status, todoText} = todo;
+    // const { todo_id, todo_text, studyStatus} = todo;
+    console.log(JSON.stringify(todo))
 
     const finishedClick = () => {
         console.log("상태상태는" + todo.studyStatus)
         //현재 상태가
             //status 수정
             axios.post("/todo/updateStatus", {
-                todoText : todoText,
+                todoText : todo.todoText,
             }).then((response) => {
 
         })
             //status 수정
             axios.post("/todo/updateStatus", {
-                todoText : todoText,
+                todoText :  todo.todoText,
             }).then((response) => {
 
             })

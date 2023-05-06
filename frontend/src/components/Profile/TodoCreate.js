@@ -1,6 +1,5 @@
 import React, {useRef, useState} from "react";
 import { TextField } from "@mui/material";
-import axios from "axios";
 
 const TodoCreate = ({ onCreate }) => {
     const todoInput = useRef();
