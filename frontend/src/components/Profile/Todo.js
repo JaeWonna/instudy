@@ -40,7 +40,7 @@ const Todo = () => {
 
         //데이터 저장
         axios.post("/todo", {
-            todo_text : newItem.text,
+            todoText : newItem.text,
             study_status : newItem.status
             /*group_id : newItem.group_id*/
         }).then((response) => {
@@ -58,13 +58,14 @@ const Todo = () => {
     }
 
 
-    //todo_item 삭제
+    //todoText 삭제
     const onDelete = (text) => {
         // const newTodoList = todos.filter((it) => it.id !== targetId);
         // setTodos(newTodoList);
         // alert("삭제되었습니다");
+        console.log(text)
         axios.post("/todo/delete", {
-            todo_text : text,
+            todoText : text,
         }).then((response) =>{
         //데이터 불러오기
             axios.post("/todo/read", {
