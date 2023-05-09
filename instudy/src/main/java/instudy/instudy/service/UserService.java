@@ -4,6 +4,8 @@ import instudy.instudy.domain.User;
 import instudy.instudy.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Transactional
 public class UserService {
 
@@ -55,4 +57,11 @@ public class UserService {
                 .orElse(null);
 //        return userRepository.findByUserId(userId);
     }
+
+    // 유저 이름으로 유저 찾기
+    public User findOne(String userId) {
+        return userRepository.findByUserId(userId)
+                .orElse(null);
+    }
+
 }
