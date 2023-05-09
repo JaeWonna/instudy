@@ -20,6 +20,10 @@ public class GroupService {
     /**
      * 그룹 가입
      */
+
+//    public boolean userJoinGroup() {
+//
+//    }
 //    public String groupJoin(StudyGroup studyGroup) {
 //        //같은 이름의 회원 존재x
 //        validateDuplicateGroup(studyGroup);//중복 회원 검증
@@ -51,8 +55,9 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
-    public Optional<StudyGroup> findOne(String groupName) {
-        return groupRepository.findByGroupName(groupName);
+    public StudyGroup findOne(String groupName) {
+        return groupRepository.findByGroupName(groupName)
+                .orElse(null);
     }
 
 
