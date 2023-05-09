@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.websocket.OnMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +26,17 @@ public class User {
     @Column
     private String signIn; //로그인 상태
 
+    // 이부분 추가해봄
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private StudyGroup studyGroup;
+
+    // 편의 메서드
+    public void setStudyGroup(StudyGroup studyGroup) {
+        this.studyGroup = studyGroup;
+        studyGroup.getUsers().add(this);
+    }
+
     public User(String userId, String password, String user_name, String email, String signIn) {
         this.userId = userId;
         this.password = password;
@@ -37,9 +49,4 @@ public class User {
 
     }
 
-//    @OneToMany(mappedBy = "user")
-//    private List<UserStudyGroup> userStudyGroups = new ArrayList<>();
-
-//    @OneToMany(mappedBy = "user")
-//    private List<Todo> todos = new ArrayList<>();
 }
