@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
@@ -18,9 +19,13 @@ public class StudyGroup {
     private String manager;
     private int capacity;
     @ElementCollection
-    private List<String> member;
+    private List<String> member = new ArrayList<>();
     @ElementCollection
-    private List<String> groupStack;
+    private List<String> groupStack = new ArrayList<>();
+
+    // 이부분 추가
+    @OneToMany(mappedBy = "studyGroup")
+    private List<User> users = new ArrayList<>();
 
     public StudyGroup(String groupName, String description, String manager, int capacity, List<String> member, List<String> groupStack) {
         this.groupName = groupName;
