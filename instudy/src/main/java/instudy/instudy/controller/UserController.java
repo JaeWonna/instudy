@@ -80,7 +80,7 @@ public class UserController {
     // 2. 현재 접속 유저 아이디 : userId (manager: props.manager 처럼 매니저 받은것처럼)
     // value 경로는 임시로 /joingroup로 적어놨고 프론트가 지정해줘야됨
     @RequestMapping(value = "/joingroup", method = RequestMethod.POST)
-    public boolean memberJoinGroup(@RequestBody Map<String, String> ParamMap) {
+    public void memberJoinGroup(@RequestBody Map<String, String> ParamMap) {
         System.out.println("회원이 그룹에 조인합니다");
         System.out.println(ParamMap);
 
@@ -90,13 +90,6 @@ public class UserController {
         User user = userService.findOne(userId);
         StudyGroup group = groupService.findOne(groupName);
         user.setStudyGroup(group);
-
-        if(user != null && group != null) {
-            return true;
-        } else {
-            return false;
-        }
-
     }
 
 //    @PostMapping("/logout")
