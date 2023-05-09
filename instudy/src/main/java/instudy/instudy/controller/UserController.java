@@ -1,35 +1,47 @@
 package instudy.instudy.controller;
 
+import instudy.instudy.domain.StudyGroup;
 import instudy.instudy.domain.User;
 import instudy.instudy.repository.UserRepository;
+import instudy.instudy.service.GroupService;
 import instudy.instudy.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Map;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
 public class UserController {
 
     private final UserService userService;
+    // 서비스 한개 더 추가
+    private final GroupService groupService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, GroupService groupService) {
         this.userService = userService;
+        this.groupService = groupService;
     }
 
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public boolean postCreateForm(@RequestBody Map<String, String> paramMap) {
+
         System.out.println(paramMap);
+
         String userId = paramMap.get("id");
         String password = paramMap.get("password");
         String name = paramMap.get("name");
         String email = paramMap.get("email");
+
         System.out.println(name);
+
         User newUser = new User(userId, password, name, email, "false");
         //userId가 중복이면 false return
+
         return userService.join(newUser);    //정상적으로 저장되면 true return
+
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
@@ -39,6 +51,7 @@ public class UserController {
         String userId = ParamMap.get("email");
         String password = ParamMap.get("passwd");
         User loginUser = userService.login(userId, password);
+
         if (loginUser != null) {
             loginUser.setSignIn("true");
             System.out.println("로그인 성공!");
@@ -58,6 +71,32 @@ public class UserController {
         String userId = ParamMap.get("user_id");
         System.out.println(userId);
         return userService.profile(userId);
+    }
+
+
+    // 유저에서 그룹 가입 메서드
+    // 프론트 부분에서 axios로 받을 것 정리
+    // 1. 그룹이름 : groupName (groupName: group.groupName 처럼)
+    // 2. 현재 접속 유저 아이디 : userId (manager: props.manager 처럼 매니저 받은것처럼)
+    // value 경로는 임시로 /joingroup로 적어놨고 프론트가 지정해줘야됨
+    @RequestMapping(value = "/joingroup", method = RequestMethod.POST)
+    public boolean memberJoinGroup(@RequestBody Map<String, String> ParamMap) {
+        System.out.println("회원이 그룹에 조인합니다");
+        System.out.println(ParamMap);
+
+        String groupName = ParamMap.get("groupName");
+        String userId = ParamMap.get("userId");
+
+        User user = userService.findOne(userId);
+        StudyGroup group = groupService.findOne(groupName);
+        user.setStudyGroup(group);
+
+        if(user != null && group != null) {
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 //    @PostMapping("/logout")
