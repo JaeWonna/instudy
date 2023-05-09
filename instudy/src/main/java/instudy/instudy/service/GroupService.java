@@ -55,6 +55,7 @@ public class GroupService {
         return groupRepository.findAll();
     }
 
+    // 그룹 이름으로 하나 찾기
     public StudyGroup findOne(String groupName) {
         return groupRepository.findByGroupName(groupName)
                 .orElse(null);
