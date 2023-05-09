@@ -23,7 +23,7 @@ public class StudyGroup {
     @ElementCollection
     private List<String> groupStack = new ArrayList<>();
 
-    // 이부분 추가
+    // 연관관계 매핑!
     @OneToMany(mappedBy = "studyGroup")
     private List<User> users = new ArrayList<>();
 
