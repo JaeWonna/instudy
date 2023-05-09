@@ -25,6 +25,12 @@ public class Todo {
         this.studyStatus = studyStatus;
     }
 
+    public Todo(Long todoId, String todoText, StudyStatus studyStatus) {
+        this.todoId = todoId;
+        this.todoText = todoText;
+        this.studyStatus = studyStatus;
+    }
+
     public Todo() {}
 
     @Override

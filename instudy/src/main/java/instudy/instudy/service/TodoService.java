@@ -27,6 +27,10 @@ public class TodoService {
         return todoRepository.findAll();
     }
 
+    public Todo findByTodoText(String todoText) {
+        return todoRepository.findByTodoText(todoText);
+    }
+
     public void deleteTodoByTodoText(String todoText) {
         Todo todo = todoRepository.findByTodoText(todoText);
         if (todo != null) {
@@ -39,13 +43,5 @@ public class TodoService {
             todo.setStudyStatus(StudyStatus.FINISH);
             todoRepository.save(todo);
         }
-
-//        if (todo.getStudyStatus() == StudyStatus.READY) {
-//            Todo existingTodo = todoRepository.findByTodoText(todo.getTodoText());
-//            if (existingTodo != null) {
-//                existingTodo.setStudyStatus(StudyStatus.FINISH);
-//                Todo mergedTodo = todoRepository.save(existingTodo.merge(todo));
-//            }
-//        }
     }
 }

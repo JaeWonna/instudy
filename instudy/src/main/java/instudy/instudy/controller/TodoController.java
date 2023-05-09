@@ -43,7 +43,8 @@ public class TodoController {
     @RequestMapping(value = "/todo/updateStatus", method = RequestMethod.POST)
     public StudyStatus postUpdateStatus(@RequestBody Map<String, String> paramMap) {
         String todoText = paramMap.get("todoText");
-        Todo finishTodo = new Todo(todoText, StudyStatus.READY);
+//        Todo finishTodo = new Todo(todoText, StudyStatus.READY);
+        Todo finishTodo = todoService.findByTodoText(todoText);
         todoService.updateStatus(finishTodo);
         return StudyStatus.FINISH;
     }
