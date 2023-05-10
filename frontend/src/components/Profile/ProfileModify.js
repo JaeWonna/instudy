@@ -44,13 +44,14 @@ const ProfileModify = () => {
                 <div className="col-lg-5">
                     <div className="card mb-4">
                         <div className="card-body text-center">
-                            <img src={profile} className="img-thumbnail" alt="..." width={300} height={300}/>
-                                <h5 className="my-3">John Smith</h5>
-                                <p className="text-muted mb-1">Full Stack Developer</p>
-                                <div className="d-flex justify-content-center mb-2">
-                                    <button type="button" className="btn btn-primary">Follow</button>
-                                    <button type="button" className="btn btn-outline-primary ms-1">Message</button>
-                                </div>
+                            <img src={profile} className="img-thumbnail" alt="..." width={265} height={265}/>
+                            <h5 className="my-3">{loginUser.user_name}</h5>
+                            <p className="text-muted mb-1">Full Stack Developer</p>
+                            <p className="text-muted mb-4">{loginUser.email}</p>
+                            <div className="d-flex justify-content-center mb-2">
+                                <button type="button" className="btn btn-primary">Follow</button>
+                                <button type="button" className="btn btn-outline-primary ms-1">Message</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -61,19 +62,19 @@ const ProfileModify = () => {
                     <div className="card mb-4">
                         <div className="card-body p-4">
                             <div className="row mb-4 p-4">
-                                 <Grid container spacing={2}>
-                                     <Grid xs={4}>
-                                         <Item>Name</Item>
-                                     </Grid>
-                                     <Grid xs={8}>
-                                         <TextField className= "mx-4" fullWidth sx={{ m: 1 }}
-                                             id="outlined-multiline-flexible"
-                                             multiline
-                                             maxRows={4}
-                                             defaultValue= {loginUser.user_name}
-                                         />
-                                     </Grid>
-                                 </Grid>
+                                <Grid container spacing={2}>
+                                    <Grid xs={4}>
+                                        <Item>Name</Item>
+                                    </Grid>
+                                    <Grid xs={8}>
+                                        <TextField className="mx-4" fullWidth sx={{m: 1}}
+                                                   id="outlined-multiline-flexible"
+                                                   multiline
+                                                   maxRows={4}
+                                                   defaultValue={loginUser.user_name}
+                                        />
+                                    </Grid>
+                                </Grid>
                             </div>
                             <div className="row mb-4 p-4">
                                 <Grid container spacing={2}>
@@ -81,11 +82,11 @@ const ProfileModify = () => {
                                         <Item>Email</Item>
                                     </Grid>
                                     <Grid xs={8}>
-                                        <TextField className= "mx-4" fullWidth sx={{ m: 1 }}
-                                           id="outlined-multiline-flexible"
-                                           multiline
-                                           maxRows={4}
-                                           defaultValue= {loginUser.email}
+                                        <TextField className="mx-4" fullWidth sx={{m: 1}}
+                                                   id="outlined-multiline-flexible"
+                                                   multiline
+                                                   maxRows={4}
+                                                   defaultValue={loginUser.email}
                                         />
                                     </Grid>
                                 </Grid>
@@ -96,26 +97,26 @@ const ProfileModify = () => {
                                         <Item>Password</Item>
                                     </Grid>
                                     <Grid xs={8}>
-                                        <TextField className= "mx-4" fullWidth sx={{ m: 1 }}
-                                           id="outlined-multiline-flexible"
-                                           multiline
-                                           maxRows={4}
-                                           defaultValue= {loginUser.password}
+                                        <TextField className="mx-4" fullWidth sx={{m: 1}}
+                                                   id="outlined-multiline-flexible"
+                                                   multiline
+                                                   maxRows={4}
+                                                   defaultValue={loginUser.password}
                                         />
                                     </Grid>
                                 </Grid>
                             </div>
-                            <div className="row mb-4 p-4" >
+                            <div className="row mb-4 p-4">
                                 <Grid container spacing={2}>
                                     <Grid xs={4}>
                                         <Item>Name</Item>
                                     </Grid>
                                     <Grid xs={8}>
-                                        <TextField className= "mx-4" fullWidth sx={{ m: 1 }}
-                                           id="outlined-multiline-flexible"
-                                           multiline
-                                           maxRows={4}
-                                           defaultValue= {loginUser.user_name}
+                                        <TextField className="mx-4" fullWidth sx={{m: 1}}
+                                                   id="outlined-multiline-flexible"
+                                                   multiline
+                                                   maxRows={4}
+                                                   defaultValue={loginUser.user_name}
                                         />
                                     </Grid>
                                 </Grid>
