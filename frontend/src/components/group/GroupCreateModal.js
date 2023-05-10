@@ -59,14 +59,21 @@ const GroupCreateModal = (props) => {
         formData.append("description", description);
 
         axios.all([
-            axios.post("/group/new", formData),
-            axios.post("/group/new", selectedSkillTags),
-            axios.post("/group/new", currencies)
+            axios.post('/group/new', {
+                groupName: "그룹 이름",
+                description: "그룹 설명",
+                manager: "유저 아이디",
+                capacity: "3",
+                groupStack: ["ss", "tt", "aa", "cc", "kk"],
+            }),
+            // axios.post("/group/new", formData),
+            // axios.post("/group/new", selectedSkillTags),
+            // axios.post("/group/new", currencies)
         ])
             .then(axios.spread((res1, res2, res3) => {
-                console.log(res1.data);
-                console.log(res2.data);
-                console.log(res3.data);
+                // console.log(res1.data);
+                // console.log(res2.data);
+                // console.log(res3.data);
             }))
             .catch(error => {
                 console.log(error);
