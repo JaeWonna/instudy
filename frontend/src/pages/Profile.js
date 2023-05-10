@@ -19,6 +19,11 @@ import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 export default function Feed() {
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
+
+    const onClickModify = () => {
+        navigate("/profileModify");
+    };
+
     useEffect(()=> {
         const storedUser = sessionStorage.getItem("loginUser");
         console.log("test");
@@ -47,7 +52,7 @@ export default function Feed() {
                                 <MyCalendar/>
                             </LocalizationProvider>
                             <div className="d-flex justify-content-center mb-2">
-                                <button type="button" className="btn btn-primary">Follow</button>
+                                <button type="button" className="btn btn-primary" onClick={onClickModify}>프로필 수정</button>
                                 <button type="button" className="btn btn-outline-primary ms-1">Message</button>
                             </div>
                         </div>

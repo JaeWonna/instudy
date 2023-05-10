@@ -17,6 +17,7 @@ import GroupCreateModal from './components/group/GroupCreateModal';
 import SignIn from './containers/sign/sign_in/SignIn';
 // import { Provider } from 'react-redux';
 import Fadeout from "./components/common/layouts/Fadeout";
+import ProfileModify from "./components/Profile/ProfileModify";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: "/group/:id", element: <GroupMainView 
       // group={group}
       />},
+      { path: "/profileModify", element: <ProfileModify />},
       {
         path: "/profile",
         element: <Profile />
