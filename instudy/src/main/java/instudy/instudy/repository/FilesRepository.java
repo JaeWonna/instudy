@@ -1,17 +1,17 @@
 package instudy.instudy.repository;
 
-import instudy.instudy.domain.Image;
+import instudy.instudy.domain.Files;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ImageRepository extends JpaRepository<Image, Long> {
+public interface FilesRepository extends JpaRepository<Files, Long> {
 
-    Image save(Image image);
+    Files save(Files files);
 
-    Optional<Image> findById(Long image);
+    Optional<Files> findById(Long files);
 
 
 }
