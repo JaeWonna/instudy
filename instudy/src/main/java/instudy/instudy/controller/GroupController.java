@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -31,27 +32,17 @@ public class GroupController {
     }
 
     @RequestMapping(value = "/group/new", method = RequestMethod.POST)
-    public boolean createGroup(@RequestBody Map<String, String> paramMap){
-        System.out.println(paramMap);
-        String groupName = paramMap.get("groupName");
-        String description = paramMap.get("description");
-        String manager = paramMap.get("manager");
-        int capacity = 1;
+    public boolean createGroup(@RequestBody Map<String, Object> requestData){
+        String groupName = (String) requestData.get("groupName");
+        String description = (String) requestData.get("description");
+        String manager = (String) requestData.get("manager");
+        int capacity = Integer.parseInt((String) requestData.get("capacity"));
         List<String> member = new ArrayList<>();
-        List<String> groupStack = new ArrayList<>();
+        @SuppressWarnings("unchecked")
+        List<String> groupStack = (List<String>) requestData.get("groupStack");
 
         StudyGroup newStudyGroup = new StudyGroup(groupName, description, manager, capacity, member, groupStack);
         return groupService.groupJoin(newStudyGroup);
-
-//        String manager = paramMap.get("");
-//        String getCapacity = paramMap.get("");
-//        Long capacity = Long.parseLong(getCapacity);
-//        Long capacity = paramMap.get("");
-//        String groupName = paramMap.get("");
-
-//        StudyGroup newGroup = new StudyGroup(groupName, description, manager, capacity);
-//        groupService.groupJoin(newGroup);
-
     }
 
 //    @GetMapping("/group")
