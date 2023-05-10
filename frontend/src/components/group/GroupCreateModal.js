@@ -17,32 +17,18 @@ const GroupCreateModal = (props) => {
     props.setModalOpen(false);
   }
 
-  const [group, setGroup] = useState({
-      groupName: '',
-      description: '',
-  });
+  const [groupName, setGroupName] = useState("");
+  const [description, setDescription] = useState("");
 
-    const handleChange = (prop) => (event) => {
-        setGroup({...group, [prop]: event.target.value});
-    }
+  const handleInputChange1 = (e) => {
+      setGroupName(e.target.value);
+  }
 
-  const createGroup = () => {
-      axios
-          .post('/group/new', {
-              groupName: group.groupName,
-              description: group.description,
-              manager: props.manager,
-          })
-          .then((res) => {
+  const handleInputChange2 = (e) => {
+      setDescription(e.target.value);
+  }
 
-          })
-          .catch();
-  };
-
-  const [selectedSkillTags, setSelectedSkillTags] = useState([]);
-
-  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+    const [selectedSkillTags, setSelectedSkillTags] = useState([]);
 
     const currencies = [
         {
@@ -67,6 +53,29 @@ const GroupCreateModal = (props) => {
         },
     ];
 
+    const createGroup = (event) => {
+        const formData = new FormData();
+        formData.append("groupName", groupName);
+        formData.append("description", description);
+
+        axios.all([
+            axios.post("/group/new", formData),
+            axios.post("/group/new", selectedSkillTags),
+            axios.post("/group/new", currencies)
+        ])
+            .then(axios.spread((res1, res2, res3) => {
+                console.log(res1.data);
+                console.log(res2.data);
+                console.log(res3.data);
+            }))
+            .catch(error => {
+                console.log(error);
+            });
+    };
+
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
     return (
         <div>     
 <div class="row">
@@ -75,7 +84,9 @@ const GroupCreateModal = (props) => {
         <div class="d-flex justify-content-end align-items-end">
 
 <div className="rounded-icon">
+    <button style={null} data-mdb-toggle="modal" data-mdb-target="#exampleModal">
 <FontAwesomeIcon icon={faSearch} />
+    </button>
 </div>
 
 </div>
@@ -118,6 +129,8 @@ const GroupCreateModal = (props) => {
                       label="그룹 이름"
                       multiline
                       maxRows={4}
+                      value={groupName}
+                      onChange={handleInputChange1}
                   />
 
                   <TextField
@@ -126,6 +139,8 @@ const GroupCreateModal = (props) => {
                       multiline
                       rows={4}
                       defaultValue="Default Value"
+                      value={description}
+                      onChange={handleInputChange2}
                   />
               </div>
 
