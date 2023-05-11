@@ -51,4 +51,17 @@ public class GroupController {
 //        return "hello " + groupTest;
 //    }
 
+    
+    // 그룹 검색
+    // 프론트 부분에서 axios로 받을 것 정리
+    // 1. 그룹이름 : groupName (groupName: group.groupName 처럼)
+    // value값은 임의로 /groups/search로 넣었음
+    @RequestMapping(value = "/groups/search", method = RequestMethod.POST)
+    public List<StudyGroup> search(@RequestBody Map<String, String> paramMap){
+
+        String groupName = paramMap.get("groupName");
+        List<StudyGroup> searchList = groupService.search(groupName);
+        return searchList;
+    }
+
 }
