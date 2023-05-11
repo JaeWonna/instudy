@@ -90,11 +90,7 @@ public class UserController {
         User user = userService.findOne(userId);
         StudyGroup group = groupService.findOne(groupName);
 
-        if(user.getStudyGroup() != null) {
-            user.getStudyGroup().getUsers().remove(user);
-        }
-        user.setStudyGroup(group);
-        group.getUsers().add(user);
+        user.setStudyGroup(group); // 생성자 연관관계 메서드 호출 !!
     }
 
 //    @PostMapping("/logout")
