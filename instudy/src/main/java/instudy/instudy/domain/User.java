@@ -31,8 +31,14 @@ public class User {
     @JoinColumn(name = "group_id")
     private StudyGroup studyGroup;
 
-    // 편의 메서드
+    @OneToMany(mappedBy = "user")
+    private List<Todo> todos = new ArrayList<>();
+
+    // 유저 - 스터디그룹 편의메서드 생성
     public void setStudyGroup(StudyGroup studyGroup) {
+        if(this.studyGroup != null) {
+            this.studyGroup.getUsers().remove(this);
+        }
         this.studyGroup = studyGroup;
         studyGroup.getUsers().add(this);
     }
