@@ -20,6 +20,21 @@ public class Todo {
     @Enumerated(EnumType.STRING)
     private StudyStatus studyStatus;
 
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User user;
+
+    // 투두 - 유저 편의메서드 생성
+    public void setUser(User user) {
+        if(this.user != null) {
+            this.user.getTodos().remove(this);
+        }
+        this.user = user;
+        user.getTodos().add(this);
+    }
+
+
+
     public Todo(String todoText, StudyStatus studyStatus) {
         this.todoText = todoText;
         this.studyStatus = studyStatus;
