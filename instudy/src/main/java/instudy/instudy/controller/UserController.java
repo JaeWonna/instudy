@@ -89,7 +89,12 @@ public class UserController {
 
         User user = userService.findOne(userId);
         StudyGroup group = groupService.findOne(groupName);
+
+        if(user.getStudyGroup() != null) {
+            user.getStudyGroup().getUsers().remove(user);
+        }
         user.setStudyGroup(group);
+        group.getUsers().add(user);
     }
 
 //    @PostMapping("/logout")
