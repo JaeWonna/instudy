@@ -2,8 +2,10 @@ package instudy.instudy.controller;
 
 import instudy.instudy.domain.StudyStatus;
 import instudy.instudy.domain.Todo;
+import instudy.instudy.domain.User;
 import instudy.instudy.repository.TodoRepository;
 import instudy.instudy.service.TodoService;
+import instudy.instudy.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,16 +16,25 @@ import java.util.Map;
 public class TodoController {
 
     private final TodoService todoService;
+    private final UserService userService;
 
-    public TodoController(TodoService todoService) {
+    public TodoController(TodoService todoService, UserService userService) {
         this.todoService = todoService;
+        this.userService = userService;
     }
 
+    // 프론트 부분에서 axios로 받을것 정리
+    // 현재 접속 유저 아이디 : userId (manager: props.manager 처럼 매니저 받은것처럼)
     @RequestMapping(value = "/todo", method = RequestMethod.POST)   // todo create
     public boolean postCreateForm(@RequestBody Map<String, String> paramMap) {
         System.out.println(paramMap);
         String todoText = paramMap.get("todoText");
         Todo newTodo = new Todo(todoText, StudyStatus.READY);
+
+//        String userId = paramMap.get("userId");
+//        User user = userService.findOne(userId);
+//        newTodo.setUser(user); // 생성자 연관관계 메서드 호출 !!
+
         return todoService.join(newTodo);    //정상적으로 저장되면 true return 합니다!!
     }
 
