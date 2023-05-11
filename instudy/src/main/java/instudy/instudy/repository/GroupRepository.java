@@ -16,4 +16,6 @@ public interface GroupRepository {
 //    Optional<StudyGroup> findByCurrentNumber(Long currentNumber);
 
     List<StudyGroup> findAll();
+
+    List<StudyGroup> findByGroupNameContaining(String groupName);
 }
