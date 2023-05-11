@@ -62,5 +62,15 @@ public class GroupService {
     }
 
 
+    // 그룹 검색
+    public List<StudyGroup> search(String groupName) {
+        List<StudyGroup> searchList = groupRepository.findByGroupNameContaining(groupName);
+        return searchList;
+    }
+
+    // 스터디 그룹 검색
+
+
+
 
 }
