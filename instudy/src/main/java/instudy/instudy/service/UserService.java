@@ -64,4 +64,18 @@ public class UserService {
                 .orElse(null);
     }
 
+    public void userUpdate(String userid,  String name, String email, String password) {
+        User user = userRepository.findByUserId(userid).orElseThrow(()->
+            new IllegalArgumentException("회원찾기실패")
+        );
+
+        user.setUser_name(name);
+        user.setEmail(email);
+        user.setPassword(password);
+//        persistence.setFiles(user.getFiles());
+
+        userRepository.save(user);
+    }
+
+
 }

@@ -5,6 +5,7 @@ import instudy.instudy.domain.User;
 import instudy.instudy.repository.UserRepository;
 import instudy.instudy.service.GroupService;
 import instudy.instudy.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -93,6 +94,18 @@ public class UserController {
         user.setStudyGroup(group); // 생성자 연관관계 메서드 호출 !!
     }
 
+    @PostMapping("/profileModify")
+    public ResponseEntity<Void> userUpdate(@RequestBody Map<String, String> ParamMap) {
+
+        String userId = ParamMap.get("id");
+        String name = ParamMap.get("name");
+        String email = ParamMap.get("email");
+        String password = ParamMap.get("password");
+        userService.userUpdate(userId, name, email, password);
+        return ResponseEntity.ok().build();
+    }
+
+
 //    @PostMapping("/logout")
 //    public String logout(HttpServletRequest request) {
 //        HttpSession session = request.getSession(false);
@@ -102,24 +115,6 @@ public class UserController {
 //        return "redirect:/";     // "/" 경로로 리다이렉트
 //    }
 
-//
-//    @PostMapping("/signUp")
-//    public String create(MemberForm form) {
-//
-//        Member member = new Member();
-//        member.setName(form.getName());
-//
-//        memberService.join(member);
-//
-//        return "redirect:/";
-//    }
-//
-//    @GetMapping("/members")
-//    public String list(Model model) {
-//        List<Member> members = memberService.findMembers();
-//        model.addAttribute("members", members);
-//        return "members/memberList";
-//    }
 
 
 }
