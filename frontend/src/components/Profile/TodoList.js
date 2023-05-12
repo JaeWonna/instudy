@@ -2,7 +2,7 @@ import TodoItem from '../Profile/TodoItem'
 import {useEffect, useRef, useState} from "react";
 import axios from "axios";
 
-const TodoList = ({ todos, onDelete }) => {
+const TodoList = ({ todos, onDelete, finishedClick}) => {
 
     // useEffect(() => {
     //     axios
@@ -29,7 +29,7 @@ const TodoList = ({ todos, onDelete }) => {
                     </thead>
 
                     {todos.map((todo) => (
-                        <TodoItem todo={todo} key={todo.id} onDelete={onDelete}/>
+                        <TodoItem todo={todo} key={todo.id} onDelete={onDelete} finishedClick={finishedClick}/>
                     ))}
 
                 </table>
