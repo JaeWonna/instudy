@@ -45,13 +45,12 @@ const Todo = () => {
             /*group_id : newItem.group_id*/
         }).then((response) => {
             // console.log(response)
-        })
+            //데이터 불러오기
+            axios.post("/todo/read", {
 
-        //데이터 불러오기
-        axios.post("/todo/read", {
-
-        }).then((response) =>{
-            setTodos(response.data);
+            }).then((response) =>{
+                setTodos(response.data);
+            })
         })
 
         // setTodos([...todos, newItem]);
@@ -76,10 +75,25 @@ const Todo = () => {
         })
     }
 
+    //상태 수정
+    const finishedClick = (todo) => {
+        console.log("상태상태는" + todo.studyStatus)
+        //status 수정
+        axios.post("/todo/updateStatus", {
+            todoText : todo.todoText,
+        }).then((response) => {
+            axios.post("/todo/read", {
+
+            }).then((response) =>{
+                setTodos(response.data);
+            })
+        })
+    }
+
     return (
         <>
             <TodoCreate onCreate={onCreate}/>
-            <TodoList todos={todos} onDelete={onDelete}/>
+            <TodoList todos={todos} onDelete={onDelete} finishedClick={finishedClick}/>
         </>
     )
 }
