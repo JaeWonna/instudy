@@ -39,7 +39,7 @@ const GroupBottomNav = () => {
             <Row style={textStyle}><span>타이머</span></Row>
               </Nav.Link>
 
-              <Nav.Link href="/profile" style={NavStyle}>
+              <Nav.Link href="/feed" style={NavStyle}>
             <FontAwesomeIcon icon={faRss} />
             <Row style={textStyle}><span>피드</span></Row>
               </Nav.Link>

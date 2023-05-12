@@ -18,6 +18,7 @@ import SignIn from './containers/sign/sign_in/SignIn';
 // import { Provider } from 'react-redux';
 import Fadeout from "./components/common/layouts/Fadeout";
 import ProfileModify from "./components/Profile/ProfileModify";
+import Feed from "./pages/Feed";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
       // group={group}
       />},
       { path: "/profileModify", element: <ProfileModify />},
+      { path: "/feed", element: <Feed />},
       {
         path: "/profile",
         element: <Profile />
