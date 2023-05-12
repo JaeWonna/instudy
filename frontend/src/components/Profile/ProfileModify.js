@@ -10,11 +10,24 @@ import FormControl from "@mui/material/FormControl";
 import * as PropTypes from "prop-types";
 import { styled } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import axios from "axios";
+import {Button} from "react-bootstrap";
 
 const ProfileModify = () => {
 
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
+
+    const [values, setValues] = useState({
+        id: loginUser.userId,
+        name: '',
+        email: '',
+        password: '',
+    });
+
+    const handleChange = (prop) => (event) => {
+        setValues({...values, [prop]: event.target.value});
+    }
 
     useEffect(()=> {
         const storedUser = sessionStorage.getItem("loginUser");
@@ -37,6 +50,23 @@ const ProfileModify = () => {
         textAlign: 'center',
         color: theme.palette.text.secondary,
     }));
+
+    const userUpdate = () => {
+            axios.post('/profileModify', {
+                id: loginUser.userId,
+                name: values.userName,
+                email: values.email,
+                password: values.password,
+            })
+                .then((response) => {
+                    if (response.data === false) {
+                        alert("수정에 실패했습니다.");
+                    }
+                    console.log(response);
+                })
+                .catch();
+    };
+
 
     return (
         <div>
@@ -72,6 +102,8 @@ const ProfileModify = () => {
                                                    multiline
                                                    maxRows={4}
                                                    defaultValue={loginUser.user_name}
+                                                   value={values.userName}
+                                                   onChange={handleChange('userName')}
                                         />
                                     </Grid>
                                 </Grid>
@@ -87,6 +119,8 @@ const ProfileModify = () => {
                                                    multiline
                                                    maxRows={4}
                                                    defaultValue={loginUser.email}
+                                                   value={values.email}
+                                                   onChange={handleChange('email')}
                                         />
                                     </Grid>
                                 </Grid>
@@ -102,30 +136,25 @@ const ProfileModify = () => {
                                                    multiline
                                                    maxRows={4}
                                                    defaultValue={loginUser.password}
+                                                   value={values.password}
+                                                   onChange={handleChange('password')}
                                         />
                                     </Grid>
                                 </Grid>
                             </div>
-                            <div className="row mb-4 p-4">
-                                <Grid container spacing={2}>
-                                    <Grid xs={4}>
-                                        <Item>Name</Item>
-                                    </Grid>
-                                    <Grid xs={8}>
-                                        <TextField className="mx-4" fullWidth sx={{m: 1}}
-                                                   id="outlined-multiline-flexible"
-                                                   multiline
-                                                   maxRows={4}
-                                                   defaultValue={loginUser.user_name}
-                                        />
-                                    </Grid>
-                                </Grid>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+            <Button
+                type="button"
+                onClick={() => userUpdate()}
+            >
+                확인
+            </Button>
         </div>
+
     )
 }
 
