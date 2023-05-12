@@ -16,7 +16,7 @@ import {
 } from 'mdb-react-ui-kit';
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 
-export default function Feed() {
+export default function Profile() {
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
 
