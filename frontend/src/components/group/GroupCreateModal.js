@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Container, Row } from 'react-bootstrap';
 import '../group/GroupCreateModal.css';
-import {Autocomplete, Box, Checkbox, FormHelperText, InputLabel, MenuItem, TextField, Typography} from "@mui/material";
+import {Autocomplete, Box, Checkbox, FormHelperText, InputLabel, MenuItem, TextField, Typography, Button} from "@mui/material";
 import { tags } from '../../assets/tag/tags'
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -11,6 +11,8 @@ import Form from 'react-bootstrap/Form';
 import axios from "axios";
 import FormControl from '@mui/material/FormControl';
 import {Input} from "@mui/icons-material";
+import ModalStaticBackdrop from "../../components/common/modal/ModalStaticBackdrop"
+import GroupFilterModal from "./finder/GroupFilterModal";
 
 const GroupCreateModal = (props) => {
   const closeModal = () => {
@@ -83,6 +85,27 @@ const GroupCreateModal = (props) => {
   const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
+    const [groupFilterModalOpen, setGroupFilterModalOpen] = useState(false);
+
+    const [groups, setGroups] = useState([]);
+    const [isLoading, setLoading] = useState(true);
+
+    const filterGroup = (filteredGroups) => {
+        setGroups(filteredGroups);
+        setGroupFilterModalOpen(false);
+        setLoading(false);
+    }
+
+
+    // 필터링을 초기화했기 때문에 다시 전체 데이터를 받아오기 위한 메소드
+    const resetGroups = () => {
+        axios.get("/groups/getGroups").then((response) => {
+            setGroups(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
     return (
         <div>     
 <div class="row">
@@ -90,14 +113,19 @@ const GroupCreateModal = (props) => {
 
         <div class="d-flex justify-content-end align-items-end">
 
-<div className="rounded-icon">
-    <button style={null} data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+<Button onClick={() => setGroupFilterModalOpen(true)}>
 <FontAwesomeIcon icon={faSearch} />
-    </button>
-</div>
+</Button>
 
 </div>
         </div>
+
+            <ModalStaticBackdrop
+                keepMounted
+                width="sm"
+                open={groupFilterModalOpen}
+                component={<GroupFilterModal filterGroup={filterGroup} resetGroups={resetGroups} setOpen={setGroupFilterModalOpen} />}
+            />
 
         <div class="row">
         <div class="col-md-12 col-lg-6"></div>
