@@ -45,13 +45,12 @@ const Todo = () => {
             /*group_id : newItem.group_id*/
         }).then((response) => {
             // console.log(response)
-        })
+            //데이터 불러오기
+            axios.post("/todo/read", {
 
-        //데이터 불러오기
-        axios.post("/todo/read", {
-
-        }).then((response) =>{
-            setTodos(response.data);
+            }).then((response) =>{
+                setTodos(response.data);
+            })
         })
 
         // setTodos([...todos, newItem]);
