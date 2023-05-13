@@ -14,9 +14,7 @@ const GroupFilterModal = (props) => {
     const [selected, setSelected] = useState([]);
     const [filterData, setFilterData] = useState({
         group_name: "",
-        project_name: "",
         manager: "",
-        tech_stack: []
     })
     const inputTN = useRef();
     const inputPN = useRef();
@@ -29,16 +27,13 @@ const GroupFilterModal = (props) => {
     const filter = async () => {
         const newfilterData = {
             group_name: inputTN.current.value,
-            project_name: inputPN.current.value,
-            // manager: inputMID.current.value,
-            // tech_stack: selected.map((item) => {return item.value})
-            project_stack: selectedProjectTags.map((s) => s.value),
-            tech_stack: selectedSkillTags.map((s) => s.value),
-            role_stack: selectedRoleTags.map((s) => s.value),
+            manager: inputPN.current.value,
         }
 
         setFilterData(newfilterData)
+        console.log("filtereData:", filterData)
         const response = await API.groupFilter(newfilterData);
+        console.log("response: ", response)
         props.filterGroup(response);
     }
 
@@ -68,83 +63,7 @@ const GroupFilterModal = (props) => {
                 <DialogContent dividers={true}>
                     <Stack spacing={2}>
                         <TextField label="팀명" inputRef={inputTN} defaultValue={filterData.group_name} />
-                        <TextField label="프로젝트명" inputRef={inputPN} defaultValue={filterData.project_name} />
-                        {/* <TextField label="팀장 아이디" inputRef={inputMID} defaultValue={filterData.manager} /> */}
-
-                        {/*<Autocomplete*/}
-                        {/*    multiple*/}
-                        {/*    options={tags.projects}*/}
-                        {/*    disableCloseOnSelect*/}
-                        {/*    getOptionLabel={(option) => option.label}*/}
-                        {/*    value={selectedProjectTags}*/}
-                        {/*    onChange={(event, newValue) => {*/}
-                        {/*        setSelectedProjectTags(newValue);*/}
-                        {/*    }}*/}
-                        {/*    renderOption={(props, option, { selected }) => (*/}
-                        {/*        <li {...props}>*/}
-                        {/*            <Checkbox*/}
-                        {/*                icon={icon}*/}
-                        {/*                checkedIcon={checkedIcon}*/}
-                        {/*                style={{ marginRight: 8 }}*/}
-                        {/*                checked={selected}*/}
-                        {/*            />*/}
-                        {/*            {option.label}*/}
-                        {/*        </li>*/}
-                        {/*    )}*/}
-                        {/*    renderInput={(params) => (*/}
-                        {/*        <TextField {...params} label="분야" placeholder="분야" />*/}
-                        {/*    )}*/}
-                        {/*/>*/}
-
-                        {/*<Autocomplete*/}
-                        {/*    multiple*/}
-                        {/*    options={tags.tech}*/}
-                        {/*    disableCloseOnSelect*/}
-                        {/*    getOptionLabel={(option) => option.label}*/}
-                        {/*    value={selectedSkillTags}*/}
-                        {/*    onChange={(event, newValue) => {*/}
-                        {/*        setSelectedSkillTags(newValue);*/}
-                        {/*    }}*/}
-                        {/*    renderOption={(props, option, { selected }) => (*/}
-                        {/*        <li {...props}>*/}
-                        {/*            <Checkbox*/}
-                        {/*                icon={icon}*/}
-                        {/*                checkedIcon={checkedIcon}*/}
-                        {/*                style={{ marginRight: 8 }}*/}
-                        {/*                checked={selected}*/}
-                        {/*            />*/}
-                        {/*            {option.label}*/}
-                        {/*        </li>*/}
-                        {/*    )}*/}
-                        {/*    renderInput={(params) => (*/}
-                        {/*        <TextField {...params} label="기술" placeholder="기술" />*/}
-                        {/*    )}*/}
-                        {/*/>*/}
-
-                        {/*<Autocomplete*/}
-                        {/*    multiple*/}
-                        {/*    options={tags.role}*/}
-                        {/*    disableCloseOnSelect*/}
-                        {/*    getOptionLabel={(option) => option.label}*/}
-                        {/*    value={selectedRoleTags}*/}
-                        {/*    onChange={(event, newValue) => {*/}
-                        {/*        setSelectedRoleTags(newValue);*/}
-                        {/*    }}*/}
-                        {/*    renderOption={(props, option, { selected }) => (*/}
-                        {/*        <li {...props}>*/}
-                        {/*            <Checkbox*/}
-                        {/*                icon={icon}*/}
-                        {/*                checkedIcon={checkedIcon}*/}
-                        {/*                style={{ marginRight: 8 }}*/}
-                        {/*                checked={selected}*/}
-                        {/*            />*/}
-                        {/*            {option.label}*/}
-                        {/*        </li>*/}
-                        {/*    )}*/}
-                        {/*    renderInput={(params) => (*/}
-                        {/*        <TextField {...params} label="포지션" placeholder="포지션" />*/}
-                        {/*    )}*/}
-                        {/*/>*/}
+                        <TextField label="팀장명" inputRef={inputPN} defaultValue={filterData.manager} />
 
                     </Stack>
                 </DialogContent>
