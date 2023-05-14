@@ -6,6 +6,7 @@ import GroupCreateModal from "../components/group/GroupCreateModal";
 import '../css/Group.css';
 import axios from "axios";
 import {Stack, Button} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Group = () => {
     const [group, setGroup] = useState([]);
@@ -50,6 +51,12 @@ const Group = () => {
         setModalOpen(true);
     }
 
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/joingroup');
+    };
+
     return (
         <>
             <Container>
@@ -61,7 +68,7 @@ const Group = () => {
                             <Link to={`/group/${group.groupId}`} key={group.groupId}>
                                 {group.groupName}
                             </Link>
-                                <Button variant="contained">가입하기</Button>
+                                <Button variant="contained" onClick={handleClick}>가입하기</Button>
                                 </Stack>
 
                             <hr/>

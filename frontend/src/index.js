@@ -19,6 +19,7 @@ import SignIn from './containers/sign/sign_in/SignIn';
 import Fadeout from "./components/common/layouts/Fadeout";
 import ProfileModify from "./components/Profile/ProfileModify";
 import Feed from "./pages/Feed";
+import JoinGroup from './components/group/JoinGroup';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/profile",
         element: <Profile />
+      },
+      {
+        path: "/joingroup",
+        element: <JoinGroup />
       },
 
       // 실행화면 테스트
