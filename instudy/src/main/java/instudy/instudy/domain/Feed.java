@@ -26,6 +26,25 @@ public class Feed {
     @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글
 
+    public Feed(Long feedId, String userId, String content, boolean heart, int heartNum, List<String> comment) {
+        this.feedId = feedId;
+        this.userId = userId;
+        this.content = content;
+        this.heart = heart;
+        this.heartNum = heartNum;
+        this.comment = comment;
+    }
+
     public Feed(String userId, String content) {
+        this.userId = userId;
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Feed{" +
+                "userId='" + userId + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }
