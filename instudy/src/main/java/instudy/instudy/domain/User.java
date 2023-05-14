@@ -1,5 +1,7 @@
 package instudy.instudy.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,9 +31,11 @@ public class User {
     // 이부분 추가해봄
     @ManyToOne
     @JoinColumn(name = "group_id")
+    @JsonBackReference
     private StudyGroup studyGroup;
 
     @OneToMany(mappedBy = "user")
+    @JsonManagedReference
     private List<Todo> todos = new ArrayList<>();
 
     // 유저 - 스터디그룹 편의메서드 생성

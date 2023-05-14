@@ -1,4 +1,5 @@
 package instudy.instudy.domain;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Todo {
 
     @ManyToOne
     @JoinColumn(name = "id")
+    @JsonBackReference
     private User user;
 
     // 투두 - 유저 편의메서드 생성

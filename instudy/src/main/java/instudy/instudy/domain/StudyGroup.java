@@ -1,5 +1,6 @@
 package instudy.instudy.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,6 +26,7 @@ public class StudyGroup {
 
     // 연관관계 매핑!!
     @OneToMany(mappedBy = "studyGroup")
+    @JsonManagedReference
     private List<User> users = new ArrayList<>();
 
     public StudyGroup(String groupName, String description, String manager, int capacity, List<String> member, List<String> groupStack) {
