@@ -5,8 +5,24 @@ import { Link } from "react-router-dom";
 import GroupCreateModal from "../components/group/GroupCreateModal";
 import '../css/Group.css';
 import axios from "axios";
-import {Stack, Button} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+// import { useSelector } from "react-redux";
+import { selectUser } from "../api/redux/user/userSlice";
+import { Box, Button, Stack, Typography, Modal, IconButton } from '@mui/material';
+import { Close } from '@mui/icons-material';
+import React from 'react';
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const Group = () => {
     const [group, setGroup] = useState([]);
@@ -53,9 +69,27 @@ const Group = () => {
 
     const navigate = useNavigate();
 
-    const handleClick = () => {
-        navigate('/joingroup');
-    };
+    // const userInfo = useSelector(selectUser);
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+
+        axios.post('/joingroup', {
+            groupName: group.groupName,
+            userId: loginUser.userId
+        }).then((response) => {
+            console.log(response.data)
+            if (response.data.success === true) {
+                window.location.reload()
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+    const handleClose = () => setOpen(false);
+
 
     return (
         <>
@@ -68,7 +102,21 @@ const Group = () => {
                             <Link to={`/group/${group.groupId}`} key={group.groupId}>
                                 {group.groupName}
                             </Link>
-                                <Button variant="contained" onClick={handleClick}>가입하기</Button>
+                                <Button variant="contained" onClick={handleOpen}>가입하기</Button>
+                                <Modal
+                                    open={open}
+                                    onClose={handleClose}
+                                    aria-labelledby="modal-modal-title"
+                                    aria-describedby="modal-modal-description"
+                                >
+                                    <Box sx={style}>
+                                        <h2 id="modal-modal-title">가입되었습니다</h2>
+                                        <IconButton onClick={handleClose}>
+                                            <Close />
+                                        </IconButton>
+                                        {/*<BasicModal />*/}
+                                    </Box>
+                                </Modal>
                                 </Stack>
 
                             <hr/>
