@@ -26,4 +26,6 @@ public class Feed {
     @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글
 
+    public Feed(String userId, String content) {
+    }
 }
