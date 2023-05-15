@@ -1,6 +1,7 @@
 import { Container, Row, Col, Card, Navbar, Nav } from 'react-bootstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookOpen, faCheckSquare, faCalendar, faClock, faRss } from '@fortawesome/free-solid-svg-icons';
+import styled from "styled-components";
 
 const GroupBottomNav = () => {
     const textStyle = {
@@ -10,6 +11,13 @@ const GroupBottomNav = () => {
       const NavStyle = {
         padding: '0 50px'
       }
+
+  const Row = styled.div`
+  writing-mode: horizontal-tb;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
       
       return (
     
@@ -20,7 +28,9 @@ const GroupBottomNav = () => {
     
             <Nav.Link href="/" style={NavStyle}>
             <FontAwesomeIcon icon={faBookOpen} />
-            <Row style={textStyle}><span>과제</span></Row>
+            <Row style={textStyle}>
+              <span>과제</span>
+            </Row>
               </Nav.Link>
     
                 <Nav.Link href="/group" style={NavStyle}>
