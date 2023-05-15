@@ -23,6 +23,8 @@ public class Feed {
     private boolean heart; // 자신의 피드 게시물에 하트를 눌렀을 때 true
     @Column
     private int heartNum; // 하트수
+    @Column
+    private Long groupId;
     @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글
 
