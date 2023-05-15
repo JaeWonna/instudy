@@ -1,10 +1,12 @@
 package instudy.instudy.controller;
 
 import instudy.instudy.domain.Feed;
+import instudy.instudy.domain.Todo;
 import instudy.instudy.repository.FeedRepository;
 import instudy.instudy.service.FeedService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -40,5 +42,12 @@ public class FeedController {
         Optional<Feed> deleteFeed = feedRepository.findById(feedId);
         feedService.delete(deleteFeed);
         return "delete";
+    }
+
+    //그룹에 해당하는 feed 읽어오기
+    @RequestMapping(value = "/fead/read", method = RequestMethod.POST)
+    public List<Feed> readFeed(@RequestBody Map<String, String> paramMap) {
+        Long groupId = Long.parseLong(paramMap.get("groupId"));
+        return feedService.findByGroupId(groupId);
     }
 }
