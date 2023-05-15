@@ -57,7 +57,8 @@ const Todo = () => {
         //데이터 저장
         axios.post("/todo", {
             todoText : newItem.text,
-            study_status : newItem.status
+            study_status : newItem.status,
+            userId : loginUser.userId
             /*group_id : newItem.group_id*/
         }).then((response) => {
             // console.log(response)
