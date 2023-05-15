@@ -8,6 +8,7 @@ import 'mdb-ui-kit/css/mdb.min.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Typography from '@mui/material/Typography';
 
 const GroupMainView = (props) => {
     const {id} = useParams();
@@ -48,7 +49,9 @@ const GroupMainView = (props) => {
 
     return (
         <div>
-            <p>그룹{id}</p>
+            <Typography variant="h3" gutterBottom>
+                 그룹{id}
+            </Typography>
             {
                 title.map((content, idx) => 
                 <div class="card" style={ cardStyle } key={idx} 
