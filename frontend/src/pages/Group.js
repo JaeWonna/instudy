@@ -8,9 +8,10 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 // import { useSelector } from "react-redux";
 import { selectUser } from "../api/redux/user/userSlice";
-import { Box, Button, Stack, Typography, Modal, IconButton } from '@mui/material';
+import { Box, Button, Stack, Typography, Modal, IconButton, Card, CardContent, CardMedia, CardActionArea, CardActions, Grid } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
 const style = {
     position: 'absolute',
@@ -23,6 +24,17 @@ const style = {
     boxShadow: 24,
     p: 4,
 };
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        flexGrow: 1,
+        margin: theme.spacing(2),
+    },
+    item: {
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    },
+}));
 
 const Group = () => {
     const [group, setGroup] = useState([]);
@@ -90,40 +102,60 @@ const Group = () => {
     }
     const handleClose = () => setOpen(false);
 
+    const classes = useStyles();
 
     return (
         <>
             <Container>
+                <div className={classes.root}>
+                    <Grid container spacing={2}>
+                        <Grid item xs={12} sm={4} className={classes.item}>
                 {
                     group.map(group => (
-                        <>
-                            {/* <Container> */}
-                            <Stack direction="row" spacing={2}>
-                            <Link to={`/group/${group.groupId}`} key={group.groupId}>
-                                {group.groupName}
-                            </Link>
-                                <Button variant="contained" onClick={handleOpen}>가입하기</Button>
-                                <Modal
-                                    open={open}
-                                    onClose={handleClose}
-                                    aria-labelledby="modal-modal-title"
-                                    aria-describedby="modal-modal-description"
-                                >
-                                    <Box sx={style}>
-                                        <h2 id="modal-modal-title">가입되었습니다</h2>
-                                        <IconButton onClick={handleClose}>
-                                            <Close />
-                                        </IconButton>
-                                        {/*<BasicModal />*/}
-                                    </Box>
-                                </Modal>
-                                </Stack>
-
-                            <hr/>
-                            {/* </Container> */}
-                        </>
+                                    <Card sx={{ maxWidth: 345 }}>
+                                        <CardActionArea>
+                                            <CardMedia
+                                                component="img"
+                                                height="140"
+                                                image="/static/images/cards/contemplative-reptile.jpg"
+                                                alt="green iguana"
+                                            />
+                                            <CardContent>
+                                                <Typography gutterBottom variant="h5" component="div">
+                                                    <Link to={`/group/${group.groupId}`} key={group.groupId}>
+                                                        {group.groupName}
+                                                    </Link>
+                                                </Typography>
+                                                <Typography variant="body2" color="text.secondary">
+                                                    <Stack direction="row" spacing={2}>
+                                                        <Button variant="contained" onClick={handleOpen}>가입하기</Button>
+                                                        <Modal
+                                                            open={open}
+                                                            onClose={handleClose}
+                                                            aria-labelledby="modal-modal-title"
+                                                            aria-describedby="modal-modal-description"
+                                                        >
+                                                            <Box sx={style}>
+                                                                <h2 id="modal-modal-title">가입되었습니다</h2>
+                                                                <IconButton onClick={handleClose}>
+                                                                    <Close />
+                                                                </IconButton>
+                                                                {/*<BasicModal />*/}
+                                                            </Box>
+                                                        </Modal>
+                                                    </Stack>
+                                                </Typography>
+                                            </CardContent>
+                                        </CardActionArea>
+                                        <CardActions>
+                                        </CardActions>
+                                    </Card>
                     ))
                 }
+                        </Grid>
+                    </Grid>
+                </div>
+
                 <div class="row">
                     <div class="col-md-12 col-lg-6"></div>
 
