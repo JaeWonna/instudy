@@ -20,5 +20,5 @@ public class Timer {
     @Enumerated(EnumType.STRING)
     private TimerStatus timerStatus; // run, stop
 
-    private LocalDateTime localDateTime; // 현재 시간!
+    private LocalDateTime localDateTime; // 현재 시간!!
 }
