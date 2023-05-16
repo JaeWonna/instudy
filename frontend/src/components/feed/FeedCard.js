@@ -35,9 +35,13 @@ const FeedCard = () => {
         }),
     }));
 
+    const child = {
+        margin: "0 auto"
+    }
+
     return (
-        <div>
-            <Card sx={{ maxWidth: 700 }}>
+        <div className="child" style={child}>
+            <Card sx={{ maxWidth: '100%' }}>
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">

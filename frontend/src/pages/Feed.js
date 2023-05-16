@@ -30,11 +30,17 @@ const Feed = () => {
         color: theme.palette.text.secondary,
     }));
 
+    const child = {
+        margin: "0 auto"
+    }
+
     return (
         <div>
             {/*<div>피드 페이지입니다</div>*/}
-            <div className="col-lg-4">
-                <FeedCard/>
+            <div className="container">
+                <div className="child" style={child}>
+                    <FeedCard/>
+                </div>
             </div>
             {/*<div className="col-lg-4">*/}
             {/*    <FeedCard/>*/}
