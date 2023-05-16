@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity(name = "timer")
 @Getter @Setter
@@ -33,4 +32,13 @@ public class Timer {
     }
 
     public Timer() {}
+
+    @Override
+    public String toString() {
+        return "Timer{" +
+                "timerId='" + timerId + '\'' +
+                ", count = '" + count + '\'' +
+                ", total = '" + total + '\'' +
+                '}';
+    }
 }
