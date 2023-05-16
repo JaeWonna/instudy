@@ -31,12 +31,13 @@ public class TodoController {
         String todoText = paramMap.get("todoText");
         Todo newTodo = new Todo(todoText, StudyStatus.READY);
 
-//        String userId = paramMap.get("userId");
-//        User user = userService.findOne(userId);
-//        newTodo.setUser(user); // 생성자 연관관계 메서드 호출 !!
+        String userId = paramMap.get("userId");
+        User user = userService.findOne(userId);
+        newTodo.setUser(user); // 생성자 연관관계 메서드 호출 !!
 
         return todoService.join(newTodo);    //정상적으로 저장되면 true return 합니다!!
     }
+    // 데헷!!
 
     @RequestMapping(value = "/todo/read", method = RequestMethod.POST)
     public List<Todo> postReadTodo() {
