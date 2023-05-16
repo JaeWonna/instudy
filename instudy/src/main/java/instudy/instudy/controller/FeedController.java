@@ -1,6 +1,7 @@
 package instudy.instudy.controller;
 
 import instudy.instudy.domain.Feed;
+import instudy.instudy.domain.StudyStatus;
 import instudy.instudy.domain.Todo;
 import instudy.instudy.repository.FeedRepository;
 import instudy.instudy.service.FeedService;
@@ -29,7 +30,8 @@ public class FeedController {
         System.out.println("test userId : " + userId);
         String content = paramMap.get("content");
         System.out.println("test content : " + content);
-        Feed newFeed = new Feed(userId, content);
+        Long groupId = Long.parseLong(paramMap.get("groupId"));
+        Feed newFeed = new Feed(userId, content, groupId);
         System.out.println(newFeed.toString());
         feedService.create(newFeed);
         return "create";
@@ -45,9 +47,11 @@ public class FeedController {
     }
 
     //그룹에 해당하는 feed 읽어오기
-    @RequestMapping(value = "/fead/read", method = RequestMethod.POST)
+    @RequestMapping(value = "/feed/read", method = RequestMethod.POST)
     public List<Feed> readFeed(@RequestBody Map<String, String> paramMap) {
         Long groupId = Long.parseLong(paramMap.get("groupId"));
+        System.out.println(feedService.findByGroupId(groupId));
         return feedService.findByGroupId(groupId);
     }
+
 }

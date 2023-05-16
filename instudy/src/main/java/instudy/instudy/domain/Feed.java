@@ -28,19 +28,23 @@ public class Feed {
     @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글
 
-    public Feed(Long feedId, String userId, String content, boolean heart, int heartNum, List<String> comment) {
+    public Feed(Long feedId, String userId, String content, boolean heart, int heartNum, List<String> comment, Long groupId) {
         this.feedId = feedId;
         this.userId = userId;
         this.content = content;
         this.heart = heart;
         this.heartNum = heartNum;
         this.comment = comment;
+        this.groupId = groupId;
     }
 
-    public Feed(String userId, String content) {
+    public Feed(String userId, String content, Long groupId) {
         this.userId = userId;
         this.content = content;
+        this.groupId = groupId;
     }
+
+    public Feed() {}
 
     @Override
     public String toString() {
