@@ -1,5 +1,6 @@
 package instudy.instudy.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +14,23 @@ public class Timer {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long timerId;
 
-    private int count = 0;
+    private int count;
 
-    private int hour, minute, second; // 시분초, 이걸로 카운트 다운 및 업
+    private int total;
 
     @Enumerated(EnumType.STRING)
     private TimerStatus timerStatus; // run, stop
 
-    private LocalDateTime localDateTime; // 현재 시간!!
+    @OneToOne
+    @JoinColumn(name = "id")
+    @JsonBackReference
+    private User user;
+
+    // 연관관계 메서드
+    public void setUser(User user) {
+        this.user = user;
+        user.setTimer(this);
+    }
+
+    public Timer() {}
 }

@@ -38,6 +38,10 @@ public class User {
     @JsonManagedReference
     private List<Todo> todos = new ArrayList<>();
 
+    @OneToOne(mappedBy = "user")
+    @JsonManagedReference
+    private Timer timer;
+
     // 유저 - 스터디그룹 편의메서드 생성
     public void setStudyGroup(StudyGroup studyGroup) {
         if(this.studyGroup != null) {
