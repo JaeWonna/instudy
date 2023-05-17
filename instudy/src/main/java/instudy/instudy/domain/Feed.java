@@ -19,8 +19,8 @@ public class Feed {
     private String userId;
     @Column
     private String content;
-    @Column
-    private boolean heart; // 자신의 피드 게시물에 하트를 눌렀을 때 true
+//    @Column
+//    private boolean heart; // 자신의 피드 게시물에 하트를 눌렀을 때 true
     @Column
     private int heartNum; // 하트수
     @Column
