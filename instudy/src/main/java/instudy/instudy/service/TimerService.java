@@ -23,6 +23,9 @@ public class TimerService {
     }
 
     public void delete(Optional<java.util.Timer> timer) {
+    }
 
+    public void update(Timer timer) {
+        timerRepository.save(timer);
     }
 }
