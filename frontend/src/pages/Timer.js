@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function Stopwatch() {
     const [time, setTime] = useState(0);
@@ -10,7 +11,7 @@ function Stopwatch() {
         if (isRunning) {
             timer = setInterval(() => {
                 setTime((prevTime) => prevTime + 1);
-            }, 1000);
+            }, 10000);
         }
 
         return () => {
@@ -20,15 +21,36 @@ function Stopwatch() {
 
     const startStopwatch = () => {
         setIsRunning(true);
+
+        axios.post('/timer/start')
+            .then(response => {
+                console.log(response.data); // 'start' from the Spring Boot controller
+            })
+            .catch(error => {
+                console.error('Error occurred while starting the timer', error);
+            });
     };
 
     const stopStopwatch = () => {
         setIsRunning(false);
+
+        axios.post('/timer/stop')
+            .then(response => {
+                console.log(response.data); // 'stop' from the Spring Boot controller
+            })
+            .catch(error => {
+                console.error('Error occurred while stopping the timer', error);
+            });
     };
 
-    const resetStopwatch = () => {
-        setTime(0);
-        setIsRunning(false);
+    const saveStopwatch = () => {
+        axios.post('/timer/save')
+            .then(response => {
+                console.log(response.data); // 'save' from the Spring Boot controller
+            })
+            .catch(error => {
+                console.error('Error occurred while saving the timer', error);
+            });
     };
 
     return (
@@ -37,7 +59,7 @@ function Stopwatch() {
             <div>{time} seconds</div>
             <button onClick={startStopwatch}>Start</button>
             <button onClick={stopStopwatch}>Stop</button>
-            <button onClick={resetStopwatch}>Reset</button>
+            <button onClick={saveStopwatch}>Save</button>
         </div>
     );
 }
