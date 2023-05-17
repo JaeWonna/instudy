@@ -54,4 +54,13 @@ public class FeedController {
         return feedService.findByGroupId(groupId);
     }
 
+    // feed 하트 수 업데이트
+    @RequestMapping(value = "/feed/update/heartNum", method = RequestMethod.POST)
+    public int updateFeed(@RequestBody Map<String, String> paramMap) {
+        String userId = paramMap.get("userId");
+        Long feedId = Long.parseLong(paramMap.get("feedId"));
+        Feed updateFeed = feedRepository.findByFeedId(feedId);
+        return feedService.updateHeartNum(updateFeed);
+    }
+
 }
