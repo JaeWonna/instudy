@@ -13,9 +13,13 @@ public class Timer {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long timerId;
 
-    private int count;
+    private Long startTime;
+    private Long endTime;
+    private Long countTime;
+    private boolean running;
 
-    private int total;
+    private Long dayTime;
+    private Long totalTime;
 
     @Enumerated(EnumType.STRING)
     private TimerStatus timerStatus; // run, stop
@@ -37,8 +41,35 @@ public class Timer {
     public String toString() {
         return "Timer{" +
                 "timerId='" + timerId + '\'' +
-                ", count = '" + count + '\'' +
-                ", total = '" + total + '\'' +
+                ", dayTime = '" + dayTime + '\'' +
+                ", totalTime = '" + totalTime + '\'' +
                 '}';
+    }
+
+    public void start() {
+        if (!running) {
+            startTime = System.currentTimeMillis();
+            running = true;
+        }
+    }
+
+    public void stop() { // 시간측정중
+        if (running) {
+            endTime = System.currentTimeMillis();
+            running = false;
+        }
+        countTime += endTime - startTime;
+    }
+
+    public long save() { // 공부시간저장
+        if (running) { // start상태 (1)시간계산
+            totalTime += countTime + System.currentTimeMillis() - startTime;
+            countTime = 0L;
+            return totalTime;
+        } else { // stop상태
+            totalTime += countTime;
+            countTime = 0L;
+            return totalTime;
+        }
     }
 }
