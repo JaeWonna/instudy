@@ -57,10 +57,11 @@ public class FeedController {
     // feed 하트 수 업데이트
     @RequestMapping(value = "/feed/update/heartNum", method = RequestMethod.POST)
     public int updateFeed(@RequestBody Map<String, String> paramMap) {
+        boolean isHeart = Boolean.parseBoolean(paramMap.get("isHeart")); // 하트 눌렀을 때는 true, 하트 삭제했을 떄는 false
         String userId = paramMap.get("userId");
         Long feedId = Long.parseLong(paramMap.get("feedId"));
         Feed updateFeed = feedRepository.findByFeedId(feedId);
-        return feedService.updateHeartNum(updateFeed);
+        return feedService.updateHeartNum(updateFeed, isHeart, userId);
     }
 
 }

@@ -30,10 +30,25 @@ public class FeedService {
         return feedRepository.findByGroupId(groupId);
     }
 
-    public int updateHeartNum(Feed updateFeed) {
+    public int updateHeartNum(Feed updateFeed, boolean isHeart, String userId) {
+//        updateFeed.setHeart(userId.equals(updateFeed.getUserId())); // 하트 누른 유저와 피드 생성한 유저가 같을 때 heart true
         int num = updateFeed.getHeartNum();
-        updateFeed.setHeartNum(num+1);
-        feedRepository.save(updateFeed);
-        return num+1;
+        if (isHeart) {
+            updateFeed.setHeartNum(num+1);
+            // heartUser에 userId 추가
+            List<String> heartUser = updateFeed.getHeartUser();
+            heartUser.add(userId);
+            updateFeed.setHeartUser(heartUser);
+            feedRepository.save(updateFeed);
+            return num+1;
+        } else {
+            updateFeed.setHeartNum(num-1);
+            // heartUser에 있던 userId 삭제
+            List<String> heartUser = updateFeed.getHeartUser();
+            heartUser.remove(userId);
+            updateFeed.setHeartUser(heartUser);
+            feedRepository.save(updateFeed);
+            return num-1;
+        }
     }
 }
