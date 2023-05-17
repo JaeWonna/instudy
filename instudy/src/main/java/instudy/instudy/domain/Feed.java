@@ -19,23 +19,25 @@ public class Feed {
     private String userId;
     @Column
     private String content;
-    @Column
-    private boolean heart; // 자신의 피드 게시물에 하트를 눌렀을 때 true
+//    @Column
+//    private boolean heart; // 자신의 피드 게시물에 하트를 눌렀을 때 true
     @Column
     private int heartNum; // 하트수
     @Column
     private Long groupId;
     @ElementCollection
+    private List<String> heartUser = new ArrayList<>(); // 하트 누른 유저 아이디
+    @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글
 
-    public Feed(Long feedId, String userId, String content, boolean heart, int heartNum, List<String> comment, Long groupId) {
+    public Feed(Long feedId, String userId, String content, int heartNum, List<String> comment, Long groupId, List<String> heartUser) {
         this.feedId = feedId;
         this.userId = userId;
         this.content = content;
-        this.heart = heart;
         this.heartNum = heartNum;
         this.comment = comment;
         this.groupId = groupId;
+        this.heartUser = heartUser;
     }
 
     public Feed(String userId, String content, Long groupId) {
