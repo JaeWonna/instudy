@@ -15,6 +15,12 @@ import {
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {useNavigate} from "react-router-dom";
 import {Button, TextField} from "@mui/material";
+import {MDBCard, MDBCardBody, MDBCardTitle} from "mdb-react-ui-kit";
+import Todo from "../components/Profile/Todo";
+
+function TabPanel(props: { index: number, children: ReactNode }) {
+    return null;
+}
 
 const Feed = () => {
 
@@ -98,6 +104,13 @@ const Feed = () => {
 
     return (
         <div>
+            <div className="col-md-10" style={child}>
+                <MDBCard className="mb-5">
+                    <MDBCardBody>
+                        <MDBCardTitle><h4 className="text-center my-3 pb-3">피드</h4></MDBCardTitle>
+                    </MDBCardBody>
+                </MDBCard>
+            </div>
             <div className="col-md-10" style={child}>
                 <Grid container spacing={2}>
                     {
