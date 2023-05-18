@@ -105,6 +105,8 @@ const Group = () => {
 
     const classes = useStyles();
 
+    console.log("loginUser.user_name", loginUser.user_name)
+
     return (
         <>
             <Container>
@@ -124,7 +126,7 @@ const Group = () => {
 
                     <div class="d-flex justify-content-end align-items-end">
 
-                        <GroupCreateModal manager={loginUser.user_name} />
+                        <GroupCreateModal loginUser={loginUser} manager={loginUser.user_name} />
 
                     </div>
                 </div>
