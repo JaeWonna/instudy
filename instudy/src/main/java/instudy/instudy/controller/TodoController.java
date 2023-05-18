@@ -37,13 +37,26 @@ public class TodoController {
 
         return todoService.join(newTodo);    //정상적으로 저장되면 true return 합니다!!
     }
-    // 데헷!!
 
+
+    // 전체 투두 보기
     @RequestMapping(value = "/todo/read", method = RequestMethod.POST)
     public List<Todo> postReadTodo() {
         List<Todo> allTodo = todoService.findAllTodo();
         return allTodo;
     }
+
+
+    // 내 투두 보기
+    // 프론트에서 userId값 필요함
+    @RequestMapping(value = "/todo/readMyTodo", method = RequestMethod.POST)
+    public List<Todo> readMyTodo(@RequestBody Map<String, String> paramMap) {
+        String userId = paramMap.get("userId");
+        System.out.println("현재 사용자의 아이디 userId = " + userId);
+        List<Todo> myTodos = todoService.findByUserId(userId);
+        return myTodos;
+    }
+
 
     @RequestMapping(value = "/todo/delete", method = RequestMethod.POST)
     public String postDeleteTodo(@RequestBody Map<String, String> paramMap) {
