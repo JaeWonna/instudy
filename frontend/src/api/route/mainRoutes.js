@@ -6,6 +6,7 @@ import Group from "../../../src/pages/Group";
 import GroupMainView from "../../components/group/GroupMainView";
 import ProfileModify from "../../components/Profile/ProfileModify";
 import Profile from "../../../src/pages/Profile";
+import Feed from "../../../src/pages/Feed"
 
 const mainRoutes = [
 
@@ -38,6 +39,10 @@ const mainRoutes = [
     {
         path: "/profile",
         element: <Profile />
+    },
+    {
+        path: "/feed",
+        element: <Feed />
     },
 ];
 export default mainRoutes;
