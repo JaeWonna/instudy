@@ -20,6 +20,8 @@ import Fadeout from "./components/common/layouts/Fadeout";
 import ProfileModify from "./components/Profile/ProfileModify";
 import Feed from "./pages/Feed";
 import JoinGroup from './components/group/JoinGroup';
+import Timer from './pages/Timer';
+// import { store } from '../../frontend/src/api/redux/store';
 
 const router = createBrowserRouter([
   {
@@ -45,6 +47,10 @@ const router = createBrowserRouter([
         path: "/joingroup",
         element: <JoinGroup />
       },
+      {
+        path: "/timer",
+        element: <Timer />
+      },
 
       // 실행화면 테스트
       { path: "/*", element: <GroupCreateModal />}, // import 오류
@@ -55,7 +61,9 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider router={router}
+                    // store={store}
+    />
   </React.StrictMode>
 );
 

@@ -44,7 +44,7 @@ const GroupBottomNav = () => {
             <Row style={textStyle}><span>캘린더</span></Row>
               </Nav.Link>
 
-              <Nav.Link href="/profile" style={NavStyle}>
+              <Nav.Link href="/timer" style={NavStyle}>
             <FontAwesomeIcon icon={faClock} />
             <Row style={textStyle}><span>타이머</span></Row>
               </Nav.Link>
