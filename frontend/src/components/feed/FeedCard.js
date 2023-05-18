@@ -15,14 +15,7 @@ import Collapse from "@mui/material/Collapse";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
 import Card from "@mui/material/Card";
-import {Box, CardActionArea, Divider, Grid} from "@material-ui/core";
-import * as PropTypes from "prop-types";
 
-function TechStack(props) {
-    return null;
-}
-
-TechStack.propTypes = {};
 const FeedCard = ({feed}) => {
 
     const [expanded, setExpanded] = React.useState(false);
