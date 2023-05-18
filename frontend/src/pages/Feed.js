@@ -2,10 +2,19 @@ import * as React from 'react';
 import FeedCard from "../components/feed/FeedCard";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Box, Grid, Modal, Typography} from "@material-ui/core";
+import {
+    Box,
+    Dialog, DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Grid,
+    Modal,
+    Typography
+} from "@material-ui/core";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {useNavigate} from "react-router-dom";
-import CreateFeed from "../components/feed/CreateFeed";
+import {Button, TextField} from "@mui/material";
 
 const Feed = () => {
 
@@ -15,20 +24,33 @@ const Feed = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     let groupId = 1;
+    const [loginUser, setLoginUser] = useState({});
+    const [content, setContent] = useState([]);
 
     const modalStyle = {
         position: 'absolute',
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 400,
-        // : 'background.paper',
+        width: 700,
+        background : 'white',
         border: '2px solid #000',
         boxShadow: 24,
         p: 4,
     };
 
     useEffect(() => {
+
+        const storedUser = sessionStorage.getItem("loginUser");
+        console.log("test");
+        console.log(storedUser);
+        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+            const parsedUser = JSON.parse(storedUser).data;
+            setLoginUser(parsedUser);
+        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+            navigate("/signIn");
+        }
+
         axios
             .post("/feed/read", {
                 groupId : groupId
@@ -42,7 +64,26 @@ const Feed = () => {
     console.log(feeds)
 
     const createFeed = () => {
-        navigate("/createFeed");
+        axios
+            .post("/feed/create", {
+                userId : loginUser.userId,
+                groupId : groupId,
+                content : content
+            })
+            .then((response) => {
+                handleClose()
+                axios.post("/feed/read", {
+                        groupId : groupId
+                    })
+                .then((response) => {
+                    setFeeds(response.data);
+                })
+            })
+            .catch();
+    }
+
+    const contentChange = (e) => {
+        setContent(e.target.value)
     }
 
     const child = {
@@ -88,13 +129,32 @@ const Feed = () => {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <Box sx={modalStyle}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
+                <Box style={modalStyle}>
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>피드 추가하기</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                                자신의 공부 내용을 추가하세요.<br/>
+                                하트수를 통해 공부 내용을 인증받을 수 있습니다.
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="outlined-multiline-static"
+                                type="text"
+                                label="내용"
+                                multiline
+                                rows={4}
+                                fullWidth
+                                variant="standard"
+                                onChange={contentChange}
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>취소</Button>
+                            <Button onClick={createFeed}>생성하기</Button>
+                        </DialogActions>
+                    </Dialog>
                 </Box>
             </Modal>
         </div>
