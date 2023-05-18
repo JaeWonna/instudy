@@ -52,6 +52,7 @@ public class UserController {
         String userId = ParamMap.get("email");
         String password = ParamMap.get("passwd");
         User loginUser = userService.login(userId, password);
+        System.out.println("확인용 loginUser = " + loginUser);
 
         if (loginUser != null) {
             loginUser.setSignIn("true");
@@ -86,12 +87,19 @@ public class UserController {
         System.out.println(ParamMap);
 
         String groupName = ParamMap.get("groupName");
+        System.out.println("groupName은 무엇입니까 = " + groupName);
         String userId = ParamMap.get("userId");
+        System.out.println("userId값은 무엇입니까 = " + userId);
 
         User user = userService.findOne(userId);
+        System.out.println("user = " + user);
+
         StudyGroup group = groupService.findOne(groupName);
+        System.out.println("group = " + group);
 
         user.setStudyGroup(group); // 생성자 연관관계 메서드 호출 !!
+
+        userService.save(user);
     }
 
     @PostMapping("/profileModify")
