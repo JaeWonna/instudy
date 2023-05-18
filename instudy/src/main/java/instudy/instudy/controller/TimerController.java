@@ -6,6 +6,8 @@ import instudy.instudy.service.TimerService;
 import instudy.instudy.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "*")
@@ -64,10 +66,31 @@ public class TimerController {
         String userId = paramMap.get("userId");
         User user = userService.findOne(userId);
         Timer timer = user.getTimer();
-        long totalTime = timer.save();
-        System.out.println("총 공부시간 totalTime은 = " + totalTime);
+        timer.save();
+
         timerService.update(timer);
         return "save";
+    }
+
+    // 이제까지 공부한 시간 출력
+    @RequestMapping(value = "/timer/read", method = RequestMethod.POST)
+    public List<Integer> studyTime(@RequestBody Map<String, String> paramMap) {
+        String userId = paramMap.get("userId");
+        User user = userService.findOne(userId);
+        Timer timer = user.getTimer();
+        long studyTime = timer.getTotalTime();
+
+        long totalTimeInSeconds = studyTime / 1000; // Convert milliseconds to seconds
+        int hours = (int) (totalTimeInSeconds / 3600); // Calculate hours
+        int minutes = (int) ((totalTimeInSeconds % 3600) / 60); // Calculate minutes
+        int seconds = (int) (totalTimeInSeconds % 60); // Calculate seconds
+
+        List<Integer> timeList = new ArrayList<>();
+        timeList.add(hours);
+        timeList.add(minutes);
+        timeList.add(seconds);
+
+        return timeList;
     }
 }
 
