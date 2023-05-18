@@ -22,13 +22,20 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    //그룹 조회
+    //전체 그룹 조회
     @RequestMapping(value = "/groups", method = RequestMethod.POST)
     public List<StudyGroup> list(@RequestBody Map<String, String> paramMap){
         String loginUser = paramMap.get("loginUser");
         System.out.println("로그인유저 : " + loginUser);
-        List<StudyGroup> groups = groupService.findUserGroups(loginUser);
-        return groups;
+        return groupService.findGroups();
+    }
+
+    //유저가 가입한 그룹 조회
+    @RequestMapping(value = "/groups/getMyGroups", method = RequestMethod.POST)
+    public List<StudyGroup> userGroups(@RequestBody Map<String, String> paramMap){
+        String loginUser = paramMap.get("user_id");
+        System.out.println("로그인유저 : " + loginUser);
+        return groupService.findUserGroups(loginUser);
     }
 
     @RequestMapping(value = "/group/new", method = RequestMethod.POST)

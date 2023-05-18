@@ -5,6 +5,7 @@ import instudy.instudy.domain.User;
 import instudy.instudy.repository.GroupRepository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,8 +52,16 @@ public class GroupService {
     }
 
     //해당 유저가 포함된 그룹 리스트 조회
-    public List<StudyGroup> findUserGroups(String userName) {
-        return groupRepository.findAll();
+    public List<StudyGroup> findUserGroups(String loginUser) {
+        List<StudyGroup> userStudyGroups = new ArrayList<>();
+        List<StudyGroup> allGroups = groupRepository.findAll();
+
+        for (StudyGroup group : allGroups) {
+            if (group.getMember().contains(loginUser)) {
+                userStudyGroups.add(group);
+            }
+        }
+        return userStudyGroups;
     }
 
     // 그룹 이름으로 하나 찾기 !!
