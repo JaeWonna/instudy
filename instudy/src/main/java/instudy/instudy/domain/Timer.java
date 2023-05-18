@@ -61,15 +61,13 @@ public class Timer {
         countTime += endTime - startTime;
     }
 
-    public long save() { // 공부시간저장
+    public void save() { // 공부시간저장
         if (running) { // start상태 (1)시간계산
             totalTime += countTime + System.currentTimeMillis() - startTime;
             countTime = 0L;
-            return totalTime;
         } else { // stop상태
             totalTime += countTime;
             countTime = 0L;
-            return totalTime;
         }
     }
 }
