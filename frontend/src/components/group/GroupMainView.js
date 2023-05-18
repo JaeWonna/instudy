@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Typography from '@mui/material/Typography';
+import GroupAssignCreate from "./assignment/GroupAssignCreate";
 
 const GroupMainView = (props) => {
     const {id} = useParams();
@@ -135,6 +136,16 @@ const GroupMainView = (props) => {
             }
 
 {modal == true ? <mdModal title={title} clickedNum={clickedNum}/> : null}
+
+            <div className="row">
+                <div className="col-md-12 col-lg-6"></div>
+
+                <div className="d-flex justify-content-end align-items-end">
+
+                    <GroupAssignCreate />
+
+                </div>
+            </div>
 
 
         </div>
