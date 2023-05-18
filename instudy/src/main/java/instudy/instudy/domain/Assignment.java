@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 @Entity
@@ -15,6 +17,12 @@ public class Assignment {
     private String title;
     private String period;
     private String description;
+    @ElementCollection
+    private List<String> ready = new ArrayList<>();
+    @ElementCollection
+    private List<String> study = new ArrayList<>();
+    @ElementCollection
+    private List<String> finish = new ArrayList<>();
 
     public Assignment(String title, String period, String description) {
         this.title = title;
