@@ -29,17 +29,16 @@ public class StudyGroup {
     @JsonManagedReference
     private List<User> users = new ArrayList<>();
 
-    public StudyGroup(String groupName, String description, String manager, int capacity, List<String> member, List<String> groupStack) {
-        this.groupName = groupName;
-        this.description = description;
-        this.manager = manager;
-        this.capacity = capacity;
-        this.member = member;
-        this.groupStack = groupStack;
-    }
-
     public StudyGroup() {
 
     }
 
+    public StudyGroup(String groupName, String description, String manager, int capacity, List<String> groupStack, List<String> member) {
+        this.groupName = groupName;
+        this.description = description;
+        this.manager = manager;
+        this.capacity = capacity;
+        this.groupStack = groupStack;
+        this.member = member;
+    }
 }
