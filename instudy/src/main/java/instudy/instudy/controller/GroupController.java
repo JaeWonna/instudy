@@ -43,12 +43,12 @@ public class GroupController {
         String groupName = (String) requestData.get("groupName");
         String description = (String) requestData.get("description");
         String manager = (String) requestData.get("manager");
-        int capacity = Integer.parseInt((String) requestData.get("capacity"));
+        int capacity = (int) requestData.get("capacity");
         List<String> member = new ArrayList<>();
+        member.add(manager);
         @SuppressWarnings("unchecked")
-        List<String> groupStack = (List<String>) requestData.get("groupStack");
-
-        StudyGroup newStudyGroup = new StudyGroup(groupName, description, manager, capacity, member, groupStack);
+        List<String> groupStack = (List<String>)requestData.get("groupStack");
+        StudyGroup newStudyGroup = new StudyGroup(groupName, description, manager, capacity, groupStack, member);
         return groupService.groupJoin(newStudyGroup);
     }
 

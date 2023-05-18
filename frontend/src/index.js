@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import BottomNav from './BottomNav';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, useNavigate } from 'react-router-dom';
 import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 import NotFound from './pages/NotFound';
@@ -23,48 +23,14 @@ import JoinGroup from './components/group/JoinGroup';
 import Timer from './pages/Timer';
 // import { store } from '../../frontend/src/api/redux/store';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    errorElement: <NotFound />,
-    children: [
-      { index: true, path: "/", element: <Fadeout /> }, //index로 '/' 메인페이지 지정
-      { index: true, path: "/main", element: <HomeLayout /> }, //index로 '/' 메인페이지 지정
-      { path: "/signIn", element: <SignIn />},
-      { path: "/signUp", element: <SignUp />},
-      { path: "/group", element: <Groups /> },
-      { path: "/group/:id", element: <GroupMainView 
-      // group={group}
-      />},
-      { path: "/profileModify", element: <ProfileModify />},
-      { path: "/feed", element: <Feed />},
-      {
-        path: "/profile",
-        element: <Profile />
-      },
-      {
-        path: "/joingroup",
-        element: <JoinGroup />
-      },
-      {
-        path: "/timer",
-        element: <Timer />
-      },
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
-      // 실행화면 테스트
-      { path: "/*", element: <GroupCreateModal />}, // import 오류
-    ],
-  },
-]);
-
-const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router}
-                    // store={store}
-    />
-  </React.StrictMode>
+    <React.StrictMode>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

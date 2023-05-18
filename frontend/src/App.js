@@ -5,7 +5,7 @@ import './App.css';
 import Header from "./components/Header";
 import Footer from './components/Footer';
 import NavRoutes from "./api/route/NavRoutes";
-import HomeLayout from "./components/common/layouts/HomeLayout";
+import mainRoutes from "./api/route/mainRoutes";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -16,6 +16,9 @@ function App() {
         <MyContext.Provider value={{ isLoggedIn: true }}>
             <div MyContext={MyContext} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}>
                 <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+                <Routes>
+                    {mainRoutes.map((route) => <Route path={route.path} element={route.element} key={route.path} />)}
+                </Routes>
                 <Outlet />
                 <Footer />
                 <Routes>

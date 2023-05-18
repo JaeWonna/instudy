@@ -1,8 +1,11 @@
+import React from 'react';
 import { useState } from "react";
 import axios from "axios";
 import { Form, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-const SignUp = () => {
+function SignUp() {
+    const navigate = useNavigate();
     const [values, setValues] = useState({
         id: '',
         password: '',
@@ -16,6 +19,7 @@ const SignUp = () => {
 
     const signUp = () => {
         console.log(JSON.stringify(values));
+        navigate('/');
         axios
             .post('/signup', {
                 id: values.id,
@@ -24,12 +28,18 @@ const SignUp = () => {
                 email: values.email,
             })
             .then((response) => {
-                if (response.data === false) {  //userId가 중복일 때
+                if (response.data && response.data.success === true) {
+                    alert('회원가입 성공')
+                }
+                if (response.data === false) {
                     alert("이미 사용중인 아이디입니다.");
                 }
                 console.log(response);
             })
-            .catch();
+            .catch((error) => {
+                // 에러 처리
+                console.error(error);
+            });
     };
 
     return (
