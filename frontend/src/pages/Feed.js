@@ -119,6 +119,8 @@ const Feed = () => {
                             feeds.map((feed) => (
                                 <Grid item xs={12} xl={3} lg={4} sm={6}>
                                     <FeedCard
+                                        feedId = {feed.feedId}
+                                        user = {loginUser}
                                         feed={feed}
                                     />
                                 </Grid>

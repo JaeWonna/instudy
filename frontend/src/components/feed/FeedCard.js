@@ -15,10 +15,19 @@ import Collapse from "@mui/material/Collapse";
 import * as React from "react";
 import {styled} from "@mui/material/styles";
 import Card from "@mui/material/Card";
+import axios from "axios";
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {useEffect} from "react";
 
-const FeedCard = ({feed}) => {
+const FeedCard = ({feedId, user, feed}) => {
 
     const [expanded, setExpanded] = React.useState(false);
+    const [isHeart, setHeart] = React.useState(true);
+    const [heartNum, setHeartNum] = React.useState()
+
+    useEffect(() => {
+        setHeartNum(feed.heartNum)
+    },[])
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -37,6 +46,21 @@ const FeedCard = ({feed}) => {
 
     const child = {
         margin: "0 auto"
+    }
+
+    const onClickHeart = () => {
+
+        setHeart(!isHeart);
+
+        axios
+            .post("/feed/update/heartNum", {
+                isHeart : isHeart,
+                userId : user.userId,
+                feedId : feedId
+            })
+            .then((response) => {
+                setHeartNum(response.data)
+        })
     }
 
     return (
@@ -72,11 +96,19 @@ const FeedCard = ({feed}) => {
                     </CardContent>
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
+                            {
+                                heartNum > 0
+                                    ?
+                                    <FavoriteIcon onClick={onClickHeart}/>
+                                    :
+                                    <FavoriteBorderIcon onClick={onClickHeart}/>
+                            }
+
                         </IconButton>
-                        <IconButton aria-label="share">
-                            <ShareIcon />
-                        </IconButton>
+                        {/*<IconButton aria-label="share">*/}
+                        {/*    <ShareIcon />*/}
+                        {/*</IconButton>*/}
+                        {heartNum}
                         <ExpandMore
                             expand={expanded}
                             onClick={handleExpandClick}
