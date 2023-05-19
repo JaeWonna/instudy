@@ -1,28 +1,62 @@
 import React, { useState, useEffect } from 'react';
+import {useNavigate} from "react-router-dom";
 import axios from 'axios';
 
 function Stopwatch() {
+    const [loginUser, setLoginUser] = useState({});
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+        const storedUser = sessionStorage.getItem("loginUser");
+        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+            const parsedUser = JSON.parse(storedUser).data;
+            setLoginUser(parsedUser);
+        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+            navigate("/signIn");
+        }
+    }, []);
+
+    const transformRequest = (data) => {
+        // Circular Structure를 제거하거나 필요한 정보만 포함한 객체로 변환
+        const transformedData = {
+            userId: data.userId,
+            // ...
+        };
+
+        return JSON.stringify(transformedData);
+    };
+
+    const userId = loginUser.userId;
+
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
-        let timer;
-
+        let interval;
         if (isRunning) {
-            timer = setInterval(() => {
-                setTime((prevTime) => prevTime + 1);
+            interval = setInterval(() => {
+                setTime(prevTime => prevTime + 1);
             }, 1000);
         }
 
         return () => {
-            clearInterval(timer);
+            clearInterval(interval);
         };
     }, [isRunning]);
 
-    const startStopwatch = () => {
+    const startTimer = (loginUser) => {
         setIsRunning(true);
+        const newTimerData = {
+            userId: loginUser.userId,
+            user: {
+                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
+                name: loginUser.name
+            }
+        };
 
-        axios.post('/timer/start')
+        axios.post('/timer/start', newTimerData, {
+            transformRequest: [transformRequest] // 커스텀 변환 함수 지정
+        })
             .then(response => {
                 console.log(response.data); // 'start' from the Spring Boot controller
             })
@@ -31,10 +65,18 @@ function Stopwatch() {
             });
     };
 
-    const stopStopwatch = () => {
+    const stopTimer = (loginUser) => {
         setIsRunning(false);
 
-        axios.post('/timer/stop')
+        const newTimerData = {
+            userId: loginUser.userId,
+            user: {
+                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
+                name: loginUser.name
+            }
+        };
+
+        axios.post('/timer/stop', newTimerData)
             .then(response => {
                 console.log(response.data); // 'stop' from the Spring Boot controller
             })
@@ -43,10 +85,19 @@ function Stopwatch() {
             });
     };
 
-    const saveStopwatch = () => {
-        axios.post('/timer/save')
+    const saveTimer = (loginUser) => {
+        console.log("userId", userId)
+        const newTimerData = {
+            userId: loginUser.userId,
+            user: {
+                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
+                name: loginUser.name
+            }
+        };
+
+        axios.post('/timer/save', newTimerData)
             .then(response => {
-                console.log(response.data); // 'save' from the Spring Boot controller
+                console.log(response.data); // 서버에서 반환한 데이터 처리
             })
             .catch(error => {
                 console.error('Error occurred while saving the timer', error);
@@ -55,13 +106,12 @@ function Stopwatch() {
 
     return (
         <div>
-            <h1>Stopwatch</h1>
             <div>{time} seconds</div>
-            <button onClick={startStopwatch}>Start</button>
-            <button onClick={stopStopwatch}>Stop</button>
-            <button onClick={saveStopwatch}>Save</button>
+            <button onClick={startTimer}>Start</button>
+            <button onClick={stopTimer}>Stop</button>
+            <button onClick={saveTimer}>Save</button>
         </div>
     );
-}
+};
 
 export default Stopwatch;
