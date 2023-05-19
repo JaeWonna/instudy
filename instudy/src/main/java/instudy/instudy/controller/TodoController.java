@@ -39,21 +39,21 @@ public class TodoController {
     }
 
 
-    // 전체 투두 보기
-    @RequestMapping(value = "/todo/read", method = RequestMethod.POST)
-    public List<Todo> postReadTodo() {
-        List<Todo> allTodo = todoService.findAllTodo();
-        return allTodo;
-    }
+//    // 전체 투두 보기
+//    @RequestMapping(value = "/todo/read", method = RequestMethod.POST)
+//    public List<Todo> postReadTodo() {
+//        List<Todo> allTodo = todoService.findAllTodo();
+//        return allTodo;
+//    }
 
 
     // 내 투두 보기
-    // 프론트에서 userId값 필요함
-    @RequestMapping(value = "/todo/readMyTodo", method = RequestMethod.POST)
+    // 프론트에서 userId값 필요함 // 이부분 진행중
+    @RequestMapping(value = "/todo/read", method = RequestMethod.POST)
     public List<Todo> readMyTodo(@RequestBody Map<String, String> paramMap) {
         String userId = paramMap.get("userId");
-        System.out.println("현재 사용자의 아이디 userId = " + userId);
-        List<Todo> myTodos = todoService.findByUserId(userId);
+        System.out.println("현재 사용자의 아이디는?! userId = " + userId);
+        List<Todo> myTodos = userService.findOne(userId).getTodos();
         return myTodos;
     }
 

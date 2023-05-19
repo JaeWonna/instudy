@@ -13,5 +13,5 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     
     // 유저 아이디로 투두 리스트로 반환받기 -> 이게 되는가? 안될것같은데?
-    List<Todo> findByUserId(String userId);
+
 }

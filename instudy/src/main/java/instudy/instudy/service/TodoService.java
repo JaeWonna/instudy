@@ -44,9 +44,5 @@ public class TodoService {
             todoRepository.save(todo);
         }
     }
-
-    // @유저아이디로 유저가 작성한 투두 리스트 반환받기
-    public List<Todo> findByUserId(String userId) {
-        return todoRepository.findByUserId(userId);
-    }
+    
 }
