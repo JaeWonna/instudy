@@ -51,10 +51,10 @@ const GroupCreateModal = (props) => {
         const newGroupData = {
             ...group,
             groupStack: selectedSkillTags.map((s) => s.value),
-            member: [{
-                user_id: loginUser.user_id,
-                user_name: loginUser.user_name,
-            }],
+            // member: [{
+            //     user_id: loginUser.user_id,
+            //     user_name: loginUser.user_name,
+            // }],
             manager: props.manager,
             capacity: capacity,
         }
@@ -64,13 +64,13 @@ const GroupCreateModal = (props) => {
             .post("/group/new", newGroupData)
             .then((response) => {
                 const responseData = response.data; // 서버 응답 데이터
-                if (responseData.success === true) {
+                if (responseData === true) {
                     // 그룹 생성 성공
                     alert("그룹 생성 완료");
                     // 추가적인 동작 수행 가능
                 } else {
                     // 그룹 생성 실패
-                    alert("그룹 생성 실패: " + responseData.message);
+                    alert("그룹 생성 실패");
                     // 추가적인 동작 수행 가능
                 }
             })
