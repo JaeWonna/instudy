@@ -5,26 +5,26 @@ const NavRoutes = [
     {
         path: '/main',
         element: <BottomNav />,
-        name: '기본네비바',
-        description: '기본네비바',
     },
     {
         path: '/profile',
         element: <BottomNav />,
-        name: '기본네비바',
-        description: '기본네비바',
     },
     {
         path: '/group',
         element: <BottomNav />,
-        name: '기본네비바',
-        description: '기본네비바',
     },
     {
         path: '/group/:id',
         element: <GroupBottomNav />,
-        name: '그룹네비바',
-        description: '조회',
+    },
+    {
+        path: '/feed',
+        element: <GroupBottomNav />,
+    },
+    {
+        path: '/timer',
+        element: <GroupBottomNav />,
     },
 
 ];
