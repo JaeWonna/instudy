@@ -6,7 +6,8 @@ import Group from "../../../src/pages/Group";
 import GroupMainView from "../../components/group/GroupMainView";
 import ProfileModify from "../../components/Profile/ProfileModify";
 import Profile from "../../../src/pages/Profile";
-import Feed from "../../../src/pages/Feed"
+import Feed from "../../../src/pages/Feed";
+import Timer from "../../../src/pages/Timer";
 
 const mainRoutes = [
 
@@ -43,6 +44,10 @@ const mainRoutes = [
     {
         path: "/feed",
         element: <Feed />
+    },
+    {
+        path: "/timer",
+        element: <Timer />
     },
 ];
 export default mainRoutes;
