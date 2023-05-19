@@ -8,6 +8,8 @@ import * as React from 'react';
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Box, Grid, Typography } from "@mui/material";
+import axios from "axios";
 
 import {
     MDBCard,
@@ -15,6 +17,7 @@ import {
     MDBCardTitle,
 } from 'mdb-react-ui-kit';
 import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
+import ProfileGroupCard from "../components/Profile/ProfileGroupCard";
 
 export default function Profile() {
     const [loginUser, setLoginUser] = useState({});
@@ -38,7 +41,7 @@ export default function Profile() {
 
     return (
         <>
-        {/*<div>프로필 페이지입니다</div>*/}
+            {/*<div>프로필 페이지입니다</div>*/}
             <div className="row">
                 <div className="col-lg-4">
                     <div className="card mb-4">
@@ -61,9 +64,10 @@ export default function Profile() {
                 <div className="col-lg-8">
                     <div className="card">
                         가입한 스터디 그룹(정렬 필요)
+
                         <div className="card-body">
                             <Container>
-                                <ProfileGroupView />
+                                <ProfileGroupView loginUser={loginUser}/>
                             </Container>
                         </div>
                     </div>
@@ -72,7 +76,7 @@ export default function Profile() {
                     <MDBCard className="mt-4">
                         <MDBCardBody>
                             <MDBCardTitle><h4 className="text-center my-3 pb-3">To Do App</h4></MDBCardTitle>
-                            <Todo/>
+                            <Todo loginUser={loginUser}/>
                         </MDBCardBody>
                     </MDBCard>
                 </div>
