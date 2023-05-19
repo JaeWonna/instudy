@@ -5,6 +5,8 @@ import instudy.instudy.repository.AssignmentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class AssignmentService {
@@ -17,5 +19,9 @@ public class AssignmentService {
 
     public void createAssignment(Assignment newAssignment) {
         assignmentRepository.save(newAssignment);
+    }
+
+    public void deleteAssignment(Optional<Assignment> deleteAssignment) {
+        deleteAssignment.ifPresent(assignmentRepository::delete);
     }
 }
