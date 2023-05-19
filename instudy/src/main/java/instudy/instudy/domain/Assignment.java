@@ -7,8 +7,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter @Setter
-@Entity
+@Entity(name = "assignment") // 테이블 명 feed
+@Getter
+@Setter
 public class Assignment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +40,11 @@ public class Assignment {
         return "Assignment{" +
                 "assignmentId=" + assignmentId +
                 ", title='" + title + '\'' +
-                ", period='" + period + '\'' +
+                ", period=" + period +
                 ", description='" + description + '\'' +
+                ", ready=" + ready +
+                ", study=" + study +
+                ", finish=" + finish +
                 '}';
     }
 }
