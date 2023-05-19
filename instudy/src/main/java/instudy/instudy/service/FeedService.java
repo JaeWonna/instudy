@@ -23,7 +23,7 @@ public class FeedService {
     }
 
     public void delete(Optional<Feed> feed) {
-
+        feed.ifPresent(feedRepository::delete);
     }
 
     public List<Feed> findByGroupId(Long groupId) {
