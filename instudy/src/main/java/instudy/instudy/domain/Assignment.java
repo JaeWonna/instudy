@@ -18,6 +18,7 @@ public class Assignment {
     private String title;
     private String period;
     private String description;
+    private Long groupId;
     @ElementCollection
     private List<String> ready = new ArrayList<>();
     @ElementCollection
@@ -25,10 +26,11 @@ public class Assignment {
     @ElementCollection
     private List<String> finish = new ArrayList<>();
 
-    public Assignment(String title, String period, String description) {
+    public Assignment(String title, String period, String description, Long groupId) {
         this.title = title;
         this.period = period;
         this.description = description;
+        this.groupId = groupId;
     }
 
     public Assignment() {

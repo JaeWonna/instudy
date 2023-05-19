@@ -5,6 +5,7 @@ import instudy.instudy.repository.AssignmentRepository;
 import instudy.instudy.service.AssignmentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -26,8 +27,9 @@ public class AssignmentController {
         String description = paramMap.get("description");
         String title = paramMap.get("title");
         String period = paramMap.get("period");
+        Long groupId = Long.parseLong(paramMap.get("groupId"));
 
-        Assignment newAssignment = new Assignment(title, period, description);
+        Assignment newAssignment = new Assignment(title, period, description, groupId);
         assignmentService.createAssignment(newAssignment);
         return "create";
     }
