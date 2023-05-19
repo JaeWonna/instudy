@@ -87,17 +87,13 @@ public class UserController {
         System.out.println(ParamMap);
 
         String groupName = ParamMap.get("groupName");
-        System.out.println("groupName은 무엇입니까 = " + groupName);
         String userId = ParamMap.get("userId");
-        System.out.println("userId값은 무엇입니까 = " + userId);
 
         User user = userService.findOne(userId);
-        System.out.println("user = " + user);
-
         StudyGroup group = groupService.findOne(groupName);
-        System.out.println("group = " + group);
 
         user.setStudyGroup(group); // 생성자 연관관계 메서드 호출 !!
+        group.getMember().add(userId);
 
         userService.save(user);
     }
