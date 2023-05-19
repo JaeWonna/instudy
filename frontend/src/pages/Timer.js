@@ -11,7 +11,7 @@ function Stopwatch() {
         if (isRunning) {
             timer = setInterval(() => {
                 setTime((prevTime) => prevTime + 1);
-            }, 10000);
+            }, 1000);
         }
 
         return () => {
