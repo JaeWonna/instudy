@@ -4,29 +4,19 @@ import TodoList from '../Profile/TodoList'
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 
-const Todo = () => {
+const Todo = (props) => {
 
     let group_id;
 
     const [todos, setTodos] = useState([]);
-    const [loginUser, setLoginUser] = useState({});
+    const { loginUser } = props;
     const navigate = useNavigate();
 
     const onClickModify = () => {
         navigate("/profileModify");
     };
 
-    //데이터 불러오기
-    useEffect(() => {
-        const storedUser = sessionStorage.getItem("loginUser");
-        console.log("test");
-        console.log(storedUser);
-        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
-            const parsedUser = JSON.parse(storedUser).data;
-            setLoginUser(parsedUser);
-        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
-            navigate("/signIn");
-        }
+    console.log("userId", loginUser.userId)
 
         axios
             .post("/todo/read", {
@@ -36,7 +26,6 @@ const Todo = () => {
                 setTodos(response.data);
             })
             .catch();
-    }, []);
 
 /*    //group_id 가져오기
     axios.post("", {
