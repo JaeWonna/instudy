@@ -64,7 +64,7 @@ const Todo = () => {
             // console.log(response)
             //데이터 불러오기
             axios.post("/todo/read", {
-
+                userId : loginUser.userId
             }).then((response) =>{
                 setTodos(response.data);
             })
@@ -85,7 +85,7 @@ const Todo = () => {
         }).then((response) =>{
         //데이터 불러오기
             axios.post("/todo/read", {
-
+                userId : loginUser.userId
             }).then((response) =>{
                 setTodos(response.data);
             })
@@ -100,7 +100,7 @@ const Todo = () => {
             todoText : todo.todoText,
         }).then((response) => {
             axios.post("/todo/read", {
-
+                userId : loginUser.userId
             }).then((response) =>{
                 setTodos(response.data);
             })
