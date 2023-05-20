@@ -1,47 +1,38 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
 import ProfileGroupCard from '../components/Profile/ProfileGroupCard';
+import axios from "axios";
+import {Grid} from "@mui/material";
+import * as React from "react";
 
-const ProfileGroupView = () => {
-    // const groups = [
-    //     {
-    //       id: 1,
-    //       groupName: '그룹1',
-    //       link: '/group/1'
-    //     },
-    //     {
-    //       id: 2,
-    //       groupName: '그룹2',
-    //       link: '/group/2'
-    //     },
-    //     {
-    //       id: 3,
-    //       groupName: '그룹3',
-    //       link: '/group/3'
-    //     }
-    //   ];
+const ProfileGroupView = (props) => {
+    const { loginUser } = props;
 
-    // const groups = ["그룹1", "그룹2", "그룹3"]
+    const [onGroups, setOnGroups] = useState([]);
 
-    // const groupList = groups.map((group) => (<ProfileGroupCard group={group} />))
+    const [selectedGroup, setSelectedGroup] = useState(null);
 
-    //   console.log(groups.username)
-    //   console.log(group)
+    const handleGroupCard = (group) => {
+        // alert(JSON.stringify(group))
+        // if (window.confirm(`${group.project_name}으로 이동하시겠습니까?`)) {
+        //     dispatch(selectedGroup(group));
+        //     navigate(`/workspace/${group._id}`);
+        // }
+        setSelectedGroup(group);
+    };
 
-    // const dataList = [
-    //   { id: 1, groupName: "Group 1", link: "https://example.com/1" },
-    //   { id: 2, groupName: "Group 2", link: "https://example.com/2" },
-    //   { id: 3, groupName: "Group 3", link: "https://example.com/3" }
-    // ];
-
-    const groups = [
-      { id: 1, name: '그룹1', path: '/group/1' },
-      { id: 2, name: '그룹2', path: '/group/2' },
-      { id: 3, name: '그룹3', path: '/group/3' }
-    ];
+    useEffect(() => {
+        console.log("loginUser: ", loginUser)
+        axios.post("/groups/getMyGroup", {
+            user_id: loginUser,
+        }).then((response) => {
+            setOnGroups(response.data);
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }, [loginUser]);
 
     return (
         <div>
@@ -50,31 +41,24 @@ const ProfileGroupView = () => {
       </Row>
       <Row>
       <Col sm>
-        {/* {groupList} */}
-        {/* {
-          groups.map(group => (
-            <ProfileGroupCard key={group.id}>
-              <div>{group.id}</div>
-              <div>{group.groupName}</div>
-            </ProfileGroupCard>
-            // handleGroupCard={handleGroupCard} 
-          ))
-        } */}
-        {/* <div>
-    {dataList.map(data => (
-      <ProfileGroupCard key={data.id} data={data}>
+{/*{*/}
+{/*    groups.map(group => (*/}
+{/*  <ProfileGroupCard key={group.id} name={group.name} path={group.path} />*/}
+{/*))*/}
+{/*}*/}
 
-        <div>{data.id}</div>
-        <div>{data.groupName}</div>
-        <a href={data.link}>Link</a>
-
-      </ProfileGroupCard>
-    ))}
-  </div> */}
-
-{groups.map(group => (
-  <ProfileGroupCard key={group.id} name={group.name} path={group.path} />
-))}
+          {
+              onGroups.map((group) => (
+                  <Grid item xs={12} xl={6}
+                      key={group.group_id}
+                  >
+                      <ProfileGroupCard
+                          group={group}
+                          handleGroupCard={handleGroupCard}
+                      />
+                  </Grid>
+              ))
+          }
       </Col>
       </Row>
     </Container>
