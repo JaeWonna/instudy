@@ -43,4 +43,10 @@ public class AssignmentController {
         assignmentService.deleteAssignment(deleteAssignment);
         return "delete";
     }
+
+    //전체 과제 조회
+    @RequestMapping(value = "/assignment/read", method = RequestMethod.POST)
+    public List<Assignment> readAllAssignment(@RequestBody Map<String, String> paramMap) {
+        return assignmentService.readAllAssignment();
+    }
 }
