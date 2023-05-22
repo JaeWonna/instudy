@@ -4,7 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import GroupAssignCreateModal from "./GroupAssignCreateModal";
 
-const GroupAssignCreate = () => {
+const GroupAssignCreate = (props) => {
 
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -15,6 +15,9 @@ const GroupAssignCreate = () => {
     const handleCloseModal = () => {
         setModalOpen(false);
     };
+
+    const groupId = props.groupId;
+    console.log("groupId", groupId);
 
     return (
         <div className="row">
@@ -27,7 +30,7 @@ const GroupAssignCreate = () => {
                         <FontAwesomeIcon icon={faPlus}/>
                     </Button>
                     <GroupAssignCreateModal
-                        open={modalOpen} onClose={handleCloseModal} />
+                        open={modalOpen} onClose={handleCloseModal} groupId={groupId}/>
                 </div>
 
             </div>

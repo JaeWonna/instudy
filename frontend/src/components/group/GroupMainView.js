@@ -33,13 +33,13 @@ const GroupMainView = (props) => {
     }
 
     const params = useParams(); //url로 넘어온 파라미터를 받는 역할 (App.js 의 :id 참고)
-    const group_id = params.id; //(params의 :id를 받는 역할)
+    const groupId = params.id; //(params의 :id를 받는 역할)
 
     useEffect( () => {
-        getAndSetGroup(group_id);
-    }, [group_id]);
+        getAndSetGroup(groupId);
+    }, [groupId]);
 
-    const getAndSetGroup = (group_id) => {
+    const getAndSetGroup = (groupId) => {
 
     }
 
@@ -142,7 +142,7 @@ const GroupMainView = (props) => {
 
                 <div className="d-flex justify-content-end align-items-end">
 
-                    <GroupAssignCreate />
+                    <GroupAssignCreate groupId={groupId}/>
 
                 </div>
             </div>

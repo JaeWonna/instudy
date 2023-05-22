@@ -1,10 +1,12 @@
-import {Modal, Paper, Box, Typography, Button, TextField, Autocomplete, Checkbox, MenuItem} from '@mui/material';
-// import { makeStyles } from '@mui/styles';
+import { Modal, Paper, Box, Typography, Button, TextField } from '@mui/material';
 import { styled } from '@mui/system';
-import {tags} from "../../../assets/tag/tags";
-import {useState} from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 const StyledModal = styled(Modal)`
   display: flex;
@@ -17,65 +19,58 @@ const StyledPaper = styled(Paper)`
   padding: ${({ theme }) => theme.spacing(2)};
 `;
 
-// const useStyles = makeStyles((theme) => ({
-//     modal: {
-//         display: 'flex',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-//     paper: {
-//         backgroundColor: 'white',
-//         padding: theme.spacing(2),
-//     },
-//     closeButton: {
-//         marginLeft: 'auto',
-//     },
-// }));
+const GroupAssignCreateModal = (props) => {
+    const [assign, setAssign] = useState({
+        description: '',
+        title: '',
+        group_id: props.groupId,
+    })
 
-function GroupAssignCreateModal({ open, onClose }) {
-    // const classes = useStyles();
-
-    const [assignName, setAssignName] = useState("");
-    const [description, setDescription] = useState("");
-
-    const handleInputChange1 = (e) => {
-        setAssignName(e.target.value);
+    const handleInput = (event) => {
+        console.log(event)
+        setAssign({
+            ...assign,
+            [event.target.id]: event.target.value
+        })
     }
 
-    const handleInputChange2 = (e) => {
-        setDescription(e.target.value);
-    }
+    const [selectedDate, setSelectedDate] = useState(null);
 
-    const params = useParams();
-    const group_id = params.id;
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
     const createAssign = (event) => {
-        const formData = new FormData();
-        formData.append("assignName", assignName);
-        formData.append("description", description);
+        const newAssignData = {
+            ...assign,
+            period: selectedDate
+        }
 
-        axios.all([
-            axios.post('/group/new', {
-                group_id: group_id,
-                assignName: "그룹 이름",
-                description: "그룹 설명",
-            }),
-            // axios.post("/group/new", formData),
-            // axios.post("/group/new", selectedSkillTags),
-            // axios.post("/group/new", currencies)
-        ])
-            .then(axios.spread((res1, res2, res3) => {
-                // console.log(res1.data);
-                // console.log(res2.data);
-                // console.log(res3.data);
-            }))
-            .catch(error => {
-                console.log(error);
+        console.log("newAssignData", newAssignData)
+
+        axios
+            .post("/assignment/create", newAssignData)
+            .then((response) => {
+                const responseData = response.data; // 서버 응답 데이터
+                if (responseData === true) {
+                    // 그룹 생성 성공
+                    alert("과제 생성 완료");
+                    // 추가적인 동작 수행 가능
+                } else {
+                    // 그룹 생성 실패
+                    alert("과제 생성 실패");
+                    // 추가적인 동작 수행 가능
+                }
+            })
+            .catch((error) => {
+                // 서버 요청 실패
+                console.error("과제 생성 요청 실패: ", error);
+                // 에러 처리 또는 알림 표시
             });
-    }
+    };
 
     return (
-        <StyledModal open={open} onClose={onClose}>
+        <StyledModal open={props.open} onClose={props.onClose}>
             <StyledPaper>
                 <Box>
                     <Typography variant='h5' my={1}>과제 생성하기</Typography>
@@ -96,8 +91,9 @@ function GroupAssignCreateModal({ open, onClose }) {
                                 label="과제 이름"
                                 multiline
                                 maxRows={4}
-                                // value={groupName}
-                                // onChange={handleInputChange1}
+                                value={assign.title}
+                                id="title"
+                                onChange={handleInput}
                             />
 
                             <TextField
@@ -106,13 +102,21 @@ function GroupAssignCreateModal({ open, onClose }) {
                                 multiline
                                 rows={4}
                                 defaultValue="Default Value"
-                                // value={description}
-                                // onChange={handleInputChange2}
+                                value={assign.description}
+                                id="description"
+                                onChange={handleInput}
                             />
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer components={['DatePicker']}>
+                                    <DatePicker label="과제 기간"  value={selectedDate}
+                                                onChange={handleDateChange}/>
+                                </DemoContainer>
+                            </LocalizationProvider>
                         </div>
                     </Box>
                 </Box>
-                <Button onClick={() => createAssign()}>과제 생성</Button>
+                <Button onClick={createAssign}>과제 생성</Button>
+                <Button onClick={props.onClose}>닫기</Button>
             </StyledPaper>
         </StyledModal>
     );
