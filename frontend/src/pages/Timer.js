@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
+import { Button, Typography } from '@mui/material';
 
 function Stopwatch() {
     const [loginUser, setLoginUser] = useState({});
@@ -106,10 +107,10 @@ function Stopwatch() {
 
     return (
         <div>
-            <div>{time} seconds</div>
-            <button onClick={startTimer}>Start</button>
-            <button onClick={stopTimer}>Stop</button>
-            <button onClick={saveTimer}>Save</button>
+            <Typography variant="h3" gutterBottom>{time} seconds</Typography>
+            <Button variant="contained" color="inherit" onClick={startTimer}>Start</Button>
+            <Button variant="contained" color="error" onClick={stopTimer}>Stop</Button>
+            <Button variant="contained" color="primary" onClick={saveTimer}>Save</Button>
         </div>
     );
 };
