@@ -47,7 +47,7 @@ export default function Profile() {
                     <div className="card mb-4">
                         <div className="card-body text-center">
                             <img src={profile} className="img-thumbnail" alt="..."/>
-                            {/*<img id="hz" src="../img/profile.png" alt="랜덤짤" width="304" height="228"/>*/}
+                            <img id="hz" src="../img/profile.png" alt="랜덤짤" width="304" height="228"/>
                             <h5 className="my-3">{loginUser.user_name}</h5>
                             <p className="text-muted mb-1">Full Stack Developer</p>
                             <p className="text-muted mb-4">{loginUser.email}</p>
