@@ -27,7 +27,7 @@ public class AssignmentController {
         String description = paramMap.get("description");
         String title = paramMap.get("title");
         String period = paramMap.get("period");
-        Long groupId = Long.parseLong(paramMap.get("groupId"));
+        Long groupId = Long.parseLong(paramMap.get("group_id"));
 
         Assignment newAssignment = new Assignment(title, period, description, groupId);
         assignmentService.createAssignment(newAssignment);
@@ -46,7 +46,7 @@ public class AssignmentController {
 
     //전체 과제 조회
     @RequestMapping(value = "/assignment/read", method = RequestMethod.POST)
-    public List<Assignment> readAllAssignment(@RequestBody Map<String, String> paramMap) {
+    public List<Assignment> readAllAssignment() {
         return assignmentService.readAllAssignment();
     }
 }
