@@ -43,7 +43,7 @@ const GroupAssignCreateModal = (props) => {
     const createAssign = (event) => {
         const newAssignData = {
             ...assign,
-            period: selectedDate
+            period: selectedDate.toString()
         }
 
         console.log("newAssignData", newAssignData)
@@ -51,8 +51,9 @@ const GroupAssignCreateModal = (props) => {
         axios
             .post("/assignment/create", newAssignData)
             .then((response) => {
+                console.log(response);
                 const responseData = response.data; // 서버 응답 데이터
-                if (responseData === true) {
+                if (responseData === "create") {
                     // 그룹 생성 성공
                     alert("과제 생성 완료");
                     // 추가적인 동작 수행 가능
