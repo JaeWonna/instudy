@@ -23,16 +23,24 @@ const ProfileGroupView = (props) => {
         setSelectedGroup(group);
     };
 
+    console.log("loginUser: ", loginUser.userId)
+
     useEffect(() => {
-        console.log("loginUser: ", loginUser)
-        axios.post("/groups/getMyGroup", {
-            user_id: loginUser,
-        }).then((response) => {
-            setOnGroups(response.data);
-        }).catch(function (error) {
-            console.log(error);
-        });
-    }, [loginUser]);
+        console.log("loginUser: ", loginUser.userId)
+        const fetchUserGroups = async () => {
+            try {
+                const response = await axios.post('/groups/getMyGroups', {
+                    user_id: loginUser.userId // 사용자 아이디를 적절히 넣어주세요
+                });
+                const userGroups = response.data;
+                setOnGroups(userGroups);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchUserGroups();
+    }, []);
 
     return (
         <div>
@@ -49,10 +57,9 @@ const ProfileGroupView = (props) => {
 
           {
               onGroups.map((group) => (
-                  <Grid item xs={12} xl={6}
-                      key={group.group_id}
-                  >
+                  <Grid item xs={12} xl={6}>
                       <ProfileGroupCard
+                          key={group.group_id}
                           group={group}
                           handleGroupCard={handleGroupCard}
                       />
