@@ -30,7 +30,7 @@ public class FeedService {
         return feedRepository.findByGroupId(groupId);
     }
 
-    public int updateHeartNum(Feed updateFeed, boolean isHeart, String userId) {
+    public Feed updateHeartNum(Feed updateFeed, boolean isHeart, String userId) {
 //        updateFeed.setHeart(userId.equals(updateFeed.getUserId())); // 하트 누른 유저와 피드 생성한 유저가 같을 때 heart true
         int num = updateFeed.getHeartNum();
         if (isHeart) {
@@ -40,7 +40,7 @@ public class FeedService {
             heartUser.add(userId);
             updateFeed.setHeartUser(heartUser);
             feedRepository.save(updateFeed);
-            return num+1;
+//            return num+1;
         } else {
             updateFeed.setHeartNum(num-1);
             // heartUser에 있던 userId 삭제
@@ -48,7 +48,8 @@ public class FeedService {
             heartUser.remove(userId);
             updateFeed.setHeartUser(heartUser);
             feedRepository.save(updateFeed);
-            return num-1;
+//            return num-1;
         }
+        return updateFeed;
     }
 }
