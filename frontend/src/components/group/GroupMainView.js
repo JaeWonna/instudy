@@ -10,19 +10,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Typography from '@mui/material/Typography';
 import GroupAssignCreate from "./assignment/GroupAssignCreate";
+import { Box } from "@mui/system";
+import axios from "axios";
+import GroupCard from "./GroupCard";
+import GroupAssignCard from "./assignment/GroupAssignCard";
 
 const GroupMainView = (props) => {
     const {id} = useParams();
-
-    const imgStyle = {
-        width: '70px',
-    }
-
-    const [title, setTitle] = useState([
-        '1과목 끝내기',
-        '2과목 끝내기',
-        '3과목 끝내기'
-    ])
 
     const [modal, setModal] = useState(false);
 
@@ -43,112 +37,58 @@ const GroupMainView = (props) => {
 
     }
 
-    console.log(1)
-
     console.log(setClickedNum)
     console.log(setModal)
 
+    const [assign, setAssign] = useState([]);
+
+    useEffect(()=> {
+        const assignData = [
+
+        ];
+
+        setAssign([...assignData]);
+
+        axios
+            .post("/assignment/read ", {
+
+            })
+            .then((res) => {
+                console.log(res.data);
+                setAssign(res.data);
+                console.log("test");
+                console.log(...assign);
+            })
+            .catch();
+
+    }, []);
+
     return (
-        <div>
-            <Typography variant="h3" gutterBottom>
-                 그룹{id}
-            </Typography>
-            {
-                title.map((content, idx) => 
-                <div class="card" style={ cardStyle } key={idx} 
-                onClick={ ()=>{
-                    setClickedNum(idx);
-                    setModal(!modal);
+        <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            height="100vh"
+        >
+            {/* 가운데 정렬할 요소들 */}
+            <div>
+                <Typography variant="h3" gutterBottom>
+                    그룹{id}
+                </Typography>
+                <Typography variant="h5" gutterBottom>
+                    과제
+                </Typography>
+                {
+                    assign.map(assign => (
+                        <GroupAssignCard assign={assign} idx={clickedNum}/>
+                    ))
                 }
-                }>
-                    <div class="card-body">
-                        <Link to="/detailedModal" data-mdb-toggle="modal" data-mdb-target="#exampleModal">{content}</Link>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{content}</h5>
-        <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-
-      <div class="container">
-<div class="row">
-    <div class="col-md">
-    <b>기간</b>
-    </div>
-    <div class="col-md">
-    하드코딩
-    </div>
-    <div class="col-md">
-    <b>상세 설명</b>
-    </div>
-    <div class="col-md">
-    하드코딩
-    </div>
-  </div>
-        
-<hr />
-<div class="row">
-  <div class="col-4"><button type="button" class="btn btn-success">완료</button></div>
-  <div class="col-4">              <div class="flex-shrink-0">
-                  <img src={groupMember} alt="Generic placeholder" class="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
-
-              </div></div>
-
-</div>
-<div class="row">
-  <div class="col-4"><button type="button" class="btn btn-warning">진행중</button></div>
-
-</div>
-<div class="row">
-  <div class="col-4"><button type="button" class="btn btn-danger">시작전</button></div>
-
-</div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-      <div class="flex-shrink-0">
-      <div className="rounded-icon">
-      <FontAwesomeIcon icon={faPen} />
-      </div>
-
-              </div>
-              <div class="flex-shrink-0">
-              <div className="rounded-icon">
-              <FontAwesomeIcon icon={faTrash} />
-              </div>
-
-              </div>
-      </div>
-    </div>
-  </div>
-</div>
-                        </div>
+                        <GroupAssignCreate groupId={groupId}/>
 
 
 
-                        
-                        </div>
-                )
-            }
-
-{modal == true ? <mdModal title={title} clickedNum={clickedNum}/> : null}
-
-            <div className="row">
-                <div className="col-md-12 col-lg-6"></div>
-
-                <div className="d-flex justify-content-end align-items-end">
-
-                    <GroupAssignCreate groupId={groupId}/>
-
-                </div>
             </div>
-
-
-        </div>
+        </Box>
     );
 };
 
