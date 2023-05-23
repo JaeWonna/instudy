@@ -15,6 +15,8 @@ import {Close} from "@mui/icons-material";
 import React from "react";
 import axios from "axios";
 import {makeStyles} from "@material-ui/core/styles";
+import { useState, useEffect } from "react";
+import react from '../../img/react.png';
 
 const GroupCard = (props) => {
     const [open, setOpen] = React.useState(false);
@@ -33,6 +35,8 @@ const GroupCard = (props) => {
         }).catch(function (error) {
             console.log(error);
         });
+
+        handleGroupSelection(group.id);
     }
     const handleClose = () => setOpen(false);
 
@@ -50,6 +54,33 @@ const GroupCard = (props) => {
         p: 4,
     };
 
+    const [groups, setGroups] = useState([]);
+    const [selectedGroup, setSelectedGroup] = useState(null);
+
+    useEffect(() => {
+        // groups 데이터를 가져오는 비동기 함수를 호출합니다.
+        // 아래의 예시에서는 getGroups 함수가 비동기 함수라고 가정합니다.
+        const getGroups = async () => {
+            try {
+                const response = await axios.get('/groups');
+                setGroups(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getGroups();
+    }, []);
+
+    const findGroupById = (id) => {
+        return groups.find((group) => group.id === id);
+    };
+
+    const handleGroupSelection = (id) => {
+        const group = findGroupById(id);
+        setSelectedGroup(group);
+    };
+
     return (
         <Grid item xs={12} sm={4} className={classes.item}>
             <Card sx={{ maxWidth: 345 }}>
@@ -57,8 +88,8 @@ const GroupCard = (props) => {
                     <CardMedia
                         component="img"
                         height="140"
-                        image="/static/images/cards/contemplative-reptile.jpg"
-                        alt="green iguana"
+                        image={react}
+                        alt="react"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
