@@ -17,17 +17,15 @@ import {styled} from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import axios from "axios";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {useEffect} from "react";
 
 const FeedCard = ({feedId, user, feed}) => {
 
     const [expanded, setExpanded] = React.useState(false);
-    const [isHeart, setHeart] = React.useState(true);
-    const [heartNum, setHeartNum] = React.useState()
-
-    useEffect(() => {
-        setHeartNum(feed.heartNum)
-    },[])
+    const [isHeart, setIsHeart] = React.useState(true);
+    const [heart, setHeart] = React.useState({
+        heartNum : feed.heartNum,
+        heartUser: feed.heartUser
+    })
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -50,7 +48,7 @@ const FeedCard = ({feedId, user, feed}) => {
 
     const onClickHeart = () => {
 
-        setHeart(!isHeart);
+        setIsHeart(!isHeart);
 
         axios
             .post("/feed/update/heartNum", {
@@ -59,8 +57,16 @@ const FeedCard = ({feedId, user, feed}) => {
                 feedId : feedId
             })
             .then((response) => {
-                setHeartNum(response.data)
+                setHeart(response.data)
+                console.log("여긴 피드 카드", JSON.stringify(response))
         })
+    }
+
+    function isUser(element) {
+        if(element === user.userId){
+            return true;
+        }
+        return false;
     }
 
     return (
@@ -97,7 +103,7 @@ const FeedCard = ({feedId, user, feed}) => {
                     <CardActions disableSpacing>
                         <IconButton aria-label="add to favorites">
                             {
-                                heartNum > 0
+                                heart.heartUser.filter(isUser).length > 0
                                     ?
                                     <FavoriteIcon onClick={onClickHeart}/>
                                     :
@@ -108,7 +114,7 @@ const FeedCard = ({feedId, user, feed}) => {
                         {/*<IconButton aria-label="share">*/}
                         {/*    <ShareIcon />*/}
                         {/*</IconButton>*/}
-                        {heartNum}
+                        {heart.heartNum}
                         <ExpandMore
                             expand={expanded}
                             onClick={handleExpandClick}
@@ -121,8 +127,6 @@ const FeedCard = ({feedId, user, feed}) => {
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <Typography paragraph>
-                                {/*Heat 1/2 cup of the broth in a pot until simmering, add saffron and set*/}
-                                {/*aside for 10 minutes.*/}
                                 {feed.content}
                             </Typography>
                         </CardContent>
