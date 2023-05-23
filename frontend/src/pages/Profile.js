@@ -63,7 +63,14 @@ export default function Profile() {
                 </div>
                 <div className="col-lg-8">
                     <div className="card">
-                        가입한 스터디 그룹(정렬 필요)
+                        <Box
+                            display="flex"
+                            justifyContent="center"
+                            alignItems="center"
+                            height="10vh"
+                        >
+                        <Typography variant="h5" gutterBottom>가입한 스터디 그룹</Typography>
+                        </Box>
 
                         <div className="card-body">
                             <Container>

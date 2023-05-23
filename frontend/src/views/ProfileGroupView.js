@@ -56,17 +56,17 @@ const ProfileGroupView = (props) => {
 {/*))*/}
 {/*}*/}
 
+          <Grid container spacing={2}>
           {
               onGroups.map((group) => (
-                  <Grid item xs={12} xl={6}>
                       <ProfileGroupCard
                           key={group.group_id}
                           group={group}
                           handleGroupCard={handleGroupCard}
                       />
-                  </Grid>
               ))
           }
+          </Grid>
       </Col>
       </Row>
     </Container>
