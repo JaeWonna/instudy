@@ -68,7 +68,7 @@ const GroupMainView = (props) => {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            height="100vh"
+            height="80vh"
         >
             {/* 가운데 정렬할 요소들 */}
             <div>

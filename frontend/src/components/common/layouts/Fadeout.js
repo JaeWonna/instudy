@@ -18,14 +18,22 @@ function Fadeout() {
 
     return (
         <div>
-            <Grid container justifyContent="center">
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="80vh"
+            >
+                {/* 가운데 정렬할 요소들 */}
+                <div>
                 <Grid item xs={12} sm={6} md={4}>
                     <div>
                         <FontAwesomeIcon icon={faLinkedin} style={{ fontSize: '100px'}}/>
                         <Typography variant="h1">Instudy</Typography>
                     </div>
                 </Grid>
-            </Grid>
+                </div>
+            </Box>
         </div>
     );
 }
