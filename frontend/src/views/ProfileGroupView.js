@@ -23,16 +23,16 @@ const ProfileGroupView = (props) => {
         setSelectedGroup(group);
     };
 
-    console.log("loginUser: ", loginUser.userId)
+    console.log("onGroups: ", onGroups)
 
     useEffect(() => {
-        console.log("loginUser: ", loginUser.userId)
         const fetchUserGroups = async () => {
             try {
                 const response = await axios.post('/groups/getMyGroups', {
-                    user_id: loginUser.userId // 사용자 아이디를 적절히 넣어주세요
+                    userId: loginUser.userId.toString()
                 });
                 const userGroups = response.data;
+                console.log(userGroups);
                 setOnGroups(userGroups);
             } catch (error) {
                 console.error(error);
@@ -40,7 +40,8 @@ const ProfileGroupView = (props) => {
         };
 
         fetchUserGroups();
-    }, []);
+    }, [loginUser.userId]);
+
 
     return (
         <div>
