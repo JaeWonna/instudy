@@ -1,9 +1,29 @@
 import React, { useState, useEffect } from 'react';
+import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Dialog from '@mui/material/Dialog';
+import PersonIcon from '@mui/icons-material/Person';
+import AddIcon from '@mui/icons-material/Add';
+import Typography from '@mui/material/Typography';
+import { blue } from '@mui/material/colors';
+import { Box } from "@mui/system";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
-import { Button, Typography } from '@mui/material';
+import TimerDialog from "../components/timer/TimerDialog";
 
-function Stopwatch() {
+export interface SimpleDialogProps {
+    open: boolean;
+    selectedValue: string;
+    onClose: (value: string) => void;
+}
+
+export default function SimpleDialogDemo() {
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
 
@@ -29,90 +49,20 @@ function Stopwatch() {
 
     const userId = loginUser.userId;
 
-    const [time, setTime] = useState(0);
-    const [isRunning, setIsRunning] = useState(false);
+    const [open, setOpen] = React.useState(false);
+    const [selectedValue, setSelectedValue] = React.useState(userId);
 
-    useEffect(() => {
-        let interval;
-        if (isRunning) {
-            interval = setInterval(() => {
-                setTime(prevTime => prevTime + 1);
-            }, 1000);
-        }
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, [isRunning]);
-
-    const startTimer = (loginUser) => {
-        setIsRunning(true);
-        const newTimerData = {
-            userId: loginUser.userId,
-            user: {
-                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
-                name: loginUser.name
-            }
-        };
-
-        axios.post('/timer/start', newTimerData, {
-            transformRequest: [transformRequest] // 커스텀 변환 함수 지정
-        })
-            .then(response => {
-                console.log(response.data); // 'start' from the Spring Boot controller
-            })
-            .catch(error => {
-                console.error('Error occurred while starting the timer', error);
-            });
-    };
-
-    const stopTimer = (loginUser) => {
-        setIsRunning(false);
-
-        const newTimerData = {
-            userId: loginUser.userId,
-            user: {
-                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
-                name: loginUser.name
-            }
-        };
-
-        axios.post('/timer/stop', newTimerData)
-            .then(response => {
-                console.log(response.data); // 'stop' from the Spring Boot controller
-            })
-            .catch(error => {
-                console.error('Error occurred while stopping the timer', error);
-            });
-    };
-
-    const saveTimer = (loginUser) => {
-        console.log("userId", userId)
-        const newTimerData = {
-            userId: loginUser.userId,
-            user: {
-                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
-                name: loginUser.name
-            }
-        };
-
-        axios.post('/timer/save', newTimerData)
-            .then(response => {
-                console.log(response.data); // 서버에서 반환한 데이터 처리
-            })
-            .catch(error => {
-                console.error('Error occurred while saving the timer', error);
-            });
+    const handleClose = (value: string) => {
+        setOpen(false);
+        setSelectedValue(value);
     };
 
     return (
-        <div>
-            <Typography variant="h3" gutterBottom>{time} seconds</Typography>
-            <Button variant="contained" color="inherit" onClick={startTimer}>Start</Button>
-            <Button variant="contained" color="error" onClick={stopTimer}>Stop</Button>
-            <Button variant="contained" color="primary" onClick={saveTimer}>Save</Button>
-        </div>
+            <TimerDialog
+                selectedValue={selectedValue}
+                // open={open}
+                onClose={handleClose}
+                userId={userId}
+            />
     );
-};
-
-export default Stopwatch;
+}
