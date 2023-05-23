@@ -39,7 +39,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                 alert("타이머 생성 완료");
             })
             .catch(error => {
-                // alert("타이머 생성 실패");
+                alert("타이머 생성 실패");
             });
     };
 
@@ -87,7 +87,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                         </ListItemAvatar>
                         <ListItemText primary="새 타이머 만들기" />
                     </ListItemButton>
-                    <TimerCreate open={open} handleClose={handleClose}/>
+                    <TimerCreate modalOpen={modalOpen} handleClose={handleClose} userId={userId}/>
                 </ListItem>
             </List>
                 </CardContent>
