@@ -20,7 +20,7 @@ import Button from '@mui/material/Button';
 import TimerCreate from "./TimerCreate";
 
 export default function TimerDialog(props: SimpleDialogProps) {
-    const { onClose, selectedValue, open, userId } = props;
+    const { onClose, selectedValue, open, userId, loginUser } = props;
 
     const handleClose = () => {
         onClose(selectedValue);
@@ -36,7 +36,9 @@ export default function TimerDialog(props: SimpleDialogProps) {
 
         axios.post(url, data)
             .then(response => {
-                alert("타이머 생성 완료");
+                if(response.data == "create") {
+                    alert("타이머 생성 완료");
+                }
             })
             .catch(error => {
                 alert("타이머 생성 실패");
@@ -45,6 +47,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
 
     const [modalOpen, setModalOpen] = React.useState(false);
     const handleOpen = () => setModalOpen(true);
+    const handleModalClose = () => setModalOpen(false);
 
     const handleListItemClick = (value: string) => {
         onClose(value);
@@ -87,7 +90,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                         </ListItemAvatar>
                         <ListItemText primary="새 타이머 만들기" />
                     </ListItemButton>
-                    <TimerCreate modalOpen={modalOpen} handleClose={handleClose} userId={userId}/>
+                    <TimerCreate modalOpen={modalOpen} handleModalClose={handleModalClose} userId={userId} loginUser={loginUser}/>
                 </ListItem>
             </List>
                 </CardContent>

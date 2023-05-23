@@ -18,19 +18,17 @@ const style = {
 };
 
 export default function TimerCreate(props) {
-    const { handleClose, modalOpen, userId } = props;
+    const { handleModalClose, modalOpen, userId, loginUser } = props;
 
-    console.log('dd');
-
-    const transformRequest = (data) => {
-        // Circular Structure를 제거하거나 필요한 정보만 포함한 객체로 변환
-        const transformedData = {
-            userId: data.userId,
-            // ...
-        };
-
-        return JSON.stringify(transformedData);
-    };
+    // const transformRequest = (data) => {
+    //     // Circular Structure를 제거하거나 필요한 정보만 포함한 객체로 변환
+    //     const transformedData = {
+    //         userId: data.userId,
+    //         // ...
+    //     };
+    //
+    //     return JSON.stringify(transformedData);
+    // };
 
     const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
@@ -51,38 +49,36 @@ export default function TimerCreate(props) {
     const startTimer = (loginUser) => {
         setIsRunning(true);
         const newTimerData = {
-            userId: loginUser.userId,
-            user: {
-                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
-                name: loginUser.name
-            }
+            userId: userId,
         };
 
+        console.log(newTimerData)
+
         axios.post('/timer/start', newTimerData, {
-            transformRequest: [transformRequest] // 커스텀 변환 함수 지정
+            userId: userId, // 커스텀 변환 함수 지정
         })
             .then(response => {
-                console.log(response.data); // 'start' from the Spring Boot controller
+                if(response.data == "start") {
+                    alert("타이머 시작 완료");
+                }
             })
             .catch(error => {
                 console.error('Error occurred while starting the timer', error);
             });
     };
 
-    const stopTimer = (loginUser) => {
+    const stopTimer = () => {
         setIsRunning(false);
 
         const newTimerData = {
-            userId: loginUser.userId,
-            user: {
-                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
-                name: loginUser.name
-            }
+            userId: userId,
         };
 
         axios.post('/timer/stop', newTimerData)
             .then(response => {
-                console.log(response.data); // 'stop' from the Spring Boot controller
+                if(response.data == "stop") {
+                    alert("타이머 멈춤");
+                }
             })
             .catch(error => {
                 console.error('Error occurred while stopping the timer', error);
@@ -93,15 +89,13 @@ export default function TimerCreate(props) {
         console.log("userId", userId)
         const newTimerData = {
             userId: loginUser.userId,
-            user: {
-                id: loginUser.userId, // 필요한 정보만 유지하고 Circular Structure를 제거
-                name: loginUser.name
-            }
         };
 
         axios.post('/timer/save', newTimerData)
             .then(response => {
-                console.log(response.data); // 서버에서 반환한 데이터 처리
+                if(response.data == "save") {
+                    alert("타이머 저장 완료");
+                }
             })
             .catch(error => {
                 console.error('Error occurred while saving the timer', error);
@@ -112,7 +106,7 @@ export default function TimerCreate(props) {
         <div>
             <Modal
                 open={modalOpen}
-                onClose={handleClose}
+                onClose={handleModalClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
@@ -124,6 +118,10 @@ export default function TimerCreate(props) {
                     <Button variant="contained" color="inherit" onClick={startTimer}>Start</Button>
                     <Button variant="contained" color="error" onClick={stopTimer}>Stop</Button>
                     <Button variant="contained" color="primary" onClick={saveTimer}>Save</Button>
+                    <div>
+                    <Button onClick={handleModalClose}>닫기</Button>
+                    </div>
+
                 </Box>
             </Modal>
         </div>
