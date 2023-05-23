@@ -110,6 +110,15 @@ const Group = () => {
     return (
         <>
             <Container>
+                <div className="row">
+                    <div className="col-md-12 col-lg-6"></div>
+
+                    <div className="d-flex justify-content-end align-items-end">
+
+                        <GroupCreateModal loginUser={loginUser} manager={loginUser.user_name}/>
+
+                    </div>
+                </div>
                 <div className={classes.root}>
                     <Grid container spacing={2}>
                 {
@@ -119,16 +128,6 @@ const Group = () => {
                 }
                     </Grid>
 
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 col-lg-6"></div>
-
-                    <div class="d-flex justify-content-end align-items-end">
-
-                        <GroupCreateModal loginUser={loginUser} manager={loginUser.user_name} />
-
-                    </div>
                 </div>
 
             </Container>

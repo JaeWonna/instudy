@@ -106,19 +106,17 @@ const GroupCreateModal = (props) => {
 
     return (
         <div>
-            <div class="row">
-                <div class="col-md-12 col-lg-6"></div>
-
-                <div class="d-flex justify-content-end align-items-end">
-
-                    <div className="rounded-icon">
-                    <Button onClick={() => setGroupFilterModalOpen(true)}>
-                        <FontAwesomeIcon icon={faSearch} />
-                    </Button>
-                    </div>
-
-                </div>
+            <div className="rounded-icon">
+                <Button onClick={() => setGroupFilterModalOpen(true)}>
+                    <FontAwesomeIcon icon={faSearch} />
+                </Button>
             </div>
+            <div className="rounded-icon">
+                <Button style={null} data-mdb-toggle="modal" data-mdb-target="#exampleModal">
+                    <FontAwesomeIcon icon={faPlus} />
+                </Button>
+            </div>
+
 
             <ModalStaticBackdrop
                 keepMounted
@@ -126,20 +124,6 @@ const GroupCreateModal = (props) => {
                 open={groupFilterModalOpen}
                 component={<GroupFilterModal filterGroup={filterGroup} resetGroups={resetGroups} setOpen={setGroupFilterModalOpen} />}
             />
-
-            <div class="row">
-                <div class="col-md-12 col-lg-6"></div>
-
-                <div class="d-flex justify-content-end align-items-end">
-
-                    <div className="rounded-icon">
-                        <Button style={null} data-mdb-toggle="modal" data-mdb-target="#exampleModal">
-                            <FontAwesomeIcon icon={faPlus} />
-                        </Button>
-                    </div>
-
-                </div>
-            </div>
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
