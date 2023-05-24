@@ -46,7 +46,7 @@ public class CheckingController {
     @RequestMapping(value = "/checking/delete", method = RequestMethod.POST)
     public String deleteChecking(@RequestBody Map<String, String> paramMap) {
         Long checkId = Long.parseLong(paramMap.get("checkingId"));
-        Optional<Checking> deleteCheck = checkingService.findByCheckId(checkId);
+        Checking deleteCheck = checkingService.findByCheckingId(checkId);
         checkingService.delete(deleteCheck);
         return "delete";
     }
@@ -61,9 +61,8 @@ public class CheckingController {
 
     // 전체 Check중 개인 Check보기
     @RequestMapping(value = "/checking/read/{checkingId}", method = RequestMethod.POST)
-    public Optional<Checking> readMyChecking(@RequestBody Map<String, String> paramMap, @PathVariable("checkingId") Long checkId) {
-        Optional<Checking> check = checkingService.findByCheckId(checkId);
-        return check;
+    public Checking readMyChecking(@RequestBody Map<String, String> paramMap, @PathVariable("checkingId") Long checkingId) {
+        return checkingService.findByCheckingId(checkingId);
     }
 
     // 그룹원 읽기
