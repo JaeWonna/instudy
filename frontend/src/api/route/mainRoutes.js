@@ -8,7 +8,7 @@ import ProfileModify from "../../components/Profile/ProfileModify";
 import Profile from "../../../src/pages/Profile";
 import Feed from "../../../src/pages/Feed";
 import Timer from "../../../src/pages/Timer";
-// import GroupAssignView from "../../components/group/assignment/GroupAssignView";
+import GroupTodo from "../../pages/GroupTodo";
 
 const mainRoutes = [
 
@@ -50,9 +50,9 @@ const mainRoutes = [
         path: "/timer/:groupId",
         element: <Timer />
     },
-    // {
-    //     path: "/group/:id/:aid",
-    //     element: <GroupAssignView />
-    // }
+    {
+        path: "/todo/:groupId",
+        element: <GroupTodo />
+    }
 ];
 export default mainRoutes;

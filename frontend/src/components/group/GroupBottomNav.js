@@ -43,14 +43,10 @@ const GroupBottomNav = () => {
             </Row>
               </Nav.Link>
 
-                <Nav.Link href="/group"
-                          style={NavStyle}
-                >
-            <FontAwesomeIcon icon={faCheckSquare} />
-            <Row
-                style={textStyle} groupId={groupId}
-            ><span>Todo</span></Row>
-              </Nav.Link>
+            <Nav.Link href={`/todo/${groupId}`} style={NavStyle}>
+              <FontAwesomeIcon icon={faCheckSquare} />
+              <Row style={textStyle}><span>Todo</span></Row>
+            </Nav.Link>
 
                 <Nav.Link href="/profile"
                           style={NavStyle} groupId={groupId}
@@ -67,7 +63,7 @@ const GroupBottomNav = () => {
             </Nav.Link>
 
             <Nav.Link href={`/feed/${groupId}`} style={NavStyle}>
-              <FontAwesomeIcon icon={faClock} />
+              <FontAwesomeIcon icon={faRss} />
               <Row style={textStyle}><span>피드</span></Row>
             </Nav.Link>
     
