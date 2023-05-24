@@ -7,14 +7,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "check")
+@Entity(name = "checking")
 @Getter
 @Setter
-public class Check {
+public class Checking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long checkId; // 기본키
+    private Long checkingId; // 기본키
 
     @Column
     private String userId; // 유저아이디
@@ -31,9 +31,9 @@ public class Check {
 
     // 추후 true나 false는 return값으로만 쓸 예정이고 투두나 타이머는 userId를 통해서 가져올 예정이다
 
-    public Check() {}
+    public Checking() {}
 
-    public Check(String userId, Long groupId, String content) {
+    public Checking(String userId, Long groupId, String content) {
         this.userId = userId;
         this.groupId = groupId;
         this.content = content;
