@@ -23,13 +23,16 @@ public class Checking {
     @Column
     private String content; // 내용
     @Column
-    private int checkNum; // 인증갯수
+    private int goodNum; // 인정해준갯수
+    @Column
+    private int badNum; // 인정안해준갯수
+    
+    @ElementCollection
+    private List<String> period = new ArrayList<>(); // 인증 받은 날짜 모음
     @ElementCollection
     private List<String> checkUser = new ArrayList<>(); // 인증 누른 유저 아이디
     @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글모음
-
-    // 추후 true나 false는 return값으로만 쓸 예정이고 투두나 타이머는 userId를 통해서 가져올 예정이다
 
     public Checking() {}
 
