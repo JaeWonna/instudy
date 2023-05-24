@@ -18,4 +18,6 @@ public interface GroupRepository {
     List<StudyGroup> findAll();
 
     List<StudyGroup> findByGroupNameContaining(String groupName);
+
+    StudyGroup findByGroupId(Long groupId);
 }
