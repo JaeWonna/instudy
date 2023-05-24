@@ -79,7 +79,9 @@ export default function Check() {
             <div className="col-md-10" style={child}>
                 <MDBCard className="mb-5">
                     <MDBCardBody>
-                        <GroupUserList loginUser={loginUser}/>
+                        <GroupUserList loginUser={loginUser} groupId={groupId}/>
+                        {/*<img src={groupMember} alt="Generic placeholder"*/}
+                        {/*     className="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />*/}
                     </MDBCardBody>
                 </MDBCard>
             </div>

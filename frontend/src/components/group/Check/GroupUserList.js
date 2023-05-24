@@ -1,11 +1,32 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import groupMember from '../../../img/groupMember.jpg'
+import groupMember2 from '../../../img/groupMember2.JPG'
+import groupMember3 from '../../../img/groupMember3.png'
+import groupMember4 from '../../../img/groupMember4.jpg'
+import groupMember5 from '../../../img/groupMember5.jpg'
 
 const GroupUserList = (props) => {
     const [groupUsers, setGroupUsers] = useState([]);
-    let groupId = '123'; // 그룹 ID를 적절한 값으로 설정해야 합니다.
 
-    const { loginUser } = props;
+    const { loginUser, groupId } = props;
+
+    const imgStyle = {
+        width: '70px',
+    };
+
+    const memberImg = [
+        groupMember,
+        groupMember2,
+        groupMember3,
+        groupMember4,
+        groupMember5,
+    ];
+
+    const memberData = {
+        memberName: groupUsers.user_name,
+        memberImg: memberImg,
+    }
 
     useEffect(() => {
         const fetchGroupUsers = async () => {
@@ -28,10 +49,14 @@ const GroupUserList = (props) => {
 
     return (
         <div>
-            <h1>Group Users</h1>
             <ul>
+                {memberImg.map((memberImg, index) => (
+                    <img key={index} src={memberImg} alt={`Image ${index + 1}`} className="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
+                ))}
                 {groupUsers.map((user) => (
-                    <li key={user.id}>{user.name}</li>
+                    <div key={user.id}>
+                        {user.user_name}
+                    </div>
                 ))}
             </ul>
         </div>
