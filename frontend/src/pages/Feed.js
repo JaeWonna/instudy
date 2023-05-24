@@ -88,6 +88,22 @@ const Feed = () => {
             .catch();
     }
 
+    const deleteFeed = (feedId) => {
+        axios
+            .post("/feed/delete", {
+                feedId : feedId
+            })
+            .then((response) => {
+                axios.post("/feed/read", {
+                    groupId : groupId
+                })
+                    .then((response) => {
+                        setFeeds(response.data);
+                    })
+            })
+            .catch();
+    }
+
     const contentChange = (e) => {
         setContent(e.target.value)
     }
@@ -123,6 +139,7 @@ const Feed = () => {
                             feeds.map((feed) => (
                                 <Grid item xs={12} xl={3} lg={4} sm={6}>
                                     <FeedCard
+                                        deleteFeed = {deleteFeed}
                                         feedId = {feed.feedId}
                                         user = {loginUser}
                                         feed={feed}

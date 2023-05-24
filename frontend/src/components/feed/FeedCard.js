@@ -17,8 +17,21 @@ import {styled} from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import axios from "axios";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {Button, Menu, MenuItem} from "@material-ui/core";
+import DeleteIcon from '@mui/icons-material/Delete';
 
-const FeedCard = ({feedId, user, feed}) => {
+const FeedCard = ({deleteFeed, feedId, user, feed}) => {
+
+    //삭제를 위한 코드
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    }
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     const [expanded, setExpanded] = React.useState(false);
     const [isHeart, setIsHeart] = React.useState(true);
@@ -58,7 +71,6 @@ const FeedCard = ({feedId, user, feed}) => {
             })
             .then((response) => {
                 setHeart(response.data)
-                console.log("여긴 피드 카드", JSON.stringify(response))
         })
     }
 
@@ -79,10 +91,44 @@ const FeedCard = ({feedId, user, feed}) => {
                             </Avatar>
                         }
                         action={
-                            <IconButton aria-label="settings">
-                                <MoreVertIcon />
-                            </IconButton>
-                        }
+                            <div>
+                                <IconButton
+                                    aria-label="settings"
+                                    id="basic-button"
+                                    aria-controls={open ? 'basic-menu' : undefined}
+                                    aria-haspopup="true"
+                                    aria-expanded={open ? 'true' : undefined}
+                                    onClick={handleClick}
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+                                <Menu
+                                id="basic-menu"
+                                anchorEl={anchorEl}
+                                open={open}
+                                onClose={handleClose}
+                                MenuListProps={{
+                                'aria-labelledby': 'basic-button',
+                            }}
+                                >
+                                <MenuItem>
+                                    {
+                                        feed.userId === user.userId
+                                        ?
+                                            <button className="btn btn-danger" onClick={()=>{deleteFeed(feedId)}}>삭제</button>
+                                            :
+                                            <button className="btn btn-success" onClick={()=>{
+                                                function NDeleteFeed() {
+                                                    alert("자신이 작성한 피드만 삭제할 수 있습니다")
+                                                }
+                                                NDeleteFeed()}}>삭제불가</button>
+                                    }
+                                </MenuItem>
+                                </Menu>
+                            </div>
+
+                       }
+
                         title="Shrimp and Chorizo Paella"
                         subheader="September 14, 2016"
                     />
