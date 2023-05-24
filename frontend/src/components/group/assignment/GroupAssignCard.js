@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Typography from '@mui/material/Typography';
 import GroupAssignCreate from "../../group/assignment/GroupAssignCreate";
+import axios from "axios";
 
 const GroupAssignCard = (prop) => {
     const cardStyle = {
@@ -19,6 +20,23 @@ const GroupAssignCard = (prop) => {
     const imgStyle = {
         width: '70px',
     }
+    const deleteAssign = () => {
+        axios
+            .post("/assignment/delete", {assignmentId: prop.assign.assignmentId})
+            .then((response) => {
+                console.log(response);
+                if (response.data === "delete") {
+                    alert("과제가 삭제되었습니다");
+                } else {
+                    alert("과제 삭제 실패");
+                }
+            })
+            .catch((error) => {
+                // 서버 요청 실패
+                console.error("과제 삭제 실패: ", error);
+                // 에러 처리 또는 알림 표시
+            });
+    };
 
     const [modal, setModal] = useState(false);
 
@@ -87,7 +105,7 @@ const GroupAssignCard = (prop) => {
 
                                 </div>
                                 <div class="flex-shrink-0">
-                                    <div className="rounded-icon">
+                                    <div className="rounded-icon" onClick={deleteAssign}>
                                         <FontAwesomeIcon icon={faTrash} />
                                     </div>
 
