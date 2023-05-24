@@ -14,6 +14,7 @@ import { Box } from "@mui/system";
 import axios from "axios";
 import GroupCard from "./GroupCard";
 import GroupAssignCard from "./assignment/GroupAssignCard";
+import GroupBottomNav from "../group/GroupBottomNav";
 
 const GroupMainView = (props) => {
     const {id} = useParams();
@@ -64,6 +65,7 @@ const GroupMainView = (props) => {
     }, []);
 
     return (
+        <>
         <Box
             display="flex"
             justifyContent="center"
@@ -84,11 +86,10 @@ const GroupMainView = (props) => {
                     ))
                 }
                         <GroupAssignCreate groupId={groupId}/>
-
-
-
             </div>
         </Box>
+    <GroupBottomNav />
+    </>
     );
 };
 
