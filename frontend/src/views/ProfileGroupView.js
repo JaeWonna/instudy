@@ -6,6 +6,8 @@ import ProfileGroupCard from '../components/Profile/ProfileGroupCard';
 import axios from "axios";
 import {Grid} from "@mui/material";
 import * as React from "react";
+import GroupCard from "../components/group/GroupCard";
+import { styled } from '@mui/system';
 
 const ProfileGroupView = (props) => {
     const { loginUser } = props;
@@ -13,6 +15,19 @@ const ProfileGroupView = (props) => {
     const [onGroups, setOnGroups] = useState([]);
 
     const [selectedGroup, setSelectedGroup] = useState(null);
+
+    const useStyles = styled((theme) => ({
+        root: {
+            flexGrow: 1,
+            margin: theme.spacing(2),
+        },
+        item: {
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+        },
+    }));
+
+    const classes = useStyles();
 
     const handleGroupCard = (group) => {
         // alert(JSON.stringify(group))
@@ -46,30 +61,50 @@ const ProfileGroupView = (props) => {
     return (
         <div>
             <Container>
-      <Row>
-      </Row>
-      <Row>
-      <Col sm>
-{/*{*/}
-{/*    groups.map(group => (*/}
-{/*  <ProfileGroupCard key={group.id} name={group.name} path={group.path} />*/}
-{/*))*/}
-{/*}*/}
+                <Row>
+                </Row>
+                <Row>
 
-          <Grid container spacing={2}>
-          {
-              onGroups.map((group) => (
-                      <ProfileGroupCard
-                          key={group.group_id}
-                          group={group}
-                          handleGroupCard={handleGroupCard}
-                      />
-              ))
-          }
-          </Grid>
-      </Col>
-      </Row>
-    </Container>
+
+
+                    {/*<Col sm>*/}
+                    {/*    /!*{*!/*/}
+                    {/*    /!*    groups.map(group => (*!/*/}
+                    {/*    /!*  <ProfileGroupCard key={group.id} name={group.name} path={group.path} />*!/*/}
+                    {/*    /!*))*!/*/}
+                    {/*    /!*}*!/*/}
+
+                    {/*    {*/}
+                    {/*        onGroups.map((group) => (*/}
+                    {/*            <Grid item xs={12} xl={6}>*/}
+                    {/*                <ProfileGroupCard*/}
+                    {/*                    key={group.group_id}*/}
+                    {/*                    group={group}*/}
+                    {/*                    handleGroupCard={handleGroupCard}*/}
+                    {/*                />*/}
+                    {/*            </Grid>*/}
+                    {/*        ))*/}
+                    {/*    }*/}
+                    {/*</Col>*/}
+
+                    <div className={classes.root}>
+                        <Grid container spacing={2}>
+                            {
+                                onGroups.map((group) => (
+                                        <ProfileGroupCard
+                                            key={group.group_id}
+                                            group={group}
+                                            handleGroupCard={handleGroupCard} classes={classes}
+                                        />
+                                ))
+                            }
+                        </Grid>
+
+                    </div>
+
+
+                </Row>
+            </Container>
         </div>
     );
 };
