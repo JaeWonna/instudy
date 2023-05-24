@@ -22,11 +22,11 @@ public class CheckingService {
         checkingRepository.save(newChecking);
     }
 
-    public void delete(Optional<Checking> checking) {
-        checking.ifPresent(checkingRepository::delete);
+    public void delete(Checking checking) {
+        checkingRepository.delete(checking);
     }
 
-    public Optional<Checking> findByCheckId(Long checkingId) {
+    public Checking findByCheckingId(Long checkingId) {
         return checkingRepository.findByCheckingId(checkingId);
     }
 

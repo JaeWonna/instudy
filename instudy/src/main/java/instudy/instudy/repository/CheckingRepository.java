@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface CheckingRepository extends JpaRepository<Checking, Long> {
 
     Checking save(Checking checking); // 생
-    Optional<Checking> findByCheckingId(Long checkingId); // 삭
+    Checking findByCheckingId(Long checkingId); // 삭
     List<Checking> findByGroupId(Long groupId); // 읽
 }
