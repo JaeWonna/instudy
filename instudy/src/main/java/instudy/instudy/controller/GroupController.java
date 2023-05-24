@@ -33,7 +33,7 @@ public class GroupController {
     //유저가 가입한 그룹 조회
     @RequestMapping(value = "/groups/getMyGroups", method = RequestMethod.POST)
     public List<StudyGroup> userGroups(@RequestBody Map<String, String> paramMap){
-        String loginUser = paramMap.get("user_id");
+        String loginUser = paramMap.get("userId");
         System.out.println("로그인유저 : " + loginUser);
         return groupService.findUserGroups(loginUser);
     }
