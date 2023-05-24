@@ -13,7 +13,7 @@ import {
     Typography
 } from "@material-ui/core";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {Button, TextField} from "@mui/material";
 import {MDBCard, MDBCardBody, MDBCardTitle} from "mdb-react-ui-kit";
 import Todo from "../components/Profile/Todo";
@@ -29,7 +29,7 @@ const Feed = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    let groupId = 1;
+    // let groupId = 1;
     const [loginUser, setLoginUser] = useState({});
     const [content, setContent] = useState([]);
 
@@ -101,6 +101,10 @@ const Feed = () => {
         right: "5px",
         bottom: "80px"
     }
+
+    const params = useParams(); //url로 넘어온 파라미터를 받는 역할 (App.js 의 :id 참고)
+    const groupId = params.groupId; //(params의 :id를 받는 역할)
+    console.log("groupId ", groupId)
 
     return (
         <div>
