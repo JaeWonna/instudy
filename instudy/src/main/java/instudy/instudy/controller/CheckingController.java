@@ -91,10 +91,32 @@ public class CheckingController {
         return myTodos;
     }
 
-    // 각각의 인증 폼 보고 사용자는 인정을 누를 수 있고 / 인정안함을 누를 수 있다
+    // 각각의 인증 폼 보고 사용자는 인정을 누를 수 있고 / 인정안함을 누를 수 있다 -> 내가 전체 화면에서 다른사람을 해줌
     // 반환 값은 Checking
+    // 댓글도 String 값으로 받을 수 있음
+    @RequestMapping(value = "/checking/update/click", method = RequestMethod.POST)
+    public Checking updateCheckingClick(@RequestBody Map<String, String> paramMap) {
+        Boolean good = Boolean.parseBoolean(paramMap.get("good"));
+        Boolean bad = Boolean.parseBoolean(paramMap.get("bad"));
+        String userId = paramMap.get("userId");
+        Long checkingId = Long.parseLong(paramMap.get("checkingId"));
+        String userComment = paramMap.get("comment");
+        Checking checking = checkingService.findByCheckingId(checkingId);
+        return checkingService.updateClick(checking, userId, good, bad, userComment);
+    }
 
-    // 공부 인증의 마지막 : 인정이 될 수도 있고 인정아 안될 수도 있다
-    // 반환 값은 String
+    // 공부 인증의 마지막 : 인정이 될 수도 있고 인정아 안될 수도 있다 -> 내 화면에서 인정 됐는지 안됐는지
+    // 과반수 이상이면 인정
+    // 반환 값은 String : 성공시 grass, 안됐을시 not리턴
+    @RequestMapping(value = "/checking/update/grass", method = RequestMethod.POST)
+    public String updateCheckingGrass(@RequestBody Map<String, String> paramMap) {
+        String inputPeriod = paramMap.get("period");
+        String userId = paramMap.get("userId");
+        Long groupId = Long.parseLong(paramMap.get("groupId"));
+        Long checkingId = Long.parseLong(paramMap.get("checkingId"));
+        Checking checking = checkingService.findByCheckingId(checkingId);
+        return checkingService.updateGrass(checking, userId, groupId, inputPeriod);
+    }
+
 
 }
