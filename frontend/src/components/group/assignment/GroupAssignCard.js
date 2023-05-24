@@ -38,7 +38,7 @@ const GroupAssignCard = (prop) => {
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">과제 제목</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">{prop.assign.title}</h5>
                                 <button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -49,13 +49,13 @@ const GroupAssignCard = (prop) => {
                                             <b>기간</b>
                                         </div>
                                         <div class="col-md">
-                                            하드코딩
+                                            {prop.assign.period}
                                         </div>
                                         <div class="col-md">
                                             <b>상세 설명</b>
                                         </div>
                                         <div class="col-md">
-                                            하드코딩
+                                            {prop.assign.description}
                                         </div>
                                     </div>
 
