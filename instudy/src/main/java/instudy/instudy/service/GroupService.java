@@ -52,12 +52,12 @@ public class GroupService {
     }
 
     //해당 유저가 포함된 그룹 리스트 조회
-    public List<StudyGroup> findUserGroups(String loginUser) {
-        List<StudyGroup> userStudyGroups = new ArrayList<>();
-        List<StudyGroup> allGroups = groupRepository.findAll();
+    public List<StudyGroup> findUserGroups(String userId) {
+        List<StudyGroup> userStudyGroups = new ArrayList<>(); // 빈 리스트를 만들고
+        List<StudyGroup> allGroups = groupRepository.findAll(); // 전체 리스트를 찾고
 
-        for (StudyGroup group : allGroups) {
-            if (group.getMember().contains(loginUser)) {
+        for (StudyGroup group : allGroups) { // 전체 리스트에서 contains(loginUser)가 있으면 빈 리스트에 추가
+            if (group.getMember().contains(userId)) {
                 userStudyGroups.add(group);
             }
         }
@@ -69,6 +69,11 @@ public class GroupService {
         return groupRepository.findByGroupName(groupName)
                 .orElse(null);
     }
+
+    public StudyGroup findByGroupId(Long groupId) {
+        return groupRepository.findByGroupId(groupId);
+    }
+    
 
 
     // 그룹 검색
