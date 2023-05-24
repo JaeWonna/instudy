@@ -13,7 +13,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
 import { blue } from '@mui/material/colors';
 import { Box } from "@mui/system";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import axios from 'axios';
 import TimerDialog from "../components/timer/TimerDialog";
 
@@ -23,7 +23,7 @@ export interface SimpleDialogProps {
     onClose: (value: string) => void;
 }
 
-export default function SimpleDialogDemo() {
+export default function SimpleDialogDemo(props) {
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
 
@@ -57,12 +57,41 @@ export default function SimpleDialogDemo() {
         setSelectedValue(value);
     };
 
+    const [group, setGroup] = useState([]);
+
+    useEffect(()=> {
+        const groupdata = [
+            {id: 1, content: '정보처리기사 필기 스터디', link: '/GroupMainView/1'},
+            {id: 2, content: '스프링 스터디', link: '/GroupMainView/2'},
+            {id: 3, content: '리액트 스터디', link: '/GroupMainView/3'},
+        ];
+
+        setGroup([...groupdata]);
+
+        axios
+            .post("/groups", {
+                loginUser: loginUser.user_name,
+            })
+            .then((res) => {
+                console.log(res.data);
+                setGroup(res.data);
+                console.log("test");
+                console.log(...group);
+            })
+            .catch();
+
+    }, []);
+
+    const params = useParams(); //url로 넘어온 파라미터를 받는 역할 (App.js 의 :id 참고)
+    const groupId = params.groupId; //(params의 :id를 받는 역할)
+    console.log("groupId ", groupId)
+
     return (
             <TimerDialog
                 selectedValue={selectedValue}
                 // open={open}
                 onClose={handleClose}
-                userId={userId}
+                userId={userId} loginUser={loginUser} groupId={groupId}
             />
     );
 }

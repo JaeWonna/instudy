@@ -18,6 +18,8 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import TimerCreate from "./TimerCreate";
+import { format, parseISO } from 'date-fns';
+import { useState } from 'react';
 
 export default function TimerDialog(props: SimpleDialogProps) {
     const { onClose, selectedValue, open, userId, loginUser } = props;
@@ -26,16 +28,45 @@ export default function TimerDialog(props: SimpleDialogProps) {
         onClose(selectedValue);
     };
 
-    const createTimer = (userId) => {
+    const currentDate = new Date(); // 현재 날짜와 시간을 가져옵니다.
+
+    // 날짜 및 시간 형식 지정
+    const formattedTime = format(currentDate, 'HH:mm:ss');
+    const formattedDateTime = format(currentDate, 'yyyy-MM-dd HH:mm:ss');
+
+    // ISO 문자열을 Date 객체로 변환
+    const isoString = '2023-05-23T12:34:56.789Z';
+    const parsedDate = parseISO(isoString);
+
+    const [bitValue, setBitValue] = useState(0);
+
+    const createTimer = (userId, group) => {
         const url = '/timer/create';
         const data = {
+            // timer_id: 0,
+            // count: 0,
+            // hour: 0,
+            // local_date_time: formattedDateTime,
+            // minute: 0,
+            // second: 0,
+            // timer_status: '',
+            // count_time: 0,
+            // day_time: formattedTime,
+            // end_time: 0,
+            // running: bitValue,
+            // start_time: 0,
+            // total_time: 0,
+            groupId: props.groupId,
             userId: userId.toString()
         };
 
         console.log(userId)
+        console.log(props.groupId)
 
         axios.post(url, data)
             .then(response => {
+                console.log("여기까지")
+                console.log("response.data", response.data)
                 if(response.data == "create") {
                     alert("타이머 생성 완료");
                 }
@@ -60,7 +91,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            height="100vh"
+            height="80vh"
         >
             <Card sx={{ maxWidth: 345 }}>
                 <CardContent>
