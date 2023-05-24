@@ -52,7 +52,7 @@ public class CheckingController {
     }
 
     // 그룹 안에서 전체 Check 읽기
-    @RequestMapping(value = "/checking/read", method = RequestMethod.POST)
+    @RequestMapping(value = "/checking/groupRead", method = RequestMethod.POST)
     public List<Checking> readChecking(@RequestBody Map<String, String> paramMap) {
         Long groupId = Long.parseLong(paramMap.get("groupId"));
         System.out.println(checkingService.findByGroupId(groupId));
@@ -60,13 +60,14 @@ public class CheckingController {
     }
 
     // 전체 Check중 개인 Check보기
-    @RequestMapping(value = "/checking/read/{checkingId}", method = RequestMethod.POST)
-    public Checking readMyChecking(@RequestBody Map<String, String> paramMap, @PathVariable("checkingId") Long checkingId) {
+    @RequestMapping(value = "/checking/read", method = RequestMethod.POST)
+    public Checking readMyChecking(@RequestBody Map<String, String> paramMap) {
+        Long checkingId = Long.parseLong(paramMap.get("checkingId"));
         return checkingService.findByCheckingId(checkingId);
     }
 
     // 그룹원 읽기
-    @RequestMapping(value = "/checking/read/{checkingId}/groupUser", method = RequestMethod.POST)
+    @RequestMapping(value = "/checking/read/groupUser", method = RequestMethod.POST)
     public List<User> readMyCheckingGroupUser(@RequestBody Map<String, String> paramMap) {
         Long groupId = Long.parseLong(paramMap.get("groupId"));
         System.out.println("현재 그룹 아이디는?! groupId = " + groupId);
@@ -78,12 +79,11 @@ public class CheckingController {
             User findUser = userService.findOne(name);
             users.add(findUser);
         }
-
         return users;
     }
 
     // Todo읽기
-    @RequestMapping(value = "/checking/read/{checkingId}/todo", method = RequestMethod.POST)
+    @RequestMapping(value = "/checking/read/todo", method = RequestMethod.POST)
     public List<Todo> readMyCheckingTodo(@RequestBody Map<String, String> paramMap) {
         String userId = paramMap.get("userId");
         System.out.println("현재 사용자의 아이디는?! userId = " + userId);
@@ -91,14 +91,10 @@ public class CheckingController {
         return myTodos;
     }
 
-    // 과반수 이상이 인정하면 공부한날로 생각함 작성중
-//    @RequestMapping(value = "/check/read/{checkId}/agree", method = RequestMethod.POST)
-//    public Check agreeStudy(@RequestBody Map<String, String> paramMap) {
-//        Long checkId = Long.parseLong(paramMap.get("checkId"));
-//        Boolean isStudy = Boolean.parseBoolean(paramMap.get("isStudy"));
-//        String userId = paramMap.get("userId");
-//        Optional<Check> check = checkService.findByCheckId(checkId);
-//        return checkService.agreeStudy(check, isStudy, userId).orElse(null);
-//    }
+    // 각각의 인증 폼 보고 사용자는 인정을 누를 수 있고 / 인정안함을 누를 수 있다
+    // 반환 값은 Checking
+
+    // 공부 인증의 마지막 : 인정이 될 수도 있고 인정아 안될 수도 있다
+    // 반환 값은 String
 
 }
