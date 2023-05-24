@@ -6,8 +6,9 @@ import TodoList from "../components/Profile/TodoList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {Typography} from "@mui/material";
+import GroupUserList from "../components/group/Check/GroupUserList";
 
-export default function GroupTodo() {
+export default function Check() {
     const child = {
         margin: "0 auto"
     };
@@ -78,12 +79,7 @@ export default function GroupTodo() {
             <div className="col-md-10" style={child}>
                 <MDBCard className="mb-5">
                     <MDBCardBody>
-                        <MDBCardTitle>
-                            <div className="flex-shrink-0">
-                                <img src={groupMember} alt="Generic placeholder"
-                                     className="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
-                            </div>
-                        </MDBCardTitle>
+                        <GroupUserList loginUser={loginUser}/>
                     </MDBCardBody>
                 </MDBCard>
             </div>
