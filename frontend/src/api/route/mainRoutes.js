@@ -8,7 +8,7 @@ import ProfileModify from "../../components/Profile/ProfileModify";
 import Profile from "../../../src/pages/Profile";
 import Feed from "../../../src/pages/Feed";
 import Timer from "../../../src/pages/Timer";
-import GroupTodo from "../../pages/GroupTodo";
+import Check from "../../pages/Check";
 
 const mainRoutes = [
 
@@ -52,7 +52,7 @@ const mainRoutes = [
     },
     {
         path: "/todo/:groupId",
-        element: <GroupTodo />
+        element: <Check />
     }
 ];
 export default mainRoutes;
