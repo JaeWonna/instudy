@@ -16,16 +16,16 @@ const NavRoutes = [
     },
     {
         path: '/group/:id',
-        element: <GroupBottomNav />,
+        element: <GroupBottomNav/>,
     },
-    {
-        path: '/feed',
-        element: <GroupBottomNav />,
-    },
-    {
-        path: '/timer',
-        element: <GroupBottomNav />,
-    },
+    // {
+    //     path: '/feed',
+    //     element: <GroupBottomNav />,
+    // },
+    // {
+    //     path: '/timer',
+    //     element: <GroupBottomNav />,
+    // },
 
 ];
 export default NavRoutes;
