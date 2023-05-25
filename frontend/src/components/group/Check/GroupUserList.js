@@ -16,25 +16,17 @@ const GroupUserList = (props) => {
         margin: '10px',
     };
 
-    const memberImg = [
-        groupMember,
-        groupMember2,
-        groupMember3,
-        groupMember4,
-        // groupMember5,
-    ];
-
     useEffect(() => {
         const fetchGroupUsers = async () => {
             try {
-                console.log("async 진입")
-                console.log("groupId", groupId)
-                const response = await axios.post(`/checking/read/${groupId}/groupUser`, {
+                console.log("async 진입");
+                console.log("groupId", groupId);
+                const response = await axios.post(`/checking/read/groupUser`, {
                     groupId: groupId,
                 });
-                console.log("response.data", response.data)
+                console.log("response.data", response.data);
                 setGroupUsers(response.data);
-                console.log("groupUsers", response.data)
+                console.log("groupUsers", response.data);
             } catch (error) {
                 console.error("Error fetching group users:", error);
             }
@@ -43,19 +35,50 @@ const GroupUserList = (props) => {
         fetchGroupUsers();
     }, [groupId]);
 
+    // console.log("groupUsers[0].userId", groupUsers[0].userId)
+
+    const memberData = [
+        { userId: 'user1', img: groupMember },
+        { userId: 'user2', img: groupMember2 },
+        { userId: 'user3', img: groupMember3 },
+        { userId: 'user4', img: groupMember4 },
+    ];
+
+    // for (const user of memberData) {
+    //     memberData.push(groupUsers.userId);
+    // }
+    //
+    // console.log("memberData", memberData)
+
     return (
         <div>
-            <ul>
-                {memberImg.map((memberImg, index) => (
-                    <img key={index} src={memberImg} alt={`Image ${index + 1}`} className="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />
-                ))}
-            </ul>
+            {/*<ul>*/}
+            {/*    {memberData.map((member, index) => (*/}
+            {/*        <img*/}
+            {/*            key={index}*/}
+            {/*            src={member.img}*/}
+            {/*            alt={`Image ${index + 1}`}*/}
+            {/*            className="img-fluid rounded-circle border border-dark border-3"*/}
+            {/*            style={imgStyle}*/}
+            {/*        />*/}
+            {/*    ))}*/}
+            {/*</ul>*/}
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                {groupUsers.map((user) => (
-                    <div key={user.id} style={{ margin: '0 30px' }}>
-                        <Typography>{user.user_name}</Typography>
-                    </div>
-                ))}
+                {memberData.map((member) => {
+                    // console.log("member.userId", member.userId)
+                    // console.log("user.userId", user.userId)
+                    // const member = memberData.find((member) => member.userId === user.userId);
+                    // console.log("member", member)
+                    // const img = member && member.img;
+                    //
+                    // console.log("img", img)
+                    return (
+                        <div key={member.id} style={{ margin: '0 30px' }}>
+                            <img src={member.img} alt={`User ${member.userId}`} style={imgStyle} class="img-fluid rounded-circle border border-dark border-3"/>
+                            <Typography>{member.userId}</Typography>
+                        </div>
+                    );
+                })}
             </div>
         </div>
     );
