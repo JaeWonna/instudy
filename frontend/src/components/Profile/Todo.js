@@ -4,33 +4,46 @@ import TodoList from '../Profile/TodoList'
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 
-const Todo = (props) => {
+const Todo = () => {
 
     let group_id;
 
     const [todos, setTodos] = useState([]);
-    const { loginUser } = props;
+    const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
 
     const onClickModify = () => {
         navigate("/profileModify");
     };
 
-    console.log("userId", loginUser.userId)
+    //데이터 불러오기
+    useEffect(() => {
+        const storedUser = sessionStorage.getItem("loginUser");
+        console.log("test");
+        console.log(storedUser);
+        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+            const parsedUser = JSON.parse(storedUser).data;
+            setLoginUser(parsedUser);
 
-        axios
-            .post("/todo/read", {
-                userId : loginUser.userId
-            })
-            .then((response) => {
-                setTodos(response.data);
-            })
-            .catch();
+            axios
+                .post("/todo/read", {
+                    userId: parsedUser.userId
+                })
+                .then((response) => {
+                    setTodos(response.data);
+                })
+                .catch((error) => {
+                    // 에러 처리 로직 추가
+                });
+        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+            navigate("/signIn");
+        }
+    }, []);
 
-/*    //group_id 가져오기
-    axios.post("", {
-        group_id : group_id
-    }).then()*/
+    /*    //group_id 가져오기
+        axios.post("", {
+            group_id : group_id
+        }).then()*/
 
     //todo_item 생성
     const dataId = useRef(0)
@@ -72,7 +85,7 @@ const Todo = (props) => {
         axios.post("/todo/delete", {
             todoText : text,
         }).then((response) =>{
-        //데이터 불러오기
+            //데이터 불러오기
             axios.post("/todo/read", {
                 userId : loginUser.userId
             }).then((response) =>{
