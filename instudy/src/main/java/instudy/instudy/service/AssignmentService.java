@@ -29,4 +29,10 @@ public class AssignmentService {
     public List<Assignment> readAllAssignment() {
         return assignmentRepository.findAll();
     }
+
+    public void updateAssignment(Assignment updateAssignment, String description, String title, String period) {
+        updateAssignment.setDescription(description);
+        updateAssignment.setPeriod(period);
+        assignmentRepository.save(updateAssignment);
+    }
 }
