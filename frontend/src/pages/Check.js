@@ -1,12 +1,13 @@
 import { MDBCard, MDBCardBody, MDBCardTitle } from "mdb-react-ui-kit";
 import * as React from "react";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import groupMember from '../img/groupMember.jpg';
 import TodoList from "../components/Profile/TodoList";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import {Typography} from "@mui/material";
 import GroupUserList from "../components/group/Check/GroupUserList";
+import CheckTodoList from "../components/group/Check/CheckTodoList";
 
 export default function Check() {
     const child = {
@@ -23,26 +24,39 @@ export default function Check() {
 
     const [todos, setTodos] = useState([]);
     const [loginUser, setLoginUser] = useState({});
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchTodos = async () => {
-            try {
-                const response = await axios.post("/todo/read", {
-                    userId: loginUser.userId
-                });
-                setTodos(response.data);
-            } catch (error) {
-                console.error("Error fetching todos:", error);
-            }
-        };
-
         const storedUser = sessionStorage.getItem("loginUser");
+        console.log("test");
+        console.log("storedUser", storedUser);
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser).data;
             setLoginUser(parsedUser);
-            fetchTodos();
+        } else {
+            navigate("/signIn");
         }
     }, []);
+
+    useEffect(() => {
+        if (loginUser.userId) {
+            console.log("투두 읽는 useEffect");
+            axios
+                .post("/checking/read/todo", {
+                    userId: loginUser.userId
+                })
+                .then((response) => {
+                    const todoData = response.data; // 투두 데이터
+                    console.log("투두 response", todoData);
+                    setTodos(todoData);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+    }, [loginUser]);
+
+    console.log("todos", todos)
 
     const [group, setGroup] = useState([]);
 
@@ -86,7 +100,7 @@ export default function Check() {
                 </MDBCard>
             </div>
             <div className="col-md-10" style={child}>
-                <TodoList todos={todos} onDelete={onDelete} finishedClick={finishedClick}/>
+<CheckTodoList todos={todos} />
             </div>
         </div>
     );
