@@ -76,6 +76,8 @@ public class TimerController {
         Long userTotalTime = user.getUserTotalTime();
         userTotalTime += totalTimeInSeconds; // 유저 시간 필드에 공부한 초 시간 long타입으로 더해주기
         user.setUserTotalTime(userTotalTime); // 유저 필드에 저장
+
+        userService.save(user); // 유저 변경사항 저장해야됨
         
         timer.initTotalTime(); // 타이머에서 이미 totalTime을 더했으므로 초기화 해줘야한다잉
         
@@ -85,7 +87,7 @@ public class TimerController {
 
     // 이제까지 공부한 시간 출력
     @RequestMapping(value = "/timer/read", method = RequestMethod.POST)
-    public List<Integer> getUserTime(@RequestBody Map<String, String> paramMap) {
+    public User getUserTime(@RequestBody Map<String, String> paramMap) {
         String userId = paramMap.get("userId");
         User user = userService.findOne(userId);
         Long userTotalTime = user.getUserTotalTime(); // 이미 가공된 상태 (타이머에서 유저로 시간옮길때 이미 1000나눠줌)
@@ -98,11 +100,7 @@ public class TimerController {
         user.setUserStudyMinutes(minutes);
         user.setUserStudySeconds(seconds);
 
-        List<Integer> timeList = new ArrayList<>();
-        timeList.add(hours);
-        timeList.add(minutes);
-        timeList.add(seconds);
-
-        return timeList; // 이제까지 총 공부한시간 시간 / 분 / 초로 int타입의 리스트로 반환함 프론트에도 주고
+        userService.save(user); // 유저 변경사항 저장해야됨
+        return user;
     }
 }
