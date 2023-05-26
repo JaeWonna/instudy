@@ -8,7 +8,7 @@ import NavRoutes from "./api/route/NavRoutes";
 import mainRoutes from "./api/route/mainRoutes";
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const MyContext = React.createContext({ isLoggedIn: true });
 

@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, {useState, createContext, useContext, useEffect} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Nav, Navbar, Button, Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faHome } from '@fortawesome/free-solid-svg-icons';
 import '../css/Header.css'
+import axios from "axios";
 
 // const Header = (props) => {
 
@@ -62,6 +63,26 @@ import '../css/Header.css'
 
 const Header = (props) => {
 
+    const onClickLogout = () => {
+        sessionStorage.clear()
+        alert("로그아웃 성공")
+        window.location.reload();
+    }
+
+    useEffect(() => {
+
+        const storedUser = sessionStorage.getItem("loginUser");
+        console.log("test");
+        console.log(storedUser);
+        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+           props.setIsLoggedIn(true)
+        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+            props.setIsLoggedIn(false)
+        }
+    }, []);
+
+    console.log(props)
+
     const MainHeader = () => {
         return (
             <>
@@ -92,7 +113,7 @@ const Header = (props) => {
 
     const MyContext = props.MyContext;
 
-    const { isLoggedIn } = props.isLoggedIn;
+    // const { isLoggedIn } = props.isLoggedIn;
 
     return (
         <>
@@ -130,13 +151,19 @@ const Header = (props) => {
            <div class="row">
            <div class="col-9">
 
-           {isLoggedIn ? (
-        <button type="button" class="btn btn-dark" onClick={() => props.setIsLoggedIn(false)}>로그아웃</button>
-      ) : (
-        <Link to="/signIn">
-        <button type="button" class="btn btn-dark" onClick={() => props.setIsLoggedIn(true)}>로그인</button>
-        </Link>
-      )}
+           {props.isLoggedIn ?
+               (
+               <button type="button" class="btn btn-dark" onClick={onClickLogout}>logout</button>
+
+               )
+               :
+               (
+               <Link to="/signIn">
+                {/*<button type="button" class="btn btn-dark" onClick={() => props.setIsLoggedIn(true)}>login</button>*/}
+                    <button type="button" className="btn btn-dark">login</button>
+               </Link>
+                )
+           }
 
 
            </div>
