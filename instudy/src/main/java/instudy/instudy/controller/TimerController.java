@@ -32,7 +32,7 @@ public class TimerController {
         System.out.println("test userId : " + userId);
         Long groupId = Long.parseLong(paramMap.get("groupId")); // 자동
         Timer timer = new Timer(userId, groupId);
-
+        timer.create();
 //        newTimer.setUser(user);
 
         timerService.create(timer);

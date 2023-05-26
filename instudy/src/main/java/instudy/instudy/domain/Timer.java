@@ -58,11 +58,16 @@ public class Timer {
                 '}';
     }
 
-    public void start() {
+    public void create() { // 처음 생성시
         running = false; // 처음 시작할때
+    }
+
+    public void start() {
         if (!running) {
             startTime = System.currentTimeMillis();
             running = true;
+        } else {
+            System.out.println("이미 작동중입니다");
         }
     }
 
