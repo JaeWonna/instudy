@@ -41,10 +41,10 @@ public class User {
     @JsonManagedReference
     private List<Todo> todos = new ArrayList<>();
 
-    // 연관관계 매핑!!
-    @OneToMany(mappedBy = "user")
-    @JsonManagedReference
-    private List<Timer> timers = new ArrayList<>();
+//    // 연관관계 매핑!!
+//    @OneToMany(mappedBy = "user")
+//    @JsonManagedReference
+//    private List<Timer> timers = new ArrayList<>();
 
     // 유저 - 스터디그룹 편의메서드 생성
     public void setStudyGroup(StudyGroup studyGroup) {

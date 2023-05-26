@@ -26,32 +26,25 @@ public class TimerController {
 
     // 프론트 부분에서 axios로 받을것 정리
     // 현재 접속 유저 아이디 : userId
-//    @RequestMapping(value = "/timer/create", method = RequestMethod.POST)
-//    public String createTimer(@RequestBody Map<String, String> paramMap) {
-//        System.out.println("paramMap확인 = " + paramMap);
-//        Timer newTimer = new Timer();
-//
-//        String userId = paramMap.get("userId");
-//        User user = userService.findOne(userId);
-//        newTimer.setUser(user);
-//
-//        timerService.create(newTimer);
-//        return "create";
-//    }
-
-    // 시작시
-    @RequestMapping(value = "/timer/start", method = RequestMethod.POST)
-    public String startTimer(@RequestBody Map<String, String> paramMap) {
-
+    @RequestMapping(value = "/timer/create", method = RequestMethod.POST)
+    public String createTimer(@RequestBody Map<String, String> paramMap) {
         String userId = paramMap.get("userId"); // 자동
         System.out.println("test userId : " + userId);
         Long groupId = Long.parseLong(paramMap.get("groupId")); // 자동
         Timer timer = new Timer(userId, groupId);
 
-        User user = userService.findOne(userId);
-        timer.setUser(user);
+//        newTimer.setUser(user);
 
-        timerService.create(timer); // 생성 후
+        timerService.create(timer);
+        return "create";
+    }
+
+    // 시작시
+    @RequestMapping(value = "/timer/start", method = RequestMethod.POST)
+    public String startTimer(@RequestBody Map<String, String> paramMap) {
+
+        Long timerId = Long.parseLong(paramMap.get("timerId"));
+        Timer timer = timerService.findByTimerId(timerId);
         timer.start();
 
         return "start";

@@ -20,26 +20,27 @@ public class Timer {
 
     private Long startTime;
     private Long endTime;
-    private Long countTime;
+
     private boolean running;
 
+    private Long countTime;
     private Long dayTime;
     private Long totalTime;
 
-    @Enumerated(EnumType.STRING)
-    private TimerStatus timerStatus; // run, stop
+//    @Enumerated(EnumType.STRING)
+//    private TimerStatus timerStatus; // run, stop
 
     // 이부분 추가해봄
-    @ManyToOne
-    @JoinColumn(name = "id")
-    @JsonBackReference
-    private User user;
-
-    // 연관관계 메서드
-    public void setUser(User user) {
-        this.user = user;
-        user.getTimers().add(this);
-    }
+//    @ManyToOne
+//    @JoinColumn(name = "id")
+//    @JsonBackReference
+//    private User user;
+//
+//    // 연관관계 메서드
+//    public void setUser(User user) {
+//        this.user = user;
+//        user.getTimers().add(this);
+//    }
 
     public Timer() {}
 
@@ -58,6 +59,7 @@ public class Timer {
     }
 
     public void start() {
+        running = false; // 처음 시작할때
         if (!running) {
             startTime = System.currentTimeMillis();
             running = true;
@@ -80,5 +82,6 @@ public class Timer {
             totalTime += countTime;
             countTime = 0L;
         }
+        running = false; // 상태멈춤
     }
 }
