@@ -29,7 +29,14 @@ public class User {
     private String signIn; //로그인 상태
     
     @Column
-    private Long totalTime; // 전체 시간
+    private Long userTotalTime; // 전체 시간 (전체를 초로 나타냄)
+    @Column
+    private int userStudyHours; // 공부 시간 (시간)
+    @Column
+    private int userStudyMinutes; // 공부 시간 (분)
+    @Column
+    private int userStudySeconds; // 공부 시간 (초)
+
 
     // 이부분 추가해봄
     @ManyToOne
