@@ -27,6 +27,9 @@ public class User {
     private String email;
     @Column
     private String signIn; //로그인 상태
+    
+    @Column
+    private Long totalTime; // 전체 시간
 
     // 이부분 추가해봄
     @ManyToOne
