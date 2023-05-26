@@ -18,13 +18,14 @@ const ProfileModify = () => {
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
 
-    const [values, setValues] = useState({
-        id: loginUser.userId,
-        name: '',
-        email: '',
-        password: '',
-    });
+    const [values, setValues] = useState(""
+        // id: loginUser.userId,
+        // name: loginUser.user_name,
+        // email: loginUser.email,
+        // password: loginUser.password,
+    );
 
+    console.log("회원정보수정에서 유저아이디", loginUser.userId,)
     const handleChange = (prop) => (event) => {
         setValues({...values, [prop]: event.target.value});
     }
@@ -36,10 +37,19 @@ const ProfileModify = () => {
         if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
             const parsedUser = JSON.parse(storedUser).data;
             setLoginUser(parsedUser);
+            setValues({
+                id: parsedUser.userId,
+                name: parsedUser.user_name,
+                email: parsedUser.email,
+                password: parsedUser.password,
+            });
         } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
-             navigate("/signIn");
+            navigate("/signIn");
         }
     }, []);
+
+
+    console.log(values)
 
     console.log(JSON.stringify(loginUser))
 
@@ -54,7 +64,7 @@ const ProfileModify = () => {
     const userUpdate = () => {
             axios.post('/profileModify', {
                 id: loginUser.userId,
-                name: values.userName,
+                name: values.name,
                 email: values.email,
                 password: values.password,
             })
@@ -62,7 +72,9 @@ const ProfileModify = () => {
                     if (response.data === false) {
                         alert("수정에 실패했습니다.");
                     }
+
                     console.log(response);
+                    navigate("/profile");
                 })
                 .catch();
     };
@@ -102,8 +114,8 @@ const ProfileModify = () => {
                                                    multiline
                                                    maxRows={4}
                                                    defaultValue={loginUser.user_name}
-                                                   value={values.userName}
-                                                   onChange={handleChange('userName')}
+                                                   value={values.name}
+                                                   onChange={handleChange('name')}
                                         />
                                     </Grid>
                                 </Grid>
@@ -142,17 +154,16 @@ const ProfileModify = () => {
                                     </Grid>
                                 </Grid>
                             </div>
-
+                            <Button
+                                type="button"
+                                onClick={() => userUpdate()}
+                            >
+                                수정하기
+                            </Button>
                         </div>
                     </div>
                 </div>
             </div>
-            <Button
-                type="button"
-                onClick={() => userUpdate()}
-            >
-                확인
-            </Button>
         </div>
 
     )
