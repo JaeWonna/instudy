@@ -9,7 +9,7 @@ const CheckTodoList = (props) => {
         <>
             <Container maxWidth="xl">
                 <Box sx>
-                <Typography variant="h3">Todo List</Typography>
+                <Typography variant="h5">Todo List</Typography>
                 {todos.map((todo, index) => (
                     <CheckTodoItem
                         todo={todo}

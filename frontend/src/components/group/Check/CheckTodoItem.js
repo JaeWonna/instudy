@@ -6,7 +6,7 @@ return (
     <>
         <Container maxWidth="xl">
             <Box sx margin={3}>
-        <Typography variant="h4">ㅇ {todo.todoText}</Typography>
+        <Typography variant="h5">ㅇ {todo.todoText}</Typography>
                 <hr />
             </Box>
         </Container>
