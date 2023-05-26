@@ -63,32 +63,46 @@ public class TimerController {
 
     // 시간저장
     @RequestMapping(value = "/timer/save", method = RequestMethod.POST)
-    public String saveTimer(@RequestBody Map<String, String> paramMap) {
+    public String saveTimer(@RequestBody Map<String, String> paramMap) { // 유저에 더해준다
         Long timerId = Long.parseLong(paramMap.get("timerId"));
         Timer timer = timerService.findByTimerId(timerId);
         timer.save();
 
+        long studyTime = timer.getTotalTime(); // 
+        long totalTimeInSeconds = studyTime / 1000; // Convert milliseconds to seconds 가공하기
+
+        String userId = paramMap.get("userId");
+        User user = userService.findOne(userId);
+        Long userTotalTime = user.getUserTotalTime();
+        userTotalTime += totalTimeInSeconds; // 유저 시간 필드에 공부한 초 시간 long타입으로 더해주기
+        user.setUserTotalTime(userTotalTime); // 유저 필드에 저장
+        
+        timer.initTotalTime(); // 타이머에서 이미 totalTime을 더했으므로 초기화 해줘야한다잉
+        
         timerService.update(timer);
         return "save";
     }
 
     // 이제까지 공부한 시간 출력
     @RequestMapping(value = "/timer/read", method = RequestMethod.POST)
-    public List<Integer> studyTime(@RequestBody Map<String, String> paramMap) {
-        Long timerId = Long.parseLong(paramMap.get("timerId"));
-        Timer timer = timerService.findByTimerId(timerId);
-        long studyTime = timer.getTotalTime();
+    public List<Integer> getUserTime(@RequestBody Map<String, String> paramMap) {
+        String userId = paramMap.get("userId");
+        User user = userService.findOne(userId);
+        Long userTotalTime = user.getUserTotalTime(); // 이미 가공된 상태 (타이머에서 유저로 시간옮길때 이미 1000나눠줌)
 
-        long totalTimeInSeconds = studyTime / 1000; // Convert milliseconds to seconds
-        int hours = (int) (totalTimeInSeconds / 3600); // Calculate hours
-        int minutes = (int) ((totalTimeInSeconds % 3600) / 60); // Calculate minutes
-        int seconds = (int) (totalTimeInSeconds % 60); // Calculate seconds
+        int hours = (int) (userTotalTime / 3600); // Calculate hours
+        int minutes = (int) ((userTotalTime % 3600) / 60); // Calculate minutes
+        int seconds = (int) (userTotalTime % 60); // Calculate seconds
+
+        user.setUserStudyHours(hours);
+        user.setUserStudyMinutes(minutes);
+        user.setUserStudySeconds(seconds);
 
         List<Integer> timeList = new ArrayList<>();
         timeList.add(hours);
         timeList.add(minutes);
         timeList.add(seconds);
 
-        return timeList;
+        return timeList; // 이제까지 총 공부한시간 시간 / 분 / 초로 int타입의 리스트로 반환함 프론트에도 주고
     }
 }
