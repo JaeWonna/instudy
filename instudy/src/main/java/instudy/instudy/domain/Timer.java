@@ -82,11 +82,18 @@ public class Timer {
     public void save() { // 공부시간저장
         if (running) { // start상태 (1)시간계산
             totalTime += countTime + System.currentTimeMillis() - startTime;
-            countTime = 0L;
         } else { // stop상태
             totalTime += countTime;
-            countTime = 0L;
         }
+        initCountTime();
         running = false; // 상태멈춤
+    }
+
+    public void initTotalTime() {
+        totalTime = 0L;
+    }
+
+    public void initCountTime() {
+        countTime = 0L;
     }
 }
