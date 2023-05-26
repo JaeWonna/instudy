@@ -13,6 +13,11 @@ public class Timer {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long timerId;
 
+    @Column
+    private String userId; //
+    @Column
+    private Long groupId; //
+
     private Long startTime;
     private Long endTime;
     private Long countTime;
@@ -24,7 +29,8 @@ public class Timer {
     @Enumerated(EnumType.STRING)
     private TimerStatus timerStatus; // run, stop
 
-    @OneToOne
+    // 이부분 추가해봄
+    @ManyToOne
     @JoinColumn(name = "id")
     @JsonBackReference
     private User user;
@@ -32,10 +38,15 @@ public class Timer {
     // 연관관계 메서드
     public void setUser(User user) {
         this.user = user;
-        user.setTimer(this);
+        user.getTimers().add(this);
     }
 
     public Timer() {}
+
+    public Timer(String userId, Long groupId){
+        this.userId = userId;
+        this.groupId = groupId;
+    }
 
     @Override
     public String toString() {
