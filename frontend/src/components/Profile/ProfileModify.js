@@ -25,6 +25,35 @@ const ProfileModify = () => {
         // password: loginUser.password,
     );
 
+    const updateUser = () => {
+        console.log(values)
+        // sessionStorage.setItem("loginUser", JSON.stringify(values))
+        // const storedUser = sessionStorage.getItem("loginUser");
+        // console.log("test");
+        // console.log(storedUser);
+        axios
+            .post("/signin", {
+                email: values.email,
+                passwd: values.password,
+            })
+            .then((res) => {
+                if (res.data.signIn === "true") {
+                    console.log("======================", "로그인 성공");
+                    console.log(res)
+                    sessionStorage.setItem("loginUser", JSON.stringify(res)); // sessionStorage에 로그인한 유저 정보를 loginUser key 값으로 저장
+                    const user = JSON.parse(sessionStorage.getItem("loginUser"));// loginUser 값의 String 을 가져와 JSON 형태로 다시 Parse 진행
+                    //navigate("/profile");
+                    //alert(user.data.userId);
+
+                    // 로그인 성공하면 메인 페이지 이동
+                    document.location.href = "/profile";
+                } else {
+                    //alert("아이디 또는 비밀번호가 맞지 않습니다.");
+                }
+            })
+            .catch();
+    }
+
     console.log("회원정보수정에서 유저아이디", loginUser.userId,)
     const handleChange = (prop) => (event) => {
         setValues({...values, [prop]: event.target.value});
@@ -38,7 +67,7 @@ const ProfileModify = () => {
             const parsedUser = JSON.parse(storedUser).data;
             setLoginUser(parsedUser);
             setValues({
-                id: parsedUser.userId,
+                userId: parsedUser.userId,
                 name: parsedUser.user_name,
                 email: parsedUser.email,
                 password: parsedUser.password,
@@ -72,7 +101,7 @@ const ProfileModify = () => {
                     if (response.data === false) {
                         alert("수정에 실패했습니다.");
                     }
-
+                    updateUser()
                     console.log(response);
                     navigate("/profile");
                 })
