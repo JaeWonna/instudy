@@ -86,12 +86,28 @@ export default function SimpleDialogDemo(props) {
     const groupId = params.groupId; //(params의 :id를 받는 역할)
     console.log("groupId ", groupId)
 
+    const [time, setTime] = useState(0);
+
+    useEffect(() => {
+        // Retrieve the saved time from session storage when the component mounts
+        const savedTime = sessionStorage.getItem('time');
+        if (savedTime) {
+            setTime(parseInt(savedTime));
+        }
+    }, []);
+
+    useEffect(() => {
+        // Save the time to session storage whenever it changes
+        sessionStorage.setItem('time', time.toString());
+    }, [time]);
+
+
     return (
             <TimerDialog
                 selectedValue={selectedValue}
                 // open={open}
                 onClose={handleClose}
-                userId={userId} loginUser={loginUser} groupId={groupId}
+                userId={userId} loginUser={loginUser} groupId={groupId} time={time} setTime={setTime}
             />
     );
 }

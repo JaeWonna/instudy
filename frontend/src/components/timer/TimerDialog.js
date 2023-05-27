@@ -20,9 +20,13 @@ import Button from '@mui/material/Button';
 import TimerCreate from "./TimerCreate";
 import { format, parseISO } from 'date-fns';
 import { useState } from 'react';
+import {MDBCard, MDBCardBody} from "mdb-react-ui-kit";
+import CheckTodoList from "../group/Check/CheckTodoList";
+import CheckCard from "../group/Check/CheckCard";
+import CheckProgress from "../group/Check/CheckProgress";
 
 export default function TimerDialog(props: SimpleDialogProps) {
-    const { onClose, selectedValue, open, userId, loginUser } = props;
+    const { onClose, selectedValue, open, userId, loginUser, groupId, time, setTime } = props;
 
     const handleClose = () => {
         onClose(selectedValue);
@@ -40,30 +44,15 @@ export default function TimerDialog(props: SimpleDialogProps) {
 
     const [bitValue, setBitValue] = useState(0);
 
-    const createTimer = (userId, group) => {
-        const url = '/timer/create';
-        const data = {
-            // timer_id: 0,
-            // count: 0,
-            // hour: 0,
-            // local_date_time: formattedDateTime,
-            // minute: 0,
-            // second: 0,
-            // timer_status: '',
-            // count_time: 0,
-            // day_time: formattedTime,
-            // end_time: 0,
-            // running: bitValue,
-            // start_time: 0,
-            // total_time: 0,
-            groupId: props.groupId,
-            userId: userId.toString()
-        };
+    const [timerId, setTimerId] = useState(0);
 
-        console.log(userId)
-        console.log(props.groupId)
-
-        axios.post(url, data)
+    const createTimer = () => {
+        setTimerId(timerId + 1);
+        console.log("userId " , userId)
+        axios.post('/timer/create', {
+            userId: userId.toString(),
+            groupId: groupId,
+        })
             .then(response => {
                 console.log("여기까지")
                 console.log("response.data", response.data)
@@ -82,7 +71,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
 
     const handleListItemClick = (value: string) => {
         onClose(value);
-        createTimer(userId);
+        createTimer();
         handleOpen();
     };
 
@@ -110,6 +99,15 @@ export default function TimerDialog(props: SimpleDialogProps) {
                 {/*    </ListItem>*/}
                 {/*))}*/}
                 <ListItem disableGutters>
+
+                    <MDBCard className="mb-5">
+                            <Typography variant="h5" gutterBottom>
+                                {time} second
+                            </Typography>
+                    </MDBCard>
+                </ListItem>
+                <ListItem disableGutters>
+                    {/*{time}*/}
                     <ListItemButton
                         autoFocus
                         onClick={() => handleListItemClick('addAccount')}
@@ -121,7 +119,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                         </ListItemAvatar>
                         <ListItemText primary="새 타이머 만들기" />
                     </ListItemButton>
-                    <TimerCreate modalOpen={modalOpen} handleModalClose={handleModalClose} userId={userId} loginUser={loginUser}/>
+                    <TimerCreate modalOpen={modalOpen} handleModalClose={handleModalClose} userId={userId} loginUser={loginUser} timerId={timerId} time={time} setTime={setTime}/>
                 </ListItem>
             </List>
                 </CardContent>
