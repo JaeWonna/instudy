@@ -86,9 +86,9 @@ export default function Check() {
 
     }
 
-    const [detail, setDetail] = useState(false);
+    const [detail, setDetail] = useState(true);
 
-    const [clickedNum, setClickedNum] = useState(0);
+    const [clickedNum, setClickedNum] = useState(1);
 
     console.log("이미지 클릭하고 clickedNum", clickedNum)
     console.log("groupId", groupId)
@@ -120,7 +120,7 @@ export default function Check() {
                 {
                     detail == true
                         ?
-                        <CheckUserDetails clickedNum={clickedNum} todos={todos}/>
+                        <CheckUserDetails loginUser={loginUser} clickedNum={clickedNum} todos={todos}/>
                         :
                         <></>
 
