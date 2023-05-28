@@ -46,6 +46,7 @@ public class TimerController {
         Long timerId = Long.parseLong(paramMap.get("timerId"));
         Timer timer = timerService.findByTimerId(timerId);
         timer.start();
+        timerService.update(timer); // 변경상태저장 추가
 
         return "start";
     }
@@ -57,6 +58,7 @@ public class TimerController {
         Long timerId = Long.parseLong(paramMap.get("timerId"));
         Timer timer = timerService.findByTimerId(timerId);
         timer.stop();
+        timerService.update(timer); // 변경상태저장 추가
 
         return "stop";
     }
