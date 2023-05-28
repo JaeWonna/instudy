@@ -66,6 +66,7 @@ export default function TimerCreate(props) {
             timerId: timerId, // 커스텀 변환 함수 지정
         })
             .then(response => {
+                console.log("start에서 response", response.data)
                 if(response.data == "start") {
                     alert("타이머 시작 완료");
                 }
@@ -94,21 +95,22 @@ export default function TimerCreate(props) {
             });
     };
 
-
-    const saveTimer = (loginUser) => {
+    const saveTimer = (timerId) => {
         console.log("userId", userId)
-        const newTimerData = {
-            userId: loginUser.userId,
-        };
+        console.log("save에서 timerId", timerId);
 
-        axios.post('/timer/save', newTimerData)
-            .then(response => {
-                if(response.data == "save") {
+        axios
+            .post('/timer/save', {
+                timerId: timerId,
+            })
+            .then((response) => {
+                console.log("response.data", response.data)
+                if (response.data === "save") {
                     alert("타이머 저장 완료");
                 }
             })
-            .catch(error => {
-                console.error('Error occurred while saving the timer', error);
+            .catch((error) => {
+                console.error('Error occurred while stopping the timer', error);
             });
     };
 
@@ -129,7 +131,7 @@ export default function TimerCreate(props) {
                     <Typography variant="h3" gutterBottom>{time} seconds</Typography>
                     <Button variant="contained" color="inherit" onClick={startTimer}>Start</Button>
                     <Button variant="contained" color="error" onClick={()=>{stopTimer(timerId)}}>Stop</Button>
-                    <Button variant="contained" color="primary" onClick={saveTimer}>Save</Button>
+                    <Button variant="contained" color="primary" onClick={()=>{saveTimer(timerId)}}>Save</Button>
                     <div>
                     <Button onClick={handleModalClose}>닫기</Button>
                     </div>
