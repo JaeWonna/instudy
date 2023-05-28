@@ -16,7 +16,7 @@ import GroupFilterModal from "./finder/GroupFilterModal";
 import {SelectChangeEvent} from "@mui/material/Select";
 
 const GroupCreateModal = (props) => {
-    const { loginUser } = props;
+    const { loginUser, setSearchResult } = props;
     console.log("manager", props.manager)
 
     const closeModal = () => {
@@ -122,7 +122,7 @@ const GroupCreateModal = (props) => {
                 keepMounted
                 width="sm"
                 open={groupFilterModalOpen}
-                component={<GroupFilterModal filterGroup={filterGroup} resetGroups={resetGroups} setOpen={setGroupFilterModalOpen} />}
+                component={<GroupFilterModal filterGroup={filterGroup} resetGroups={resetGroups} setOpen={setGroupFilterModalOpen} setSearchResult={setSearchResult} />}
             />
 
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
