@@ -101,7 +101,6 @@ export default function SimpleDialogDemo(props) {
         sessionStorage.setItem('time', time.toString());
     }, [time]);
 
-
     return (
             <TimerDialog
                 selectedValue={selectedValue}
