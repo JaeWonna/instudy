@@ -69,10 +69,12 @@ public class Timer {
             startTime = System.currentTimeMillis();
             System.out.println("startTime은 = " + startTime);
             System.out.println("countTime은 = " + countTime);
+            System.out.println("totalTime은 = " + totalTime);
             running = true;
         } else {
             System.out.println("이미 작동중입니다");
             System.out.println("countTime은 = " + countTime);
+            System.out.println("totalTime은 = " + totalTime);
         }
     }
 
@@ -85,6 +87,7 @@ public class Timer {
         }
         countTime += endTime - startTime;
         System.out.println("countTime = " + countTime);
+        System.out.println("totalTime은 = " + totalTime);
     }
 
     public void save() { // 공부시간저장

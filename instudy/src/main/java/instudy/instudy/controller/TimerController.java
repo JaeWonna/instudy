@@ -75,7 +75,7 @@ public class TimerController {
 
         String userId = paramMap.get("userId");
         User user = userService.findOne(userId);
-        Long userTotalTime = user.getUserTotalTime();
+        long userTotalTime = user.getUserTotalTime();
         userTotalTime += totalTimeInSeconds; // 유저 시간 필드에 공부한 초 시간 long타입으로 더해주기
         user.setUserTotalTime(userTotalTime); // 유저 필드에 저장
 
@@ -92,7 +92,7 @@ public class TimerController {
     public User getUserTime(@RequestBody Map<String, String> paramMap) {
         String userId = paramMap.get("userId");
         User user = userService.findOne(userId);
-        Long userTotalTime = user.getUserTotalTime(); // 이미 가공된 상태 (타이머에서 유저로 시간옮길때 이미 1000나눠줌)
+        long userTotalTime = user.getUserTotalTime(); // 이미 가공된 상태 (타이머에서 유저로 시간옮길때 이미 1000나눠줌)
 
         int hours = (int) (userTotalTime / 3600); // Calculate hours
         int minutes = (int) ((userTotalTime % 3600) / 60); // Calculate minutes
