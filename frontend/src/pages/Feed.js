@@ -46,6 +46,12 @@ const Feed = () => {
         p: 4,
     };
 
+    const componentStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+
     useEffect(() => {
 
         const storedUser = sessionStorage.getItem("loginUser");
@@ -167,12 +173,13 @@ const Feed = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box style={modalStyle}>
-                    <Dialog open={open} onClose={handleClose}>
+                    <div style={componentStyle}>
+                    <Dialog open={open} onClose={handleClose} style={{margin : "0 auto"}}>
                         <DialogTitle>피드 추가하기</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
                                 자신의 공부 내용을 추가하세요.<br/>
-                                하트수를 통해 공부 내용을 인증받을 수 있습니다.
+                                피드를 통해 자신의 공부내용을 기록하고 공유할 수 있습니다.
                             </DialogContentText>
                             <ImageUpload/>
                             <TextField
@@ -193,6 +200,7 @@ const Feed = () => {
                             <Button onClick={createFeed}>생성하기</Button>
                         </DialogActions>
                     </Dialog>
+                    </div>
                 </Box>
             </Modal>
         </div>

@@ -48,6 +48,12 @@ const ImageUpload = () => {
         // }
     };
 
+    const componentStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
+
     return (
         // <div>
         //     <input type="file" multiple="multiple" onChange={handleFileChange} />
@@ -57,22 +63,25 @@ const ImageUpload = () => {
         //     {/*    <input type="submit" onClick={handleUpload}/>*/}
         //     {/*</form>*/}
         // </div>
-        <FormControl>
+        <FormControl style={componentStyle}>
             <Stack>
                 <form method="post" encType="multipart/form-data">
                 <input className='form-control' type='file' multiple="multiple" name='file' onChange={handleFileChange}></input>
                 </form>
             </Stack>
-            {/*<Box my={3}>*/}
-            {/*    <img src={image.preview} width='300' height='300' />*/}
-            {/*</Box>*/}
-            <Button
-                variant="contained"
-                color='primary'
-                type='submit'
-                onClick={handleUpload}
-            >업로드 하기
-            </Button>
+            {image.preview && <>
+                <Box my={3}>
+                    <img src={image.preview} width='300' height='300' />
+                </Box>
+                <Button
+                    variant="contained"
+                    color='primary'
+                    type='submit'
+                    onClick={handleUpload}
+                >업로드 하기
+                </Button>
+                </>
+            }
         </FormControl>
     );
 };
