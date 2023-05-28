@@ -19,13 +19,13 @@ public class Timer {
     private Long groupId; //
 
     private long startTime;
-    private long endTime;
+    private Long endTime;
 
     private boolean running;
 
-    private long countTime;
-    private long dayTime;
-    private long totalTime;
+    private Long countTime;
+    private Long dayTime;
+    private Long totalTime;
 
 //    @Enumerated(EnumType.STRING)
 //    private TimerStatus timerStatus; // run, stop
@@ -69,16 +69,17 @@ public class Timer {
             startTime = System.currentTimeMillis();
             System.out.println("startTime은 = " + startTime);
             System.out.println("countTime은 = " + countTime);
-            System.out.println("totalTime은 = " + totalTime);
             running = true;
         } else {
             System.out.println("이미 작동중입니다");
             System.out.println("countTime은 = " + countTime);
-            System.out.println("totalTime은 = " + totalTime);
         }
     }
 
     public void stop() { // 시간측정중
+        if (countTime == null) {
+            countTime = 0L; // null인 경우 기본값으로 설정
+        }
         if (running) {
             endTime = System.currentTimeMillis();
             System.out.println("countTime은 = " + countTime);
@@ -87,7 +88,6 @@ public class Timer {
         }
         countTime += endTime - startTime;
         System.out.println("countTime = " + countTime);
-        System.out.println("totalTime은 = " + totalTime);
     }
 
     public void save() { // 공부시간저장
