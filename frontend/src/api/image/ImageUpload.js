@@ -9,7 +9,6 @@ function MKButton(props: { color: string, onClick: *, variant: string, type: str
 }
 
 const ImageUpload = () => {
-    //const [selectedFile, setSelectedFile] = useState(null);
     const [image, setImage] = useState({ preview: '', data: '' });
 
     const handleFileChange = (e) => {
@@ -27,12 +26,6 @@ const ImageUpload = () => {
         const formData = new FormData();
         formData.append('image', image.data);
 
-        // if (selectedFile) {
-        //     const formData = new FormData();
-        //     //Object.values(selectedFile).forEach((selectedFile)=>formData.append("image",selectedFile))
-        //     formData.append('image', selectedFile);
-        //     console.log(formData)
-
             axios
                 .post("/image/upload", formData
                 )
@@ -43,9 +36,6 @@ const ImageUpload = () => {
                     console.log(error)
             });
 
-            // axios 또는 fetch 등을 사용하여 formData를 서버로 전송
-            // 예시: axios.post('/upload', formData).then(response => { ... }).catch(error => { ... });
-        // }
     };
 
     const componentStyle = {
@@ -55,14 +45,6 @@ const ImageUpload = () => {
     }
 
     return (
-        // <div>
-        //     <input type="file" multiple="multiple" onChange={handleFileChange} />
-        //     <button onClick={handleUpload}>Upload</button>
-        //     {/*<form method="post" encType="multipart/form-data">*/}
-        //     {/*    <input type="file" multiple="multiple" name="files"  onChange={handleFileChange}/>*/}
-        //     {/*    <input type="submit" onClick={handleUpload}/>*/}
-        //     {/*</form>*/}
-        // </div>
         <FormControl style={componentStyle}>
             <Stack>
                 <form method="post" encType="multipart/form-data">
