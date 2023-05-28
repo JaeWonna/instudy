@@ -17,6 +17,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import {Button, TextField} from "@mui/material";
 import {MDBCard, MDBCardBody, MDBCardTitle} from "mdb-react-ui-kit";
 import Todo from "../components/Profile/Todo";
+import ImageUpload from "../api/image/ImageUpload";
 
 function TabPanel(props: { index: number, children: ReactNode }) {
     return null;
@@ -173,6 +174,7 @@ const Feed = () => {
                                 자신의 공부 내용을 추가하세요.<br/>
                                 하트수를 통해 공부 내용을 인증받을 수 있습니다.
                             </DialogContentText>
+                            <ImageUpload/>
                             <TextField
                                 autoFocus
                                 margin="dense"
