@@ -18,7 +18,7 @@ const style = {
 };
 
 export default function TimerCreate(props) {
-    const { handleModalClose, modalOpen, userId, loginUser } = props;
+    const { handleModalClose, modalOpen, userId, loginUser, timerId, time, setTime } = props;
 
     // const transformRequest = (data) => {
     //     // Circular Structure를 제거하거나 필요한 정보만 포함한 객체로 변환
@@ -29,8 +29,8 @@ export default function TimerCreate(props) {
     //
     //     return JSON.stringify(transformedData);
     // };
-
-    const [time, setTime] = useState(0);
+    //
+    // const [time, setTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
@@ -46,16 +46,24 @@ export default function TimerCreate(props) {
         };
     }, [isRunning]);
 
+    // useEffect(() => {
+    //     // Retrieve the saved time from session storage when the component mounts
+    //     const savedTime = sessionStorage.getItem('time');
+    //     if (savedTime) {
+    //         setTime(parseInt(savedTime));
+    //     }
+    // }, []);
+    //
+    // useEffect(() => {
+    //     // Save the time to session storage whenever it changes
+    //     sessionStorage.setItem('time', time.toString());
+    // }, [time]);
+
     const startTimer = (loginUser) => {
         setIsRunning(true);
-        const newTimerData = {
-            userId: userId,
-        };
-
-        console.log(newTimerData)
-
-        axios.post('/timer/start', newTimerData, {
-            userId: userId, // 커스텀 변환 함수 지정
+        console.log("timerId", timerId)
+        axios.post('/timer/start', {
+            timerId: timerId, // 커스텀 변환 함수 지정
         })
             .then(response => {
                 if(response.data == "start") {
@@ -67,23 +75,25 @@ export default function TimerCreate(props) {
             });
     };
 
-    const stopTimer = () => {
+    const stopTimer = (timerId) => {
         setIsRunning(false);
+        console.log("stop에서 timerId", timerId);
 
-        const newTimerData = {
-            userId: userId,
-        };
-
-        axios.post('/timer/stop', newTimerData)
-            .then(response => {
-                if(response.data == "stop") {
+        axios
+            .post('/timer/stop', {
+                timerId: timerId,
+            })
+            .then((response) => {
+                console.log("response.data", response.data)
+                if (response.data === "stop") {
                     alert("타이머 멈춤");
                 }
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error occurred while stopping the timer', error);
             });
     };
+
 
     const saveTimer = (loginUser) => {
         console.log("userId", userId)
@@ -111,12 +121,14 @@ export default function TimerCreate(props) {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
+
+
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         타이머 만들기
                     </Typography>
                     <Typography variant="h3" gutterBottom>{time} seconds</Typography>
                     <Button variant="contained" color="inherit" onClick={startTimer}>Start</Button>
-                    <Button variant="contained" color="error" onClick={stopTimer}>Stop</Button>
+                    <Button variant="contained" color="error" onClick={()=>{stopTimer(timerId)}}>Stop</Button>
                     <Button variant="contained" color="primary" onClick={saveTimer}>Save</Button>
                     <div>
                     <Button onClick={handleModalClose}>닫기</Button>

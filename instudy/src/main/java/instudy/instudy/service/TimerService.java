@@ -28,4 +28,8 @@ public class TimerService {
     public void update(Timer timer) {
         timerRepository.save(timer);
     }
+
+    public Timer findByTimerId(Long timerId) {
+        return timerRepository.findByTimerId(timerId);
+    }
 }

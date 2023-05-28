@@ -27,6 +27,16 @@ public class User {
     private String email;
     @Column
     private String signIn; //로그인 상태
+    
+    @Column
+    private long userTotalTime; // 전체 시간 (전체를 초로 나타냄)
+    @Column
+    private int userStudyHours; // 공부 시간 (시간)
+    @Column
+    private int userStudyMinutes; // 공부 시간 (분)
+    @Column
+    private int userStudySeconds; // 공부 시간 (초)
+
 
     // 이부분 추가해봄
     @ManyToOne
@@ -38,9 +48,10 @@ public class User {
     @JsonManagedReference
     private List<Todo> todos = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user")
-    @JsonManagedReference
-    private Timer timer;
+//    // 연관관계 매핑!!
+//    @OneToMany(mappedBy = "user")
+//    @JsonManagedReference
+//    private List<Timer> timers = new ArrayList<>();
 
     // 유저 - 스터디그룹 편의메서드 생성
     public void setStudyGroup(StudyGroup studyGroup) {

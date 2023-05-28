@@ -107,6 +107,8 @@ const Group = () => {
 
     console.log("loginUser.user_name", loginUser.user_name)
 
+    const [searchResult, setSearchResult] = useState([]);
+
     return (
         <>
             <Container>
@@ -115,13 +117,19 @@ const Group = () => {
 
                     <div className="d-flex justify-content-end align-items-end">
 
-                        <GroupCreateModal loginUser={loginUser} manager={loginUser.user_name}/>
+                        <GroupCreateModal loginUser={loginUser} manager={loginUser.user_name} setSearchResult={setSearchResult}/>
 
                     </div>
                 </div>
                 <div className={classes.root}>
                     <Grid container spacing={2}>
                 {
+                    searchResult.length > 0 ?
+                        searchResult.map((group) => (
+                            <GroupCard group={group} loginUser={loginUser} classes={classes}/>
+                        ))
+                        :
+
                     group.map(group => (
                         <GroupCard group={group} loginUser={loginUser} classes={classes}/>
                     ))

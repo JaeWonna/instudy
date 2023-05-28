@@ -5,9 +5,10 @@ import groupMember from '../img/groupMember.jpg';
 import TodoList from "../components/Profile/TodoList";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {Typography} from "@mui/material";
+import {Typography, Box} from "@mui/material";
 import GroupUserList from "../components/group/Check/GroupUserList";
 import CheckTodoList from "../components/group/Check/CheckTodoList";
+import CheckUserDetails from "../components/group/Check/CheckUserDetails";
 
 export default function Check() {
     const child = {
@@ -38,6 +39,8 @@ export default function Check() {
         }
     }, []);
 
+    console.log("loginUser.userId", loginUser.userId)
+
     useEffect(() => {
         if (loginUser.userId) {
             console.log("투두 읽는 useEffect");
@@ -61,10 +64,6 @@ export default function Check() {
     const [group, setGroup] = useState([]);
 
     useEffect(()=> {
-        const groupdata = [
-        ];
-
-        setGroup([...groupdata]);
         axios
             .post("/groups", {
                 loginUser: loginUser.user_name,
@@ -73,7 +72,7 @@ export default function Check() {
                 console.log(res.data);
                 setGroup(res.data);
                 console.log("test");
-                console.log(...group);
+                console.log(group);
             })
             .catch();
 
@@ -87,21 +86,47 @@ export default function Check() {
 
     }
 
+    const [detail, setDetail] = useState(true);
+
+    const [clickedNum, setClickedNum] = useState(1);
+
+    console.log("이미지 클릭하고 clickedNum", clickedNum)
+    console.log("groupId", groupId)
+    console.log("group[groupId]", group[groupId])
+
     return (
         <div>
-            <Typography variant="h5" gutterBottom>{group.groupName}</Typography>
             <div className="col-md-10" style={child}>
                 <MDBCard className="mb-5">
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        height="10vh"
+                    >
+                        <Typography variant="h5" gutterBottom>
+                            그룹 이름 올 자리
+                            {group.length > 0 && group[groupId]?.groupName}</Typography>
+                    </Box>
                     <MDBCardBody>
-                        <GroupUserList loginUser={loginUser} groupId={groupId}/>
+                        <GroupUserList loginUser={loginUser} groupId={groupId} clickedNum={clickedNum} setClickedNum={setClickedNum} setDetail={setDetail}/>
                         {/*<img src={groupMember} alt="Generic placeholder"*/}
                         {/*     className="img-fluid rounded-circle border border-dark border-3" style={imgStyle} />*/}
                     </MDBCardBody>
                 </MDBCard>
             </div>
             <div className="col-md-10" style={child}>
-<CheckTodoList todos={todos} />
+{/*<CheckTodoList todos={todos} />*/}
+                {
+                    detail == true
+                        ?
+                        <CheckUserDetails loginUser={loginUser} clickedNum={clickedNum} todos={todos}/>
+                        :
+                        <></>
+
+                }
             </div>
+
         </div>
     );
 }

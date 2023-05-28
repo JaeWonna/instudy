@@ -1,44 +1,34 @@
-import { Autocomplete, Box, Checkbox, DialogContent, DialogTitle, IconButton, MenuItem, Stack, TextField, Typography, Button } from "@mui/material"
+import { Box, DialogContent, DialogTitle, IconButton, TextField, Typography, Button } from "@mui/material";
 import ClearIcon from '@mui/icons-material/Clear';
-import { options } from '../../../assets/tag/Tech'
-import { useRef, useState } from "react";
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import * as API from '../../../api/API';
-import { tags } from '../../../assets/tag/tags';
-
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
+import { useState } from "react";
+import axios from "axios";
 
 const GroupFilterModal = (props) => {
-    const [selected, setSelected] = useState([]);
     const [filterData, setFilterData] = useState({
         group_name: "",
         manager: "",
-    })
-    const inputTN = useRef();
-    const inputPN = useRef();
-    const inputMID = useRef();
+    });
 
-    const [selectedProjectTags, setSelectedProjectTags] = useState([]);
-    const [selectedSkillTags, setSelectedSkillTags] = useState([]);
-    const [selectedRoleTags, setSelectedRoleTags] = useState([]);
+    const { setSearchResult } = props;
+
+    const searchGroup = async () => {
+        try {
+            const response = await axios.post('/groups/search', {
+                groupName: filterData.group_name, // 검색할 그룹 이름
+            });
+            setSearchResult(response.data);
+        } catch (error) {
+            console.error('Error occurred while searching for groups', error);
+        }
+    };
 
     const filter = async () => {
-        const newfilterData = {
-            group_name: inputTN.current.value,
-            manager: inputPN.current.value,
-        }
-
-        setFilterData(newfilterData)
-        console.log("filtereData:", filterData)
-        const response = await API.groupFilter(newfilterData);
-        console.log("response: ", response)
-        props.filterGroup(response);
-    }
+        await searchGroup();
+        props.setOpen(false); // 모달 창 닫기
+    };
 
     return (
-        <>
+        <div>
             <Box
                 sx={{
                     p: {
@@ -49,7 +39,6 @@ const GroupFilterModal = (props) => {
                         xl: 5,
                         xxl: 6
                     },
-                    // width:"100%"
                 }}
             >
                 <DialogTitle id="scroll-dialog-title">
@@ -57,28 +46,37 @@ const GroupFilterModal = (props) => {
                         <Typography variant="h3">
                             검색하기
                         </Typography>
-                        <IconButton size="large" onClick={() => props.setOpen(false)}><ClearIcon fontSize="inherit" /></IconButton >
+                        <IconButton size="large" onClick={() => props.setOpen(false)}>
+                            <ClearIcon fontSize="inherit" />
+                        </IconButton>
                     </Box>
                 </DialogTitle>
                 <DialogContent dividers={true}>
-                    <Stack spacing={2}>
-                        <TextField label="팀명" inputRef={inputTN} defaultValue={filterData.group_name} />
-                        <TextField label="팀장명" inputRef={inputPN} defaultValue={filterData.manager} />
-
-                    </Stack>
+                    <TextField
+                        label="팀명"
+                        value={filterData.group_name}
+                        onChange={(e) => setFilterData({ ...filterData, group_name: e.target.value })}
+                    />
+                    <TextField
+                        label="팀장명"
+                        value={filterData.manager}
+                        onChange={(e) => setFilterData({ ...filterData, manager: e.target.value })}
+                    />
                 </DialogContent>
-                {/* <DialogActions> */}
                 <Button
                     color="success"
-                    onClick={() => filter()}
+                    onClick={filter}
                     fullWidth
                 >
                     위 조건으로 검색하기
                 </Button>
-                {/* </DialogActions> */}
+                {/*/!* 검색 결과를 사용하여 렌더링 *!/*/}
+                {/*{searchResult.map((group) => (*/}
+                {/*    <div key={group.groupId}>{group.groupName}</div>*/}
+                {/*))}*/}
             </Box>
-        </>
-    )
-}
+        </div>
+    );
+};
 
 export default GroupFilterModal;
