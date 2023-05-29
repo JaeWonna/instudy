@@ -5,9 +5,10 @@ import checkGood from "../../../img/checkGood.JPG";
 import checkBad from "../../../img/checkBad.JPG";
 import axios from "axios";
 import {useParams} from "react-router-dom";
+import {userSlice} from "../../../api/redux/user/userSlice";
 
 const CheckCard = (props) => {
-    const { setGoodCount, setBadCount, goodCount, badCount, loginUser , readCheckingData } = props;
+    const { setGoodCount, setBadCount, goodCount, badCount, loginUser , readCheckingData, checkingId, setCheckingId } = props;
 
     const {groupId} = useParams();
     const params = useParams(); //url로 넘어온 파라미터를 받는 역할 (App.js 의 :id 참고)
@@ -24,9 +25,9 @@ const CheckCard = (props) => {
             setGoodCount(goodCount + 1);
             try {
                 // 함수 호출
-                await sendCreateRequest();
-                console.log("checkingId", checkingId)
-                await sendUpdateRequest();
+                await sendLikeRequest();
+                // console.log("checkingId", checkingId)
+                // await sendUpdateRequest();
                 // 요청 성공 후 처리할 작업 수행
             } catch (error) {
                 console.error('Error:', error);
@@ -35,9 +36,7 @@ const CheckCard = (props) => {
         } else if (type === "bad") {
             setBadCount(badCount + 1);
             try {
-                // 함수 호출
-                await sendDeleteRequest(checkingId);
-                // 요청 성공 후 처리할 작업 수행
+                await sendDislikeRequest();
             } catch (error) {
                 console.error('Error:', error);
                 // 요청 실패 시 처리할 작업 수행
@@ -50,48 +49,60 @@ const CheckCard = (props) => {
     // console.log("groupId", group_id)
     // console.log("loginUser", loginUser)
 
-    const [checkingId, setCheckingId] = useState(0);
+    // const [checkingId, setCheckingId] = useState(0);
 
-    const sendCreateRequest = async () => {
-        const url = '/checking/create';
+    const sendLikeRequest = async () => {
+        const url = '/checking/update/like';
 
-        const createData = {
+        const likeData = {
+            good: true,
             userId: loginUser.userId,
-            groupId: group_id,
-            content: 'This is a content.',
+            checkingId: checkingId,
         };
 
+        console.log("좋아요 누르고 likeData", likeData)
+        console.log('Type of likeData:', typeof likeData.good);
+        console.log('Type of likeData:', typeof likeData.userId);
+        console.log('Type of likeData:', typeof likeData.checkingId);
+
         try {
-            const response = await axios.post(url, createData);
-            const checking = response.data;
-            console.log('Checking:', checking);
-            setCheckingId(checking.checkingId);
-            // 요청 성공 후 처리할 작업 수행
-        } catch (error) {
-            if (error.response) {
-                // 서버 응답이 왔지만 응답 상태 코드가 에러인 경우
-                console.error('Error:', error.response.data);
-                console.error('Status code:', error.response.status);
-            } else if (error.request) {
-                // 요청이 전송되었지만 응답을 받지 못한 경우 (네트워크 오류 등)
-                console.error('Error:', error.request);
+            if (readCheckingData.some((item) => item.userId === loginUser.userId)) {
+                alert('이미 인정을 눌렀습니다');
             } else {
-                // 요청 설정을 준비하는 동안 발생한 오류
-                console.error('Error:', error.message);
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(likeData),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Request failed with status code ' + response.status);
+                }
+
+                const checking = await response.json();
+                console.log('Checking:', checking);
+                setCheckingId(checkingId + 1);
+                // 요청 성공 후 처리할 작업 수행
             }
+        } catch (error) {
+            console.error('Error:', error.message);
             // 요청 실패 시 처리할 작업 수행
         }
     };
 
-    const sendDeleteRequest = async () => {
-        const url = '/checking/delete';
+    const sendDislikeRequest = async () => {
+        const url = '/checking/update/dislike';
 
-        const deleteData = {
+        const dislikeData = {
+            bad: true,
+            userId: loginUser.userId,
             checkingId: checkingId,
         };
 
         try {
-            const response = await axios.post(url, deleteData);
+            const response = await axios.post(url, dislikeData);
             const checking = response.data;
             console.log('Checking:', checking);
             // 요청 성공 후 처리할 작업 수행
@@ -118,7 +129,7 @@ const CheckCard = (props) => {
             good: true,
             bad: false,
             userId: loginUser.userId,
-            checkingId: checkingId,
+            // checkingId: checkingId,
             comment: 'This is a comment.',
         };
 
