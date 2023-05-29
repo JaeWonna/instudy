@@ -7,6 +7,7 @@ import CheckCard from "./CheckCard";
 import CheckProgress from "./CheckProgress";
 import {useState, useEffect} from "react";
 import axios from "axios";
+import MemoView from "./Comment/MemoView";
 
 const CheckUserDetails = (props) => {
     const { clickedNum, todos, loginUser, groupId } = props;
@@ -26,6 +27,8 @@ const CheckUserDetails = (props) => {
 
     console.log("groupId", groupId)
 
+    const [checkingId, setCheckingId] = useState(0);
+
     useEffect(() => {
         const sendReadRequest = async () => {
             const url = "/checking/groupRead";
@@ -38,6 +41,11 @@ const CheckUserDetails = (props) => {
                 const response = await axios.post(url, readData);
                 const checking = response.data;
                 setReadCheckingData(checking);
+                console.log("checking 배열", checking)
+                const foundItem = checking.find((item) => item.userId === loginUser.userId);
+                if (foundItem) {
+                    setCheckingId(foundItem.checkingId);
+                }
             } catch (error) {
                 // Handle error
             }
@@ -46,7 +54,8 @@ const CheckUserDetails = (props) => {
         sendReadRequest();
     }, [groupId]);
 
-    // console.log("readCheckingData", readCheckingData)
+    // console.log("checking", checking)
+    console.log("checkingId", checkingId)
 
     // const sendUpdateGrass = async () => {
     //     const url = '/checking/update/grass';
@@ -103,7 +112,8 @@ const CheckUserDetails = (props) => {
                 </Box>
                 <MDBCardBody>
                     <CheckTodoList todos={todos} />
-                    <CheckCard setGoodCount={setGoodCount} setBadCount={setBadCount} goodCount={goodCount} badCount={badCount} loginUser={loginUser} readCheckingData={readCheckingData}/>
+                    <MemoView />
+                    <CheckCard setGoodCount={setGoodCount} setBadCount={setBadCount} goodCount={goodCount} badCount={badCount} loginUser={loginUser} readCheckingData={readCheckingData} checkingId={checkingId} setCheckingId={setCheckingId}/>
                     <CheckProgress totalCount={totalCount} readCheckingData={readCheckingData}/>
                 </MDBCardBody>
             </MDBCard>
