@@ -205,6 +205,6 @@ public class CheckingService {
 
         checkingRepository.save(checking);
 
-        return "message";
+        return "comment";
     }
 }
