@@ -38,8 +38,9 @@ function DesktopMain() {
     }
 
     const backgroundStyle = {
-        backgroundImage: `url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp')`,
-        height: '2000px'
+        // backgroundImage: `url('https://mdbcdn.b-cdn.net/img/new/slides/041.webp')`,
+        height: '2000px',
+        backgroundColor: 'white',
     }
 
     const maskStyle = {
@@ -61,7 +62,7 @@ function DesktopMain() {
                                 <div class="text-white">
                                     <h1 class="mb-3"><b>Instudy 에서 함께 공부해요!</b></h1>
                                     <h4 class="mb-3"></h4>
-                                    <a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a>
+                                    {/*<a class="btn btn-outline-light btn-lg" href="#!" role="button">Call to action</a>*/}
                                 </div>
                             </div>
                             <div class="card" style={{margin: '20px 0'}}>
