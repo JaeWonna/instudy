@@ -8,8 +8,10 @@ function MKButton(props: { color: string, onClick: *, variant: string, type: str
     return null;
 }
 
-const ImageUpload = () => {
+const ImageUpload = ({getImageId}) => {
     const [image, setImage] = useState({ preview: '', data: '' });
+    const [imageId, setImageId] = useState(0);
+
 
     const handleFileChange = (e) => {
         const img = {
@@ -26,17 +28,30 @@ const ImageUpload = () => {
         const formData = new FormData();
         formData.append('image', image.data);
 
-            axios
-                .post("/image/upload", formData
-                )
-                .then((response) => {
-                    alert(response.data)
-                    setImage({ preview: '', data: '' });
-                }).catch((error) => {
-                    console.log(error)
-            });
+        //     axios
+        //         .post("/image/upload", formData)
+        //         .then((response) => {
+        //             alert(response.data)
+        //             setImageId(response.data);
+        //             setImage({ preview: '', data: '' });
+        //         }).catch((error) => {
+        //             console.log(error)
+        //     });
+        // console.log(imageId);
+        // getImageId(imageId);
+        try {
+            const response = await axios.post("/image/upload", formData);
+            alert(response.data);
+            setImageId(response.data);
+            setImage({ preview: '', data: '' });
+        } catch (error) {
+            console.log(error);
+        }
 
     };
+
+    console.log(imageId);
+    getImageId(imageId);
 
     const componentStyle = {
         display: 'flex',

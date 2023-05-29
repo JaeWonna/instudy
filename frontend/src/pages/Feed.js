@@ -76,12 +76,16 @@ const Feed = () => {
 
     console.log(feeds)
 
+    let image;
+    let imageId;
+
     const createFeed = () => {
         axios
             .post("/feed/create", {
                 userId : loginUser.userId,
                 groupId : groupId,
-                content : content
+                content : content,
+                imageId : imageId
             })
             .then((response) => {
                 handleClose()
@@ -91,6 +95,15 @@ const Feed = () => {
                 .then((response) => {
                     setFeeds(response.data);
                 })
+            })
+            .catch();
+
+        axios
+            .post("/image/" + imageId, {
+                imageId : imageId
+            })
+            .then((response) => {
+                console.log(response)
             })
             .catch();
     }
@@ -129,6 +142,11 @@ const Feed = () => {
     const groupId = params.groupId; //(params의 :id를 받는 역할)
     console.log("groupId ", groupId)
 
+    const getImageId = (x) => {
+        console.log(x);
+        imageId = x;
+    }
+
     return (
         <div>
             <div className="col-md-10" style={child}>
@@ -146,6 +164,7 @@ const Feed = () => {
                             feeds.map((feed) => (
                                 <Grid item xs={12} xl={3} lg={4} sm={6}>
                                     <FeedCard
+                                        image
                                         deleteFeed = {deleteFeed}
                                         feedId = {feed.feedId}
                                         user = {loginUser}
@@ -181,7 +200,9 @@ const Feed = () => {
                                 자신의 공부 내용을 추가하세요.<br/>
                                 피드를 통해 자신의 공부내용을 기록하고 공유할 수 있습니다.
                             </DialogContentText>
-                            <ImageUpload/>
+                            <ImageUpload
+                                getImageId = {getImageId}
+                            />
                             <TextField
                                 autoFocus
                                 margin="dense"
