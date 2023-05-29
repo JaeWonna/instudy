@@ -105,7 +105,6 @@ export default function Check() {
                         height="10vh"
                     >
                         <Typography variant="h5" gutterBottom>
-                            그룹 이름 올 자리
                             {group.length > 0 && group[groupId]?.groupName}</Typography>
                     </Box>
                     <MDBCardBody>
@@ -120,7 +119,7 @@ export default function Check() {
                 {
                     detail == true
                         ?
-                        <CheckUserDetails loginUser={loginUser} clickedNum={clickedNum} todos={todos}/>
+                        <CheckUserDetails loginUser={loginUser} clickedNum={clickedNum} todos={todos} groupId={groupId}/>
                         :
                         <></>
 
