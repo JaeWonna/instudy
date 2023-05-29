@@ -25,15 +25,15 @@ public class ImageController {
 
     // 이미지 업로드 (서버에 저장)
     @RequestMapping(value = "/image/upload", method = RequestMethod.POST)
-    public String uploadImage(@RequestParam("image") MultipartFile image) throws IOException {
+    public Long uploadImage(@RequestParam("image") MultipartFile image) throws IOException {
 //    public String uploadImage(@RequestParam("image") MultipartFile image, @RequestParam("images") List<MultipartFile> images) throws IOException {
-        imageService.saveImage(image);
+        System.out.print(image);
 
 //        for (MultipartFile multipartFile : images) {
 //            imageService.saveImage(multipartFile);
 //        }
 
-        return "upload";
+        return imageService.saveImage(image);
     }
 
     // 이미지 출력
