@@ -19,14 +19,14 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import TimerCreate from "./TimerCreate";
 import { format, parseISO } from 'date-fns';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {MDBCard, MDBCardBody} from "mdb-react-ui-kit";
 import CheckTodoList from "../group/Check/CheckTodoList";
 import CheckCard from "../group/Check/CheckCard";
 import CheckProgress from "../group/Check/CheckProgress";
 
 export default function TimerDialog(props: SimpleDialogProps) {
-    const { onClose, selectedValue, open, userId, loginUser, groupId, time, setTime } = props;
+    const { onClose, selectedValue, open, userId, loginUser, groupId, time, setTime, setLoginUser } = props;
 
     const handleClose = () => {
         onClose(selectedValue);
@@ -75,6 +75,21 @@ export default function TimerDialog(props: SimpleDialogProps) {
         handleOpen();
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.post('/timer/read', { userId: loginUser.userId });
+                setLoginUser(response.data);
+            } catch (error) {
+                console.error('Error fetching user time:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    console.log("loginUser", loginUser)
+
     return (
         <Box
             display="flex"
@@ -86,18 +101,6 @@ export default function TimerDialog(props: SimpleDialogProps) {
                 <CardContent>
             <Typography>{userId}님의 타이머</Typography>
             <List sx={{ pt: 0 }}>
-                {/*{emails.map((email) => (*/}
-                {/*    <ListItem disableGutters>*/}
-                {/*        <ListItemButton onClick={() => handleListItemClick(email)} key={email}>*/}
-                {/*            <ListItemAvatar>*/}
-                {/*                <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>*/}
-                {/*                    <PersonIcon />*/}
-                {/*                </Avatar>*/}
-                {/*            </ListItemAvatar>*/}
-                {/*            <ListItemText primary={email} />*/}
-                {/*        </ListItemButton>*/}
-                {/*    </ListItem>*/}
-                {/*))}*/}
                 <ListItem disableGutters>
 
                     <MDBCard className="mb-5">
@@ -106,6 +109,16 @@ export default function TimerDialog(props: SimpleDialogProps) {
                             </Typography>
                     </MDBCard>
                 </ListItem>
+
+                <Typography>총 공부한 시간</Typography>
+                <ListItem disableGutters>
+                    <MDBCard className="mb-5">
+                        <Typography variant="h5" gutterBottom>
+                            {loginUser.userStudyHours} : {loginUser.userStudyMinutes} : {loginUser.userStudySeconds}
+                        </Typography>
+                    </MDBCard>
+                </ListItem>
+
                 <ListItem disableGutters>
                     {/*{time}*/}
                     <ListItemButton
@@ -123,10 +136,6 @@ export default function TimerDialog(props: SimpleDialogProps) {
                 </ListItem>
             </List>
                 </CardContent>
-                <CardActions>
-                    <Button size="small">Share</Button>
-                    <Button size="small">Learn More</Button>
-                </CardActions>
             </Card>
         </Box>
 
