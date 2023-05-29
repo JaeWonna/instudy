@@ -82,28 +82,6 @@ public class CheckingService {
         return checking;
     }
 
-    public String updateGrass(Checking checking, String userId, Long groupId, String inputPeriod) {
-
-        StudyGroup studyGroup = groupRepository.findByGroupId(groupId);
-        List<String> member = studyGroup.getMember();
-        int size = member.size();
-
-        int goodNum = checking.getGoodNum();
-
-        double percentage = (double) goodNum / size;
-
-        if(percentage >= 0.5) {
-            List<String> period = checking.getPeriod();
-            period.add(inputPeriod);
-            checking.setPeriod(period);
-            checkingRepository.save(checking);
-            return "grass";
-        } else {
-            return "not";
-        }
-
-    }
-
 
     // 좋아요 눌렀을때 좋아요와 구독 부탁드립니다 ~ !! ^^ + 변경후 무조건 save
     public Checking updateLike(Checking checking, String userId, Boolean good) {
@@ -207,4 +185,19 @@ public class CheckingService {
 
         return "comment";
     }
+
+    public double updatePercent(Checking checking) {
+        Long groupId = checking.getGroupId();
+        StudyGroup studyGroup = groupRepository.findByGroupId(groupId);
+        List<String> member = studyGroup.getMember();
+        int size = member.size();
+
+        List<String> goodUser = checking.getGoodUser();
+        int goodSize = goodUser.size();
+
+        double percentage = (double) goodSize / size;
+        return percentage;
+
+    }
+
 }

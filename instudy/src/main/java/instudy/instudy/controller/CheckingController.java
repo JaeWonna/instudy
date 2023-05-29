@@ -140,17 +140,12 @@ public class CheckingController {
     }
 
 
-    // 공부 인증의 마지막 : 인정이 될 수도 있고 인정아 안될 수도 있다 -> 내 화면에서 인정 됐는지 안됐는지
-    // 과반수 이상이면 인정
-    // 반환 값은 String : 성공시 grass, 안됐을시 not리턴
-    @RequestMapping(value = "/checking/update/grass", method = RequestMethod.POST)
-    public String updateCheckingGrass(@RequestBody Map<String, String> paramMap) {
-        String inputPeriod = paramMap.get("period");
-        String userId = paramMap.get("userId");
-        Long groupId = Long.parseLong(paramMap.get("groupId"));
+    // 반환값 double 퍼센트 ex) 0.2 .. 0.4 ..
+    @RequestMapping(value = "/checking/percent", method = RequestMethod.POST)
+    public double CheckingPercent(@RequestBody Map<String, String> paramMap) {
         Long checkingId = Long.parseLong(paramMap.get("checkingId"));
         Checking checking = checkingService.findByCheckingId(checkingId);
-        return checkingService.updateGrass(checking, userId, groupId, inputPeriod);
+        return checkingService.updatePercent(checking);
     }
 
 
