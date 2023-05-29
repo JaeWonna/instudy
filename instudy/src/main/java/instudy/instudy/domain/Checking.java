@@ -37,6 +37,9 @@ public class Checking {
     private List<String> BadUser = new ArrayList<>(); // 나쁜 유저 아이디
     @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글모음
+    @ElementCollection
+    private List<String> messageUser = new ArrayList<>(); // 댓글쓴 유저모음
+    
 
     public Checking() {}
 

@@ -46,15 +46,15 @@ public class CheckingService {
         if(good == true && finish == false) { // 해당 사용자는 인정하였고 체킹 그룹 리스트에 추가한다 & 댓글도 저장
             List<String> checkUser = checking.getCheckUser();
             checkUser.add(userId);
-            checking.setCheckUser(checkUser);
+            checking.setCheckUser(checkUser); // 체크유저 추가후 저장
 
             List<String> comment = checking.getComment();
             comment.add(userComment);
-            checking.setComment(comment);
+            checking.setComment(comment); // 코멘트 추가 후 저장
 
             int goodNum = checking.getGoodNum();
             goodNum += 1;
-            checking.setGoodNum(goodNum);
+            checking.setGoodNum(goodNum); // 좋은값 1증가
 
             if (flag == false) {
                 int badNum = checking.getBadNum();
@@ -190,5 +190,21 @@ public class CheckingService {
 
         checkingRepository.save(checking);
         return checking;
+    }
+
+    // 댓글 남기기
+    public String updateComment(Checking checking, String userId, String message) {
+
+        List<String> comment = checking.getComment();
+        comment.add(message);
+        checking.setComment(comment);
+
+        List<String> messageUser = checking.getMessageUser();
+        messageUser.add(userId);
+        checking.setMessageUser(messageUser);
+
+        checkingRepository.save(checking);
+
+        return "message";
     }
 }

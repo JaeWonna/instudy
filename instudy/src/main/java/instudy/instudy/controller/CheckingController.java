@@ -129,6 +129,16 @@ public class CheckingController {
         return checkingService.updateDislike(checking, userId, bad);
     }
 
+    // 댓글만 남기기 기능 구현
+    @RequestMapping(value = "/checking/update/comment", method = RequestMethod.POST)
+    public String CheckingComment(@RequestBody Map<String, String> paramMap) {
+        String userId = paramMap.get("userId");
+        Long checkingId = Long.parseLong(paramMap.get("checkingId"));
+        String message = paramMap.get("message");
+        Checking checking = checkingService.findByCheckingId(checkingId);
+        return checkingService.updateComment(checking, userId, message);
+    }
+
 
     // 공부 인증의 마지막 : 인정이 될 수도 있고 인정아 안될 수도 있다 -> 내 화면에서 인정 됐는지 안됐는지
     // 과반수 이상이면 인정
