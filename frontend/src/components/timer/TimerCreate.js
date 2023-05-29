@@ -18,7 +18,7 @@ const style = {
 };
 
 export default function TimerCreate(props) {
-    const { handleModalClose, modalOpen, userId, loginUser, timerId, time, setTime } = props;
+    const { handleModalClose, modalOpen, userId, loginUser, timerId, time, setTime, setTimerList } = props;
 
     // const transformRequest = (data) => {
     //     // Circular Structure를 제거하거나 필요한 정보만 포함한 객체로 변환
@@ -31,6 +31,20 @@ export default function TimerCreate(props) {
     // };
     //
     // const [time, setTime] = useState(0);
+
+    useEffect(() => {
+        // Retrieve the saved time from session storage when the component mounts
+        const savedTime = sessionStorage.getItem('time');
+        if (savedTime) {
+            setTime(parseInt(savedTime));
+        }
+    }, []);
+
+    useEffect(() => {
+        // Save the time to session storage whenever it changes
+        sessionStorage.setItem('time', time.toString());
+    }, [time]);
+
     const [isRunning, setIsRunning] = useState(false);
 
     useEffect(() => {
@@ -88,6 +102,13 @@ export default function TimerCreate(props) {
                 console.log("response.data", response.data)
                 if (response.data === "stop") {
                     alert("타이머 멈춤");
+                    setTimerList((prevTimerList) => [
+                        ...prevTimerList,
+                        {
+                            timerId: timerId,
+                            time: time,
+                        }
+                    ]);
                 }
             })
             .catch((error) => {
@@ -108,6 +129,13 @@ export default function TimerCreate(props) {
                 console.log("response.data", response.data)
                 if (response.data === "save") {
                     alert("타이머 저장 완료");
+                    setTimerList((prevTimerList) => [
+                        ...prevTimerList,
+                        {
+                            timerId: timerId,
+                            time: time,
+                        }
+                    ]);
                 }
             })
             .catch((error) => {

@@ -20,7 +20,8 @@ import Button from '@mui/material/Button';
 import TimerCreate from "./TimerCreate";
 import { format, parseISO } from 'date-fns';
 import { useState, useEffect } from 'react';
-import {MDBCard, MDBCardBody} from "mdb-react-ui-kit";
+import {MDBCard, MDBCardBody, MDBCardTitle} from "mdb-react-ui-kit";
+import { useNavigate } from 'react-router-dom';
 import CheckTodoList from "../group/Check/CheckTodoList";
 import CheckCard from "../group/Check/CheckCard";
 import CheckProgress from "../group/Check/CheckProgress";
@@ -75,6 +76,12 @@ export default function TimerDialog(props: SimpleDialogProps) {
         handleOpen();
     };
 
+    const handleTimerListClick = (timerId) => {
+        setSelectedTimerId(timerId);
+        createTimer();
+        handleOpen();
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -88,7 +95,26 @@ export default function TimerDialog(props: SimpleDialogProps) {
         fetchData();
     }, []);
 
+    const [timerList, setTimerList] = useState([
+        {
+            timerId: timerId,
+            time: time
+        },
+    ]);
+
     console.log("loginUser", loginUser)
+    console.log("timerId", timerId)
+    console.log("timerList", timerList)
+
+    const navigate = useNavigate();
+
+    const clickTimerItem = (timerId) => {
+        return (
+            <TimerCreate modalOpen={modalOpen} handleModalClose={handleModalClose} />
+        )
+    }
+
+    const [selectedTimerId, setSelectedTimerId] = useState(null); // Add selectedTimerId state variable
 
     return (
         <Box
@@ -99,25 +125,62 @@ export default function TimerDialog(props: SimpleDialogProps) {
         >
             <Card sx={{ maxWidth: 345 }}>
                 <CardContent>
-            <Typography>{userId}님의 타이머</Typography>
+                    <Typography variant="h5" component="h5" style={{ fontWeight: 'bold' }}>{userId}님의 타이머</Typography>
             <List sx={{ pt: 0 }}>
-                <ListItem disableGutters>
+                {/*<ListItem disableGutters>*/}
 
-                    <MDBCard className="mb-5">
-                            <Typography variant="h5" gutterBottom>
-                                {time} second
-                            </Typography>
-                    </MDBCard>
-                </ListItem>
+                {/*    <MDBCard className="mb-5">*/}
+                {/*            <Typography variant="h5" gutterBottom>*/}
+                {/*                {time} second*/}
+                {/*            </Typography>*/}
+                {/*    </MDBCard>*/}
+                {/*</ListItem>*/}
+                {/*{*/}
+                {
+                    timerList.map((timer) => (
+                        <ListItem disableGutters key={timer.timerId}>
+                            <ListItemButton
+                                autoFocus
+                                onClick={() => handleTimerListClick(timer.timerId)}
+                            >
+                                <ListItemText primary={`${timer.time} second`} />
+                            </ListItemButton>
+                            {selectedTimerId === timer.timerId && (
+                                <TimerCreate
+                                    modalOpen={modalOpen}
+                                    handleModalClose={handleModalClose}
+                                    userId={userId}
+                                    loginUser={loginUser}
+                                    timerId={timer.timerId}
+                                    time={timer.time}
+                                    setTime={setTime}
+                                    setTimerList={setTimerList}
+                                />
+                            )}
+                        </ListItem>
+                    ))
+                }
 
-                <Typography>총 공부한 시간</Typography>
-                <ListItem disableGutters>
-                    <MDBCard className="mb-5">
-                        <Typography variant="h5" gutterBottom>
-                            {loginUser.userStudyHours} : {loginUser.userStudyMinutes} : {loginUser.userStudySeconds}
-                        </Typography>
-                    </MDBCard>
-                </ListItem>
+                <Typography variant="h5" component="h5" style={{ fontWeight: 'bold' }}>총 공부한 시간</Typography>
+                {/*<ListItem disableGutters>*/}
+                {/*    <Box*/}
+                {/*        display="flex"*/}
+                {/*        justifyContent="center"*/}
+                {/*        alignItems="center"*/}
+                {/*        height="10vh"*/}
+                {/*    >*/}
+                <MDBCard className="col-md-10">
+                    <MDBCardBody>
+                        <MDBCardTitle>
+                            <h1 className="text-center my-3 pb-3">
+                                {loginUser.userStudyHours} : {loginUser.userStudyMinutes} : {loginUser.userStudySeconds}
+                            </h1>
+                        </MDBCardTitle>
+                    </MDBCardBody>
+                </MDBCard>
+
+                    {/*</Box>*/}
+                {/*</ListItem>*/}
 
                 <ListItem disableGutters>
                     {/*{time}*/}
@@ -132,7 +195,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                         </ListItemAvatar>
                         <ListItemText primary="새 타이머 만들기" />
                     </ListItemButton>
-                    <TimerCreate modalOpen={modalOpen} handleModalClose={handleModalClose} userId={userId} loginUser={loginUser} timerId={timerId} time={time} setTime={setTime}/>
+                    <TimerCreate modalOpen={modalOpen} handleModalClose={handleModalClose} userId={userId} loginUser={loginUser} timerId={timerId} time={time} setTime={setTime} setTimerList={setTimerList}/>
                 </ListItem>
             </List>
                 </CardContent>
