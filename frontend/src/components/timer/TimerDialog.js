@@ -25,6 +25,7 @@ import { useNavigate } from 'react-router-dom';
 import CheckTodoList from "../group/Check/CheckTodoList";
 import CheckCard from "../group/Check/CheckCard";
 import CheckProgress from "../group/Check/CheckProgress";
+import TimerTotalTime from "./TimerTotalTime";
 
 export default function TimerDialog(props: SimpleDialogProps) {
     const { onClose, selectedValue, open, userId, loginUser, groupId, time, setTime, setLoginUser } = props;
@@ -82,28 +83,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
         handleOpen();
     }
 
-    console.log("userId type:", typeof userId);
-
-    useEffect(() => {
-        console.log("으ㅏㅇㄹ마이럼;나ㅣㅇ험ㅇ나ㅣ러userId", userId)
-        axios.post('/timer/read', {
-            userId: userId,
-        })
-            .then(
-                (response) => {
-                    console.log("타이머 읽어옴 response", response);
-                    if (response.data) {
-                        alert("타이머 읽어옴")
-                    } else {
-                        alert("타이머 읽어오기 실패")
-                    }
-                })
-            .catch((error) => {
-                // 서버 요청 실패
-                console.error("서버 요청 타이머 읽어옴 실패: ", error);
-                // 에러 처리 또는 알림 표시
-            });
-    }, [userId]);
+    // console.log("userId type:", typeof userId);
 
     const [timerList, setTimerList] = useState([
         {
@@ -112,9 +92,9 @@ export default function TimerDialog(props: SimpleDialogProps) {
         },
     ]);
 
-    console.log("loginUser", loginUser)
-    console.log("timerId", timerId)
-    console.log("timerList", timerList)
+    // console.log("loginUser", loginUser)
+    // console.log("timerId", timerId)
+    // console.log("timerList", timerList)
 
     const navigate = useNavigate();
 
@@ -182,9 +162,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                 <MDBCard className="col-md-10">
                     <MDBCardBody>
                         <MDBCardTitle>
-                            <h1 className="text-center my-3 pb-3">
-                                {loginUser.userStudyHours} : {loginUser.userStudyMinutes} : {loginUser.userStudySeconds}
-                            </h1>
+                            <TimerTotalTime loginUser={loginUser}/>
                         </MDBCardTitle>
                     </MDBCardBody>
                 </MDBCard>
