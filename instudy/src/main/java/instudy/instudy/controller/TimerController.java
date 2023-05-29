@@ -87,22 +87,23 @@ public class TimerController {
         return "save";
     }
 
-    // 이제까지 공부한 시간 출력
+    // 이제까지 공부한 시간 출력 -> int
     @RequestMapping(value = "/timer/read", method = RequestMethod.POST)
-    public User getUserTime(@RequestBody Map<String, String> paramMap) {
+    public long getUserTime(@RequestBody Map<String, String> paramMap) {
         String userId = paramMap.get("userId");
         User user = userService.findOne(userId);
-        long userTotalTime = user.getUserTotalTime(); // 이미 가공된 상태 (타이머에서 유저로 시간옮길때 이미 1000나눠줌)
+        return user.getUserTotalTime(); // 이미 가공된 상태 (타이머에서 유저로 시간옮길때 이미 1000나눠줌)
 
-        int hours = (int) (userTotalTime / 3600); // Calculate hours
-        int minutes = (int) ((userTotalTime % 3600) / 60); // Calculate minutes
-        int seconds = (int) (userTotalTime % 60); // Calculate seconds
-
-        user.setUserStudyHours(hours);
-        user.setUserStudyMinutes(minutes);
-        user.setUserStudySeconds(seconds);
-
-        userService.save(user); // 유저 변경사항 저장해야됨
-        return user;
+//        int hours = (int) (userTotalTime / 3600); // Calculate hours
+//        int minutes = (int) ((userTotalTime % 3600) / 60); // Calculate minutes
+//        int seconds = (int) (userTotalTime % 60); // Calculate seconds
+//
+//        user.setUserStudyHours(hours);
+//        user.setUserStudyMinutes(minutes);
+//        user.setUserStudySeconds(seconds);
+//
+//        userService.save(user); // 유저 변경사항 저장해야됨
+//        System.out.println(user); //
+//        return user; // 원래는 이렇게 되어있었음
     }
 }
