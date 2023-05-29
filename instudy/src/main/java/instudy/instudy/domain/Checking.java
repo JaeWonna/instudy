@@ -30,7 +30,11 @@ public class Checking {
     @ElementCollection
     private List<String> period = new ArrayList<>(); // 인증 받은 날짜 모음
     @ElementCollection
-    private List<String> checkUser = new ArrayList<>(); // 인증 누른 유저 아이디
+    private List<String> checkUser = new ArrayList<>(); // 인증에 참여한 유저 아이디
+    @ElementCollection
+    private List<String> goodUser = new ArrayList<>(); // 착한 유저 아이디
+    @ElementCollection
+    private List<String> BadUser = new ArrayList<>(); // 나쁜 유저 아이디
     @ElementCollection
     private List<String> comment = new ArrayList<>(); // 댓글모음
 

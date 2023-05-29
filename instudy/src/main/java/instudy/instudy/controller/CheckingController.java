@@ -108,6 +108,28 @@ public class CheckingController {
         return checkingService.updateClick(checking, userId, good, bad, userComment);
     }
 
+    // 좋아요 눌렀을때 -> 좋아요 후 댓글 남기는 기능은 없음
+    @RequestMapping(value = "/checking/update/like", method = RequestMethod.POST)
+    public Checking Checkinglike(@RequestBody Map<String, String> paramMap) {
+        Boolean good = Boolean.parseBoolean(paramMap.get("good"));
+        String userId = paramMap.get("userId");
+        Long checkingId = Long.parseLong(paramMap.get("checkingId"));
+        Checking checking = checkingService.findByCheckingId(checkingId);
+        return checkingService.updateLike(checking, userId, good);
+    }
+
+
+    // 싫어요 눌렀을때 -> 싫어요 후 댓글 남기는 기능은 없음
+    @RequestMapping(value = "/checking/update/dislike", method = RequestMethod.POST)
+    public Checking CheckingDislike(@RequestBody Map<String, String> paramMap) {
+        Boolean bad = Boolean.parseBoolean(paramMap.get("bad"));
+        String userId = paramMap.get("userId");
+        Long checkingId = Long.parseLong(paramMap.get("checkingId"));
+        Checking checking = checkingService.findByCheckingId(checkingId);
+        return checkingService.updateDislike(checking, userId, bad);
+    }
+
+
     // 공부 인증의 마지막 : 인정이 될 수도 있고 인정아 안될 수도 있다 -> 내 화면에서 인정 됐는지 안됐는지
     // 과반수 이상이면 인정
     // 반환 값은 String : 성공시 grass, 안됐을시 not리턴

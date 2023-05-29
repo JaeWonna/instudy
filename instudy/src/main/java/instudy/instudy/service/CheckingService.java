@@ -103,4 +103,92 @@ public class CheckingService {
         }
 
     }
+
+
+    // 좋아요 눌렀을때 좋아요와 구독 부탁드립니다 ~ !! ^^ + 변경후 무조건 save
+    public Checking updateLike(Checking checking, String userId, Boolean good) {
+
+        // 일단 검사후
+        List<String> checkUser = checking.getCheckUser();
+        List<String> goodUser = checking.getGoodUser();
+        List<String> badUser = checking.getBadUser();
+        int goodNum = checking.getGoodNum();
+        int badNum = checking.getBadNum();
+
+        if(!checkUser.contains(userId)) { // checkUser안에 없을경우
+            checkUser.add(userId);
+            checking.setCheckUser(checkUser); // 사람추가
+
+            goodNum += 1;
+            checking.setGoodNum(goodNum); // 좋아요 한개 추가 갑니다잉~~!
+
+            goodUser.add(userId);
+            checking.setGoodUser(goodUser); // 좋아요 누른 당신은 착한사람 ^^
+
+        } else { // 이미 눌렀을 경우 1) 동일한거 눌렀는지 2) 싫어요 눌렀는지
+
+            if(goodUser.contains(userId)) {
+                System.out.println("좋아요를 2번 이상 누를 수 없습니다");
+            } else{
+                goodNum -= 1;
+                checking.setGoodNum(goodNum);
+
+                goodUser.remove(userId);
+                checking.setGoodUser(goodUser);
+
+                badNum += 1;
+                checking.setBadNum(badNum);
+
+                badUser.add(userId);
+                checking.setBadUser(badUser);
+            }
+        }
+
+        checkingRepository.save(checking);
+        return checking;
+    }
+
+
+    // 싫어요 눌렀을때 ㅠㅠㅠ
+    public Checking updateDislike(Checking checking, String userId, Boolean bad) {
+
+        // 일단 검사후
+        List<String> checkUser = checking.getCheckUser();
+        List<String> goodUser = checking.getGoodUser();
+        List<String> badUser = checking.getBadUser();
+        int goodNum = checking.getGoodNum();
+        int badNum = checking.getBadNum();
+
+        if(!checkUser.contains(userId)) { // checkUser안에 없을경우
+            checkUser.add(userId);
+            checking.setCheckUser(checkUser); // 사람추가
+
+            badNum += 1;
+            checking.setBadNum(badNum); // 싫어요 한개 추가 갑니다잉~~!
+
+            badUser.add(userId);
+            checking.setBadUser(badUser); // 싫어요 누른 당신은 나쁜사람 ㅠ
+
+        } else { // 이미 눌렀을 경우 1) 동일한 시러요 눌렀는지 2) 조아요 눌렀는지
+
+            if(badUser.contains(userId)) {
+                System.out.println("싫어요를 2번 이상 누를 수 없습니다");
+            } else{
+                badNum -= 1;
+                checking.setBadNum(badNum);
+
+                badUser.remove(userId);
+                checking.setBadUser(badUser);
+
+                goodNum += 1;
+                checking.setGoodNum(goodNum);
+
+                goodUser.add(userId);
+                checking.setGoodUser(goodUser);
+            }
+        }
+
+        checkingRepository.save(checking);
+        return checking;
+    }
 }
