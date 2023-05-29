@@ -102,6 +102,7 @@ export default function TimerCreate(props) {
         axios
             .post('/timer/save', {
                 timerId: timerId,
+                userId: userId,
             })
             .then((response) => {
                 console.log("response.data", response.data)
