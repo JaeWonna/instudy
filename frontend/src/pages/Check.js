@@ -19,27 +19,26 @@ export default function Check() {
         width: '70px',
     };
 
+    const [loginUser, setLoginUser] = useState({});
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+        const storedUser = sessionStorage.getItem("loginUser");
+        console.log("test");
+        console.log(storedUser);
+        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+            const parsedUser = JSON.parse(storedUser).data;
+            setLoginUser(parsedUser);
+        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+            navigate("/signIn");
+        }
+    }, []);
+
     const params = useParams();
     const groupId = params.groupId;
     console.log("groupId ", groupId);
 
     const [todos, setTodos] = useState([]);
-    const [loginUser, setLoginUser] = useState({});
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        const storedUser = sessionStorage.getItem("loginUser");
-        console.log("test");
-        console.log("storedUser", storedUser);
-        if (storedUser) {
-            const parsedUser = JSON.parse(storedUser).data;
-            setLoginUser(parsedUser);
-        } else {
-            navigate("/signIn");
-        }
-    }, []);
-
-    console.log("loginUser.userId", loginUser.userId)
 
     useEffect(() => {
         if (loginUser.userId) {
@@ -58,6 +57,8 @@ export default function Check() {
                 });
         }
     }, [loginUser]);
+
+    console.log("Check에서 loginUser", loginUser)
 
     console.log("todos", todos)
 
@@ -90,9 +91,9 @@ export default function Check() {
 
     const [clickedNum, setClickedNum] = useState(1);
 
-    console.log("이미지 클릭하고 clickedNum", clickedNum)
-    console.log("groupId", groupId)
-    console.log("group[groupId]", group[groupId])
+    // console.log("이미지 클릭하고 clickedNum", clickedNum)
+    // console.log("groupId", groupId)
+    // console.log("group[groupId]", group[groupId])
 
     return (
         <div>

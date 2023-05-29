@@ -97,6 +97,8 @@ const CheckUserDetails = (props) => {
     //
     // sendUpdateGrass();
 
+    console.log("CheckUserDetails에서 loginUser", loginUser)
+
     return (
         <>
             <MDBCard className="mb-5">
@@ -112,7 +114,7 @@ const CheckUserDetails = (props) => {
                 </Box>
                 <MDBCardBody>
                     <CheckTodoList todos={todos} />
-                    <MemoView />
+                    <MemoView loginUser={loginUser} checkingId={checkingId}/>
                     <CheckCard setGoodCount={setGoodCount} setBadCount={setBadCount} goodCount={goodCount} badCount={badCount} loginUser={loginUser} readCheckingData={readCheckingData} checkingId={checkingId} setCheckingId={setCheckingId}/>
                     <CheckProgress totalCount={totalCount} readCheckingData={readCheckingData}/>
                 </MDBCardBody>

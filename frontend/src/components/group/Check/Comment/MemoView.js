@@ -5,7 +5,11 @@ import Col from 'react-bootstrap/Col';
 import AddMemo from '../../Check/Comment/AddMemo';
 import MemoList from '../../Check/Comment/MemoList';
 
-const App = () => {
+const App = (props) => {
+    const { loginUser, checkingId } = props;
+
+    console.log("MemoView에서 loginUser", loginUser)
+
     const [memos, setMemos] = useState([
         {
             id: 1,
@@ -45,7 +49,7 @@ const App = () => {
                 </Row>
                 <Row>
                     <Col>
-                        <AddMemo memos={memos} setMemos={setMemos}/>
+                        <AddMemo memos={memos} setMemos={setMemos} loginUser={loginUser} checkingId={checkingId}/>
                     </Col>
                     <Col>
                         <MemoList memos={memos} onDelete={onDelete} onModify={onModify}/>
