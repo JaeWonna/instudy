@@ -15,14 +15,13 @@ public class CheckingController {
 
     private final CheckingService checkingService;
     private final TodoService todoService;
-    private final TimerService timerService;
+//    private final TimerService timerService;
     private final GroupService groupService;
     private final UserService userService;
 
-    public CheckingController(CheckingService checkingService, TodoService todoService, TimerService timerService, GroupService groupService, UserService userService){
+    public CheckingController(CheckingService checkingService, TodoService todoService, GroupService groupService, UserService userService){
         this.checkingService = checkingService;
         this.todoService = todoService;
-        this.timerService = timerService;
         this.groupService = groupService;
         this.userService = userService;
     }
@@ -37,6 +36,10 @@ public class CheckingController {
         Long groupId = Long.parseLong(paramMap.get("groupId"));
         String content = paramMap.get("content");
         Checking newChecking = new Checking(userId, groupId, content);
+
+        newChecking.setGoodNum(0); // 커밋용!!
+        newChecking.setBadNum(0);
+
         System.out.println(newChecking.toString());
         checkingService.create(newChecking);
         return "create";
