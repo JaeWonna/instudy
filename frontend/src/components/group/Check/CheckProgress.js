@@ -8,7 +8,7 @@ import Box from '@mui/material/Box';
 function CircularProgressWithLabel(
     props: CircularProgressProps & { value: number },
 ) {
-    console.log("props.value", props.value)
+    // console.log("props.value", props.value)
     return (
         <Box
             display="flex"
@@ -44,7 +44,7 @@ function CircularProgressWithLabel(
 export default function CheckProgress({ totalCount }) {
     const [progress, setProgress] = React.useState(totalCount);
 
-    console.log("totalCount", totalCount)
+    // console.log("totalCount", totalCount)
 
     // React.useEffect(() => {
     //     const timer = setInterval(() => {

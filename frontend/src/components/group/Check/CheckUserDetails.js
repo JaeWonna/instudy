@@ -5,12 +5,13 @@ import * as React from "react";
 import CheckTodoList from "./CheckTodoList";
 import CheckCard from "./CheckCard";
 import CheckProgress from "./CheckProgress";
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import axios from "axios";
 
 const CheckUserDetails = (props) => {
-    const { clickedNum, todos } = props;
+    const { clickedNum, todos, loginUser, groupId } = props;
 
-    console.log("todos", todos);
+    // console.log("todos", todos);
 
     const handleButtonClick = () => {
         // Handle button click logic here
@@ -20,6 +21,72 @@ const CheckUserDetails = (props) => {
     const [badCount, setBadCount] = useState(0);
 
     const totalCount = goodCount - badCount;
+
+    const [readCheckingData, setReadCheckingData] = useState([]);
+
+    console.log("groupId", groupId)
+
+    useEffect(() => {
+        const sendReadRequest = async () => {
+            const url = "/checking/groupRead";
+
+            const readData = {
+                groupId: groupId,
+            };
+
+            try {
+                const response = await axios.post(url, readData);
+                const checking = response.data;
+                setReadCheckingData(checking);
+            } catch (error) {
+                // Handle error
+            }
+        };
+
+        sendReadRequest();
+    }, [groupId]);
+
+    // console.log("readCheckingData", readCheckingData)
+
+    // const sendUpdateGrass = async () => {
+    //     const url = '/checking/update/grass';
+    //
+    //     const updateData = {
+    //         period: 'period',
+    //         userId: loginUser.userId,
+    //         groupId: groupId,
+    //         checkingId: '1',
+    //     };
+    //
+    //     try {
+    //         const response = await axios.post(url, updateData);
+    //         const checking = response.data;
+    //         if(checking == "grass") {
+    //             alert("인증 성공");
+    //         }
+    //         else {
+    //             alert("인증 실패");
+    //         }
+    //         // console.log('UPDATE Checking:', checking);
+    //         // setReadCheckingData(checking);
+    //         // 요청 성공 후 처리할 작업 수행
+    //     } catch (error) {
+    //         if (error.response) {
+    //             // 서버 응답이 왔지만 응답 상태 코드가 에러인 경우
+    //             console.error('Error:', error.response.data);
+    //             console.error('Status code:', error.response.status);
+    //         } else if (error.request) {
+    //             // 요청이 전송되었지만 응답을 받지 못한 경우 (네트워크 오류 등)
+    //             console.error('Error:', error.request);
+    //         } else {
+    //             // 요청 설정을 준비하는 동안 발생한 오류
+    //             console.error('Error:', error.message);
+    //         }
+    //         // 요청 실패 시 처리할 작업 수행
+    //     }
+    // };
+    //
+    // sendUpdateGrass();
 
     return (
         <>
@@ -36,8 +103,8 @@ const CheckUserDetails = (props) => {
                 </Box>
                 <MDBCardBody>
                     <CheckTodoList todos={todos} />
-                    <CheckCard setGoodCount={setGoodCount} setBadCount={setBadCount} goodCount={goodCount} badCount={badCount}/>
-                    <CheckProgress totalCount={totalCount}/>
+                    <CheckCard setGoodCount={setGoodCount} setBadCount={setBadCount} goodCount={goodCount} badCount={badCount} loginUser={loginUser} readCheckingData={readCheckingData}/>
+                    <CheckProgress totalCount={totalCount} readCheckingData={readCheckingData}/>
                 </MDBCardBody>
             </MDBCard>
         </>
