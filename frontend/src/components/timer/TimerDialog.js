@@ -82,18 +82,28 @@ export default function TimerDialog(props: SimpleDialogProps) {
         handleOpen();
     }
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.post('/timer/read', { userId: loginUser.userId });
-                setLoginUser(response.data);
-            } catch (error) {
-                console.error('Error fetching user time:', error);
-            }
-        };
+    console.log("userId type:", typeof userId);
 
-        fetchData();
-    }, []);
+    useEffect(() => {
+        console.log("으ㅏㅇㄹ마이럼;나ㅣㅇ험ㅇ나ㅣ러userId", userId)
+        axios.post('/timer/read', {
+            userId: userId,
+        })
+            .then(
+                (response) => {
+                    console.log("타이머 읽어옴 response", response);
+                    if (response.data) {
+                        alert("타이머 읽어옴")
+                    } else {
+                        alert("타이머 읽어오기 실패")
+                    }
+                })
+            .catch((error) => {
+                // 서버 요청 실패
+                console.error("서버 요청 타이머 읽어옴 실패: ", error);
+                // 에러 처리 또는 알림 표시
+            });
+    }, [userId]);
 
     const [timerList, setTimerList] = useState([
         {
