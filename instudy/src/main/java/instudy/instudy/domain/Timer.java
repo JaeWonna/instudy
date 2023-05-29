@@ -19,13 +19,13 @@ public class Timer {
     private Long groupId; //
 
     private long startTime;
-    private Long endTime;
+    private long endTime;
 
     private boolean running;
 
-    private Long countTime;
-    private Long dayTime;
-    private Long totalTime;
+    private long countTime;
+    private long dayTime;
+    private long totalTime;
 
 //    @Enumerated(EnumType.STRING)
 //    private TimerStatus timerStatus; // run, stop
@@ -77,9 +77,6 @@ public class Timer {
     }
 
     public void stop() { // 시간측정중
-        if (countTime == null) {
-            countTime = 0L; // null인 경우 기본값으로 설정
-        }
         if (running) {
             endTime = System.currentTimeMillis();
             System.out.println("countTime은 = " + countTime);

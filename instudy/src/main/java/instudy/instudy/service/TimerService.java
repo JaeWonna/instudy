@@ -26,17 +26,17 @@ public class TimerService {
     }
 
     public void update(Timer timer) {
-        // 타이머 업데이트 로직 구현
-        // 예시: JPA를 사용하여 타이머 업데이트
-        if (timer.getDayTime() == null) {
-            timer.setDayTime(0L); // null인 경우 기본값으로 설정
-        }
-        if (timer.getEndTime() == null) {
-            timer.setEndTime(0L); // null인 경우 기본값으로 설정
-        }
-        if (timer.getTotalTime() == null) {
-            timer.setTotalTime(0L); // null인 경우 기본값으로 설정
-        }
+//        // 타이머 업데이트 로직 구현
+//        // 예시: JPA를 사용하여 타이머 업데이트
+//        if (timer.getDayTime() == null) {
+//            timer.setDayTime(0L); // null인 경우 기본값으로 설정
+//        }
+//        if (timer.getEndTime() == null) {
+//            timer.setEndTime(0L); // null인 경우 기본값으로 설정
+//        }
+//        if (timer.getTotalTime() == null) {
+//            timer.setTotalTime(0L); // null인 경우 기본값으로 설정
+//        }
         timerRepository.save(timer);
     }
 
