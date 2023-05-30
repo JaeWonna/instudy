@@ -20,7 +20,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {Button, Menu, MenuItem} from "@material-ui/core";
 import DeleteIcon from '@mui/icons-material/Delete';
 
-const FeedCard = ({deleteFeed, feedId, user, feed}) => {
+const FeedCard = ({image, deleteFeed, feedId, user, feed}) => {
 
     //삭제를 위한 코드
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -135,7 +135,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                     <CardMedia
                         component="img"
                         height="300"
-                        image={profile}
+                        src = {image}
                         alt="Paella dish"
                     />
                     <CardContent>
