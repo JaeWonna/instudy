@@ -80,10 +80,9 @@ const CheckCard = (props) => {
                 if (!response.ok) {
                     throw new Error('Request failed with status code ' + response.status);
                 }
-
+                setCheckingId(checkingId + 1);
                 const checking = await response.json();
                 console.log('Checking:', checking);
-                setCheckingId(checkingId + 1);
                 // 요청 성공 후 처리할 작업 수행
             }
         } catch (error) {

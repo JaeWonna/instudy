@@ -14,8 +14,8 @@ const CheckUserItem = (props) => {
     //     setShowDetails(true);
     // };
 
-    console.log("member", member)
-    console.log("member.id", member.id)
+    // console.log("member", member)
+    // console.log("member.id", member.id)
 
     return (
         <div key={member.id} style={{ margin: '0 30px' }}>

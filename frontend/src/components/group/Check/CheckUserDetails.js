@@ -8,6 +8,7 @@ import CheckProgress from "./CheckProgress";
 import {useState, useEffect} from "react";
 import axios from "axios";
 import MemoView from "./Comment/MemoView";
+import CheckCreate from "./CheckCreate";
 
 const CheckUserDetails = (props) => {
     const { clickedNum, todos, loginUser, groupId } = props;
@@ -27,7 +28,7 @@ const CheckUserDetails = (props) => {
 
     console.log("groupId", groupId)
 
-    const [checkingId, setCheckingId] = useState(0);
+    const [checkingId, setCheckingId] = useState(1);
 
     useEffect(() => {
         const sendReadRequest = async () => {
@@ -97,7 +98,32 @@ const CheckUserDetails = (props) => {
     //
     // sendUpdateGrass();
 
+    const [createCheck, setCreateCheck] = useState(false);
+
     console.log("CheckUserDetails에서 loginUser", loginUser)
+
+    useEffect(() => {
+        const sendReadRequest = async () => {
+            const url = "/checking/groupRead";
+
+            const readData = {
+                groupId: groupId,
+            };
+
+            try {
+                const response = await axios.post(url, readData);
+                const checking = response.data;
+                setReadCheckingData(checking);
+            } catch (error) {
+                // Handle error
+            }
+        };
+
+        sendReadRequest();
+    }, [groupId]);
+
+    console.log("checkuserdetails에서 readcheckingdata", readCheckingData)
+
 
     return (
         <>
@@ -115,8 +141,37 @@ const CheckUserDetails = (props) => {
                 <MDBCardBody>
                     <CheckTodoList todos={todos} />
                     <MemoView loginUser={loginUser} checkingId={checkingId}/>
-                    <CheckCard setGoodCount={setGoodCount} setBadCount={setBadCount} goodCount={goodCount} badCount={badCount} loginUser={loginUser} readCheckingData={readCheckingData} checkingId={checkingId} setCheckingId={setCheckingId}/>
-                    <CheckProgress totalCount={totalCount} readCheckingData={readCheckingData}/>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        height="10vh"
+                    >
+                    <CheckCreate
+                        setCreateCheck={setCreateCheck} loginUser={loginUser} groupId={groupId} setCheckingId={setCheckingId}
+                        // checkingId={checkingId}
+                        readCheckingData={readCheckingData}
+                    />
+                    </Box>
+                    {
+                        createCheck === true ? (
+                            <>
+                                <CheckCard
+                                    setGoodCount={setGoodCount}
+                                    setBadCount={setBadCount}
+                                    goodCount={goodCount}
+                                    badCount={badCount}
+                                    loginUser={loginUser}
+                                    readCheckingData={readCheckingData}
+                                    checkingId={checkingId}
+                                    setCheckingId={setCheckingId}
+                                />
+                                <CheckProgress totalCount={totalCount} readCheckingData={readCheckingData} />
+                            </>
+                        ) : (
+                            <div></div>
+                        )
+                    }
                 </MDBCardBody>
             </MDBCard>
         </>
