@@ -94,7 +94,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
 
     // console.log("loginUser", loginUser)
     // console.log("timerId", timerId)
-    // console.log("timerList", timerList)
+    console.log("timerdialog에서 timerList22222222", timerList)
 
     const navigate = useNavigate();
 
@@ -105,6 +105,8 @@ export default function TimerDialog(props: SimpleDialogProps) {
     }
 
     const [selectedTimerId, setSelectedTimerId] = useState(null); // Add selectedTimerId state variable
+
+    const [newTime, setNewTime] = useState(0);
 
     return (
         <Box
@@ -142,8 +144,10 @@ export default function TimerDialog(props: SimpleDialogProps) {
                                     userId={userId}
                                     loginUser={loginUser}
                                     timerId={timer.timerId}
-                                    time={timer.time}
+                                    // time={time}
+                                    newTime={newTime}
                                     setTime={setTime}
+                                    timerList={timerList}
                                     setTimerList={setTimerList}
                                 />
                             )}
@@ -162,7 +166,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                 <MDBCard className="col-md-10">
                     <MDBCardBody>
                         <MDBCardTitle>
-                            <TimerTotalTime loginUser={loginUser}/>
+                            <TimerTotalTime loginUser={loginUser} timerList={timerList}/>
                         </MDBCardTitle>
                     </MDBCardBody>
                 </MDBCard>

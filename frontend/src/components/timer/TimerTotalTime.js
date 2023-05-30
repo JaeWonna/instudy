@@ -3,9 +3,18 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 const TimerTotalTime = (props) => {
-    const { loginUser } = props;
+    const { loginUser, timerList } = props;
 
     const [userTotalTime, setUserTotalTime] = useState(0);
+
+    useEffect(() => {
+        let totalSum = 0;
+        timerList.forEach((item) => {
+            totalSum += item.time;
+        });
+        console.log(totalSum);
+        setUserTotalTime(totalSum);
+    }, [timerList]);
 
     useEffect(() => {
         console.log("여기서 userId", loginUser.userId);
@@ -37,7 +46,7 @@ const TimerTotalTime = (props) => {
 
     return (
         <h1 className="text-center my-3 pb-3">
-            {loginUser.userStudyHours} : {loginUser.userStudyMinutes} : {loginUser.userStudySeconds}
+            {userTotalTime} seconds
         </h1>
     )
 }

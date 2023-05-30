@@ -18,7 +18,9 @@ const style = {
 };
 
 export default function TimerCreate(props) {
-    const { handleModalClose, modalOpen, userId, loginUser, timerId, time, setTime, setTimerList } = props;
+    const { handleModalClose, modalOpen, userId, loginUser, timerId, time, setTime, setTimerList, timerList } = props;
+
+    console.log("timercreate에서 timerList", timerList)
 
     // const transformRequest = (data) => {
     //     // Circular Structure를 제거하거나 필요한 정보만 포함한 객체로 변환
@@ -40,10 +42,18 @@ export default function TimerCreate(props) {
         }
     }, []);
 
+    console.log("timercreate에서 timerList", timerList)
+
     useEffect(() => {
+        console.log("timercreate에서 timerList", timerList)
         // Save the time to session storage whenever it changes
-        sessionStorage.setItem('time', time.toString());
-    }, [time]);
+        if (timerList && timerList.length > 1) {
+            setTime(0);
+        }
+        else {
+            sessionStorage.setItem('time', time.toString());
+        }
+    }, [time, timerList]);
 
     const [isRunning, setIsRunning] = useState(false);
 
@@ -51,7 +61,7 @@ export default function TimerCreate(props) {
         let interval;
         if (isRunning) {
             interval = setInterval(() => {
-                setTime(prevTime => prevTime + 1);
+                    setTime(prevTime => prevTime + 1);
             }, 1000);
         }
 
