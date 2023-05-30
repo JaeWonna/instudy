@@ -1,32 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Typography } from "@material-ui/core";
+import {Container, Grid, Paper, Typography} from "@material-ui/core";
 import groupMember from '../../../img/groupMember.jpg';
 import groupMember2 from '../../../img/groupMember2.JPG';
 import groupMember3 from '../../../img/groupMember3.png';
 import groupMember4 from '../../../img/groupMember4.jpg';
+import CheckUserItem from "./CheckUserItem";
+import Box from "@mui/material/Box";
+import { styled } from '@mui/material/styles';
 
 const GroupUserList = (props) => {
     const [groupUsers, setGroupUsers] = useState([]);
 
-    const { groupId } = props;
-
-    const imgStyle = {
-        width: '70px',
-        margin: '10px',
-    };
+    const { groupId, setClickedNum, clickedNum, setDetail } = props;
 
     useEffect(() => {
         const fetchGroupUsers = async () => {
             try {
-                console.log("async 진입");
-                console.log("groupId", groupId);
                 const response = await axios.post(`/checking/read/groupUser`, {
                     groupId: groupId,
                 });
                 console.log("response.data", response.data);
                 setGroupUsers(response.data);
-                console.log("groupUsers", response.data);
             } catch (error) {
                 console.error("Error fetching group users:", error);
             }
@@ -35,51 +30,101 @@ const GroupUserList = (props) => {
         fetchGroupUsers();
     }, [groupId]);
 
-    // console.log("groupUsers[0].userId", groupUsers[0].userId)
-
-    const memberData = [
-        { userId: 'user1', img: groupMember },
-        { userId: 'user2', img: groupMember2 },
-        { userId: 'user3', img: groupMember3 },
-        { userId: 'user4', img: groupMember4 },
+    const imgData = [
+        { id: '1', img: groupMember },
+        { id: '2', img: groupMember2 },
+        { id: '3', img: groupMember3 },
+        { id: '4', img: groupMember4 },
     ];
 
-    // for (const user of memberData) {
-    //     memberData.push(groupUsers.userId);
-    // }
-    //
-    // console.log("memberData", memberData)
+    const [users, setUsers] = useState([]);
+
+    const readMemberRequest = async () => {
+        const url = '/checking/read/groupUser';
+
+        const readMemberData = {
+            groupId: groupId,
+        };
+
+        try {
+            const response = await axios.post(url, readMemberData);
+            const users = response.data;
+            console.log('group user list에서:', users);
+            setUsers(users);
+            // 요청 성공 후 처리할 작업 수행
+        } catch (error) {
+            if (error.response) {
+                // 서버 응답이 왔지만 응답 상태 코드가 에러인 경우
+                console.error('Error:', error.response.data);
+                console.error('Status code:', error.response.status);
+            } else if (error.request) {
+                // 요청이 전송되었지만 응답을 받지 못한 경우 (네트워크 오류 등)
+                console.error('Error:', error.request);
+            } else {
+                // 요청 설정을 준비하는 동안 발생한 오류
+                console.error('Error:', error.message);
+            }
+            // 요청 실패 시 처리할 작업 수행
+        }
+    };
+
+    const readMember = async () => {
+        try {
+            // 함수 호출
+            await readMemberRequest();
+            console.log("checkingId", users)
+            // setCheckingId(readCheckingData.checkingId);
+            // 요청 성공 후 처리할 작업 수행
+        } catch (error) {
+            console.error('Error:', error);
+            // 요청 실패 시 처리할 작업 수행
+        }
+    };
+
+    readMember();
+
+    const Item = styled(Paper)(({ theme }) => ({
+        // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+        // ...theme.typography.body2,
+        padding: theme.spacing(1),
+        textAlign: 'center',
+        color: theme.palette.text.secondary,
+    }));
 
     return (
         <div>
-            {/*<ul>*/}
-            {/*    {memberData.map((member, index) => (*/}
-            {/*        <img*/}
-            {/*            key={index}*/}
-            {/*            src={member.img}*/}
-            {/*            alt={`Image ${index + 1}`}*/}
-            {/*            className="img-fluid rounded-circle border border-dark border-3"*/}
-            {/*            style={imgStyle}*/}
-            {/*        />*/}
-            {/*    ))}*/}
-            {/*</ul>*/}
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                {memberData.map((member) => {
-                    // console.log("member.userId", member.userId)
-                    // console.log("user.userId", user.userId)
-                    // const member = memberData.find((member) => member.userId === user.userId);
-                    // console.log("member", member)
-                    // const img = member && member.img;
-                    //
-                    // console.log("img", img)
-                    return (
-                        <div key={member.id} style={{ margin: '0 30px' }}>
-                            <img src={member.img} alt={`User ${member.userId}`} style={imgStyle} class="img-fluid rounded-circle border border-dark border-3"/>
-                            <Typography>{member.userId}</Typography>
-                        </div>
-                    );
-                })}
+                {imgData.map(member => (
+                    <CheckUserItem
+                        key={member.id}
+                        member={member}
+                        setClickedNum={setClickedNum}
+                        clickedNum={clickedNum}
+                        setDetail={setDetail}
+                    />
+                ))}
             </div>
+                {/*<Container maxWidth="xl">*/}
+                {/*    <Box sx={{ padding: "0 50px" }}>*/}
+
+                {/*{users.map((member, index) => (*/}
+                {/*    <Grid item xs={3}>*/}
+                {/*    <div key={index}>{member && member.userId}</div>*/}
+                {/*    </Grid>*/}
+                {/*))}*/}
+
+                {/*    </Box>*/}
+                {/*</Container>*/}
+
+            <Grid container spacing={2} columns={16}>
+                {users.map((member, index) => (
+                    <Grid item xs={4}>
+                        <div key={index}>{member && member.userId}</div>
+                    </Grid>
+                ))}
+            </Grid>
+
+
         </div>
     );
 };
