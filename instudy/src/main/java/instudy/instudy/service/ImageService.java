@@ -40,7 +40,7 @@ public class ImageService {
 
         // 파일을 불러올 때 사용할 파일 경로
         // 경로 설정해야 함
-        String savedPath = "경로" + savedName;
+        String savedPath = "/Users/yeonsu/Postman" + savedName;
 
         // 파일 엔티티 생성
         Image image = Image.builder()
@@ -49,8 +49,6 @@ public class ImageService {
                 .savedPath(savedPath)
                 .build();
 
-
-
         // 실제로 로컬에 uuid를 파일명으로 저장
         images.transferTo(new File(savedPath));
 
@@ -58,5 +56,9 @@ public class ImageService {
         Image savedFile = imageRepository.save(image);
 
         return savedFile.getImageId();
+    }
+
+    public Image findByImageId(Long imageId) {
+        return imageRepository.findByImageId(imageId);
     }
 }
