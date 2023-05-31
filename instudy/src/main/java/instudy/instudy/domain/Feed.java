@@ -19,6 +19,8 @@ public class Feed {
     private String userId;
     @Column
     private String content;
+    @Column
+    private Long imageId;
 //    @Column
 //    private boolean heart; // 자신의 피드 게시물에 하트를 눌렀을 때 true
     @Column
@@ -40,13 +42,14 @@ public class Feed {
         this.heartUser = heartUser;
     }
 
-    public Feed(String userId, String content, Long groupId) {
+    public Feed() {}
+
+    public Feed(String userId, String content, Long groupId, Long imageId) {
         this.userId = userId;
         this.content = content;
         this.groupId = groupId;
+        this.imageId = imageId;
     }
-
-    public Feed() {}
 
     @Override
     public String toString() {

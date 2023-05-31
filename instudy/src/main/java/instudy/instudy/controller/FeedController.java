@@ -31,7 +31,8 @@ public class FeedController {
         String content = paramMap.get("content");
         System.out.println("test content : " + content);
         Long groupId = Long.parseLong(paramMap.get("groupId"));
-        Feed newFeed = new Feed(userId, content, groupId);
+        Long imageId = Long.parseLong(paramMap.get("imageId"));
+        Feed newFeed = new Feed(userId, content, groupId, imageId);
         System.out.println(newFeed.toString());
         feedService.create(newFeed);
         return "create";
