@@ -19,8 +19,9 @@ import axios from "axios";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {Button, Menu, MenuItem} from "@material-ui/core";
 import DeleteIcon from '@mui/icons-material/Delete';
+import {useEffect} from "react";
 
-const FeedCard = ({image, deleteFeed, feedId, user, feed}) => {
+const FeedCard = ({deleteFeed, feedId, user, feed}) => {
 
     //삭제를 위한 코드
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -39,6 +40,27 @@ const FeedCard = ({image, deleteFeed, feedId, user, feed}) => {
         heartNum : feed.heartNum,
         heartUser: feed.heartUser
     })
+
+    const [imagePath, setImagePath] = React.useState();
+
+    useEffect(() => {
+
+        console.log(feed.imageId)
+
+        axios
+            .post("/image/" + feed.imageId, {
+                imageId : feed.imageId
+            })
+            .then((response) => {
+                let words = response.data.split('/');
+                console.log(words[8])
+                setImagePath(words[8])
+            })
+            .catch();
+
+    })
+
+    //setImagePath('../../img/'+ image)
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
@@ -135,7 +157,7 @@ const FeedCard = ({image, deleteFeed, feedId, user, feed}) => {
                     <CardMedia
                         component="img"
                         height="300"
-                        src = {image}
+                        src = {"/img/" + imagePath}
                         alt="Paella dish"
                     />
                     <CardContent>

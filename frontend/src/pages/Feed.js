@@ -76,7 +76,6 @@ const Feed = () => {
 
     console.log(feeds)
 
-    let image;
     let imageId;
 
     const createFeed = () => {
@@ -95,15 +94,6 @@ const Feed = () => {
                 .then((response) => {
                     setFeeds(response.data);
                 })
-            })
-            .catch();
-
-        axios
-            .post("/image/" + imageId, {
-                imageId : imageId
-            })
-            .then((response) => {
-                console.log(response)
             })
             .catch();
     }
@@ -164,7 +154,6 @@ const Feed = () => {
                             feeds.map((feed) => (
                                 <Grid item xs={12} xl={3} lg={4} sm={6}>
                                     <FeedCard
-                                        image
                                         deleteFeed = {deleteFeed}
                                         feedId = {feed.feedId}
                                         user = {loginUser}
