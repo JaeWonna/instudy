@@ -1,5 +1,5 @@
 import Card from "@mui/material/Card";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { Typography, Box, Container } from "@mui/material";
 import checkGood from "../../../img/checkGood.JPG";
 import checkBad from "../../../img/checkBad.JPG";
@@ -20,143 +20,28 @@ const CheckCard = (props) => {
         margin: "10px",
     };
 
-    const handleImageClick = async (type) => {
-        if (type === "good") {
-            setGoodCount(goodCount + 1);
-            try {
-                // 함수 호출
-                await sendLikeRequest();
-                // console.log("checkingId", checkingId)
-                // await sendUpdateRequest();
-                // 요청 성공 후 처리할 작업 수행
-            } catch (error) {
-                console.error('Error:', error);
-                // 요청 실패 시 처리할 작업 수행
-            }
-        } else if (type === "bad") {
-            setBadCount(badCount + 1);
-            try {
-                await sendDislikeRequest();
-            } catch (error) {
-                console.error('Error:', error);
-                // 요청 실패 시 처리할 작업 수행
-            }
-        }
-    };
+    console.log("여기서 checkingId", checkingId)
 
-    // console.log("checkcard에서 readcheckingdata", readCheckingData)
-
-    // console.log("groupId", group_id)
-    // console.log("loginUser", loginUser)
-
-    // const [checkingId, setCheckingId] = useState(0);
-
-    const sendLikeRequest = async () => {
-        const url = '/checking/update/like';
-
-        const likeData = {
-            good: true,
-            userId: loginUser.userId,
-            checkingId: checkingId,
-        };
-
-        console.log("좋아요 누르고 likeData", likeData)
-        console.log('Type of likeData:', typeof likeData.good);
-        console.log('Type of likeData:', typeof likeData.userId);
-        console.log('Type of likeData:', typeof likeData.checkingId);
-
+    const handleLike = async () => {
         try {
-            if (readCheckingData.some((item) => item.userId === loginUser.userId)) {
-                alert('이미 인정을 눌렀습니다');
-            } else {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(likeData),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Request failed with status code ' + response.status);
-                }
-                setCheckingId(checkingId + 1);
-                const checking = await response.json();
-                console.log('Checking:', checking);
-                // 요청 성공 후 처리할 작업 수행
-            }
+            const response = await axios.post("/checking/update/like", {
+                good: true, // Replace with your logic to determine the like value
+                userId: loginUser.userId,
+                checkingId: checkingId,
+            });
+            const updatedChecking = response.data;
+            alert("Updated Checking:", updatedChecking);
+            // Perform any additional actions with the updated checking
         } catch (error) {
-            console.error('Error:', error.message);
-            // 요청 실패 시 처리할 작업 수행
+            console.error("Error:", error);
+            // Handle error case
         }
     };
 
-    const sendDislikeRequest = async () => {
-        const url = '/checking/update/dislike';
-
-        const dislikeData = {
-            bad: true,
-            userId: loginUser.userId,
-            checkingId: checkingId,
-        };
-
-        try {
-            const response = await axios.post(url, dislikeData);
-            const checking = response.data;
-            console.log('Checking:', checking);
-            // 요청 성공 후 처리할 작업 수행
-        } catch (error) {
-            if (error.response) {
-                // 서버 응답이 왔지만 응답 상태 코드가 에러인 경우
-                console.error('Error:', error.response.data);
-                console.error('Status code:', error.response.status);
-            } else if (error.request) {
-                // 요청이 전송되었지만 응답을 받지 못한 경우 (네트워크 오류 등)
-                console.error('Error:', error.request);
-            } else {
-                // 요청 설정을 준비하는 동안 발생한 오류
-                console.error('Error:', error.message);
-            }
-            // 요청 실패 시 처리할 작업 수행
-        }
-    };
-
-    const sendUpdateRequest = async () => {
-        const url = 'http://localhost:8080/checking/update/click';
-
-        const requestData = {
-            good: true,
-            bad: false,
-            userId: loginUser.userId,
-            // checkingId: checkingId,
-            comment: 'This is a comment.',
-        };
-
-        try {
-            const response = await axios.post(url, requestData);
-            const checking = response.data;
-            console.log('Checking:', checking);
-            // 요청 성공 후 처리할 작업 수행
-        } catch (error) {
-            if (error.response) {
-                // 서버 응답이 왔지만 응답 상태 코드가 에러인 경우
-                console.error('Error:', error.response.data);
-                console.error('Status code:', error.response.status);
-            } else if (error.request) {
-                // 요청이 전송되었지만 응답을 받지 못한 경우 (네트워크 오류 등)
-                console.error('Error:', error.request);
-            } else {
-                // 요청 설정을 준비하는 동안 발생한 오류
-                console.error('Error:', error.message);
-            }
-            // 요청 실패 시 처리할 작업 수행
-        }
-    };
-
-    setGoodCount(readCheckingData.length);
-
-// ...
-
+    useEffect(() => {
+        // Example usage
+        handleLike();
+    }, []);
 
     return (
         <Container maxWidth="xl">
@@ -169,7 +54,7 @@ const CheckCard = (props) => {
                 }}
             >
                 <Card sx={{ maxWidth: 345 }}>
-                    <Box sx={{ padding: "0 20px" }} onClick={() => handleImageClick("good")}>
+                    <Box sx={{ padding: "0 20px" }} onClick={handleLike}>
                         <img src={checkGood} alt="Good check" style={imgStyle} />
                         <Box
                             display="flex"
@@ -182,7 +67,7 @@ const CheckCard = (props) => {
                     </Box>
                 </Card>
                 <Card sx={{ maxWidth: 345 }}>
-                    <Box sx={{ padding: "0 20px" }} onClick={() => handleImageClick("bad")}>
+                    <Box sx={{ padding: "0 20px" }}>
                         <img src={checkBad} alt="Bad check" style={imgStyle} />
                         <Box
                             display="flex"
