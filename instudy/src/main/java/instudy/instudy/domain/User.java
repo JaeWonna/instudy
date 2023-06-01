@@ -27,6 +27,8 @@ public class User {
     private String email;
     @Column
     private String signIn; //로그인 상태
+    @Column
+    private Long imageId; //프로필 사진 아이디
     
     @Column
     private long userTotalTime; // 전체 시간 (전체를 초로 나타냄)
