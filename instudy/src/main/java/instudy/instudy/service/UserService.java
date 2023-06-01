@@ -64,7 +64,7 @@ public class UserService {
                 .orElse(null);
     }
 
-    public void userUpdate(String userid,  String name, String email, String password) {
+    public void userUpdate(String userid,  String name, String email, String password, Long imageId) {
         User user = userRepository.findByUserId(userid).orElseThrow(()->
             new IllegalArgumentException("회원찾기실패")
         );
@@ -73,7 +73,7 @@ public class UserService {
         user.setEmail(email);
         user.setPassword(password);
 //        persistence.setFiles(user.getFiles());
-
+        user.setImageId(imageId);
         userRepository.save(user);
     }
 
