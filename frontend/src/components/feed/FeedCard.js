@@ -19,7 +19,7 @@ import axios from "axios";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {Button, Menu, MenuItem} from "@material-ui/core";
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 const FeedCard = ({deleteFeed, feedId, user, feed}) => {
 
@@ -151,7 +151,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
 
                        }
 
-                        title="Shrimp and Chorizo Paella"
+                        title={user.user_name}
                         subheader="September 14, 2016"
                     />
                     <CardMedia
