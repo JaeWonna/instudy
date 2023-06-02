@@ -105,7 +105,7 @@ public class UserController {
         String name = ParamMap.get("name");
         String email = ParamMap.get("email");
         String password = ParamMap.get("password");
-        Long imageId = Long.parseLong(ParamMap.get("password"));
+        Long imageId = Long.parseLong(ParamMap.get("imageId"));
         userService.userUpdate(userId, name, email, password, imageId);
         return ResponseEntity.ok().build();
     }
