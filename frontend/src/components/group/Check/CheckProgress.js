@@ -4,11 +4,15 @@ import CircularProgress, {
 } from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import axios from "axios";
+import {useParams} from "react-router-dom";
+import {useEffect, useState} from "react";
+import CheckIcon from '@mui/icons-material/Check';
+import Card from "@mui/material/Card";
 
 function CircularProgressWithLabel(
     props: CircularProgressProps & { value: number },
 ) {
-    // console.log("props.value", props.value)
     return (
         <Box
             display="flex"
@@ -41,21 +45,74 @@ function CircularProgressWithLabel(
     );
 }
 
-export default function CheckProgress({ totalCount }) {
-    const [progress, setProgress] = React.useState(totalCount);
+export default function CheckProgress({groupId}) {
+    const [progress, setProgress] = React.useState(0);
 
-    // console.log("totalCount", totalCount)
+    const {checkingId} = useParams();
+    const params = useParams();
+    const checking_id = params.checkingId;
 
-    // React.useEffect(() => {
-    //     const timer = setInterval(() => {
-    //         setProgress((prevProgress) =>
-    //             prevProgress >= 100 ? 0 : prevProgress + 10,
-    //         );
-    //     }, 800);
-    //     return () => {
-    //         clearInterval(timer);
-    //     };
-    // }, []);
+    const fetchCheckingPercent = async (checking_id) => {
+        try {
+            const response = await axios.post("/checking/percent", {
+                checkingId: checking_id,
+            });
+            const percent = response.data;
+            console.log("Percent:", percent);
+            setProgress(percent);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    };
 
-    return <CircularProgressWithLabel value={totalCount} />;
+    fetchCheckingPercent(checkingId);
+
+    const [members, setMembers] = useState([]);
+    const [checks, setChecks] = useState([]);
+
+    useEffect(() => {
+        const fetchMembersAndChecks = async () => {
+            try {
+                const [membersResponse, checksResponse] = await Promise.all([
+                    axios.post("/checking/read/groupUser", {
+                        groupId: groupId,
+                    }),
+                    axios.post("/checking/groupRead", {
+                        groupId: groupId,
+                    }),
+                ]);
+
+                const membersData = membersResponse.data;
+                const checksData = checksResponse.data;
+
+                setMembers(membersData);
+                setChecks(checksData);
+
+                const totalCount = membersData.length;
+                const performedChecksCount = checksData.length;
+
+                const percent = (performedChecksCount / totalCount) * 100;
+                setProgress(percent);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
+
+        fetchMembersAndChecks();
+    }, []);
+
+    if (progress >= 50) {
+        return (
+            <div>
+                <Card sx={{ maxWidth: 345 }}>
+                인증 완료<CheckIcon />
+                </Card>
+            </div>); // Render the other component when progress is 50% or above
+    }
+
+    return (
+        <>
+            <CircularProgressWithLabel value={progress} />
+        </>
+    );
 }

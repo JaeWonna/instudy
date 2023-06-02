@@ -9,6 +9,8 @@ import Profile from "../../../src/pages/Profile";
 import Feed from "../../../src/pages/Feed";
 import Timer from "../../../src/pages/Timer";
 import Check from "../../pages/Check";
+import CheckCreate from "../../components/group/Check/CheckCreate";
+import loginUser from "./loginUser";
 
 const mainRoutes = [
 
@@ -51,8 +53,12 @@ const mainRoutes = [
         element: <Timer />
     },
     {
-        path: "/todo/:groupId",
+        path: "/check/:groupId",
         element: <Check />
+    },
+    {
+        path: "/check/:groupId/:checkingId",
+        element: <CheckCreate loginUser={loginUser} />
     }
 ];
 export default mainRoutes;

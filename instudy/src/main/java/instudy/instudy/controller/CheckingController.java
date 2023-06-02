@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -31,7 +30,7 @@ public class CheckingController {
 
     // 생성
     @RequestMapping(value = "/checking/create", method = RequestMethod.POST)
-    public String createChecking(@RequestBody Map<String, String> paramMap) {
+    public Checking createChecking(@RequestBody Map<String, String> paramMap) {
         String userId = paramMap.get("userId");
         Long groupId = Long.parseLong(paramMap.get("groupId"));
         String content = paramMap.get("content");
@@ -42,7 +41,7 @@ public class CheckingController {
 
         System.out.println(newChecking.toString());
         checkingService.create(newChecking);
-        return "create";
+        return newChecking;
     }
 
     // 삭제

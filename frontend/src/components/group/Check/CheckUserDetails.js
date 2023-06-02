@@ -11,11 +11,11 @@ import MemoView from "./Comment/MemoView";
 import CheckCreate from "./CheckCreate";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus, faSearch} from "@fortawesome/free-solid-svg-icons";
-import ModalStaticBackdrop from "../../common/modal/ModalStaticBackdrop";
 import GroupFilterModal from "../finder/GroupFilterModal";
 import CheckModal from "./CheckModal";
 import {tags} from "../../../assets/tag/tags";
 import FormControl from "@mui/material/FormControl";
+import {useNavigate} from "react-router-dom";
 
 const CheckUserDetails = (props) => {
     const {clickedNum, todos, loginUser, groupId} = props;
@@ -35,40 +35,27 @@ const CheckUserDetails = (props) => {
 
     const [checkingId, setCheckingId] = useState(0);
 
-    const createChecking = async () => {
+    const navigate = useNavigate();
+
+    const handleCreateChecking = async () => {
         try {
             const response = await axios.post("/checking/create", {
                 userId: loginUser.userId,
-                groupId: groupId, // replace with your groupId
+                groupId: groupId,
                 content: "This is a content",
             });
             const newChecking = response.data;
             console.log("Created Checking:", newChecking);
-            return newChecking.checkingId; // Return the checkingId
+            const newCheckingId = newChecking.checkingId;
+
+            navigate(`/check/${groupId}/${newCheckingId}`); // Redirect to the new URL
         } catch (error) {
             console.error("Error:", error);
             // Handle error case
         }
     };
 
-    useEffect(() => {
-        const fetchCheckingId = async () => {
-            const newCheckingId = await createChecking();
-            setCheckingId(newCheckingId);
-        };
-
-        fetchCheckingId();
-    }, []);
-
-    useEffect(() => {
-        createChecking();
-    }, []);
-
-    const handleCreateChecking = () => {
-        createChecking();
-    };
-
-    console.log("여기서 checkingId", checkingId)
+    console.log("여기서 longinUser", loginUser)
 
 
     return (
@@ -104,45 +91,16 @@ const CheckUserDetails = (props) => {
                         >
                             인증하기
                         </Button>
-
+                    </Box>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        height="10vh"
+                    >
+                        <CheckProgress groupId={groupId}/>
 
                     </Box>
-
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <Typography variant='h5' my={1}>인증하기</Typography>
-                                    <button type="button" class="btn-close" data-mdb-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <Box
-                                        component="form"
-                                        sx={{
-                                            '& .MuiTextField-root': {m: 1, width: '90%'},
-                                        }}
-                                        noValidate
-                                        autoComplete="off"
-                                    >
-
-                                        <CheckCreate groupId={groupId} loginUser={loginUser}
-                                                     setCheckingId={setCheckingId} checkingId={checkingId}/>
-
-
-                                    </Box>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                 </MDBCardBody>
             </MDBCard>
