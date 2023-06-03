@@ -52,4 +52,15 @@ public class FeedService {
         }
         return updateFeed;
     }
+
+    public Feed updateFeedComment(Long feedId, String comment) {
+        Feed updateFeed = feedRepository.findByFeedId(feedId);
+        if (updateFeed != null) {
+            List<String> comments = updateFeed.getComment();
+            comments.add(comment);
+            updateFeed.setComment(comments);
+            return feedRepository.save(updateFeed);
+        }
+        return null;
+    }
 }

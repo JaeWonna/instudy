@@ -65,4 +65,12 @@ public class FeedController {
         return feedService.updateHeartNum(updateFeed, isHeart, userId);
     }
 
+    // feed 댓글 추가
+    @RequestMapping(value = "/feed/update/comment", method = RequestMethod.POST)
+    public Feed updateFeedComment(@RequestBody Map<String, String> paramMap) {
+        Long feedId = Long.parseLong(paramMap.get("feedId"));
+        String comment = paramMap.get("comment");
+        return feedService.updateFeedComment(feedId, comment);
+    }
+
 }
