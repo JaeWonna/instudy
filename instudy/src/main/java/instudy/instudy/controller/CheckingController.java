@@ -138,6 +138,14 @@ public class CheckingController {
         return checkingService.updateComment(checking, userId, message);
     }
 
+    // 댓글만 읽기
+    @RequestMapping(value = "/checking/comment/read", method = RequestMethod.POST)
+    public List<String> CheckingCommentRead(@RequestBody Map<String, String> paramMap) {
+        Long checkingId = Long.parseLong(paramMap.get("checkingId"));
+        Checking checking = checkingService.findByCheckingId(checkingId);
+        return checkingService.readComment(checking);
+    }
+
 
     // 반환값 double 퍼센트 ex) 0.2 .. 0.4 ..
     @RequestMapping(value = "/checking/percent", method = RequestMethod.POST)

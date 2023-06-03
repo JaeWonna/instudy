@@ -200,4 +200,9 @@ public class CheckingService {
 
     }
 
+    // 댓글만 읽기
+    public List<String> readComment(Checking checking) {
+        List<String> comment = checking.getComment();
+        return comment;
+    }
 }
