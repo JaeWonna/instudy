@@ -12,7 +12,6 @@ import AddMemo from "./Comment/AddMemo";
 import {useState, useEffect} from "react";
 import CheckProgress from "./CheckProgress";
 import * as React from "react";
-import CheckRead from "./CheckRead";
 
 const CheckCreate = (props) => {
     const { groupId, loginUser, setCheckingId } = props;
