@@ -73,10 +73,10 @@ const CheckUserDetails = (props) => {
                 </Box>
                 <MDBCardBody>
                     <CheckTodoList todos={todos}/>
-                    <MemoView loginUser={loginUser}
+                    {/*<MemoView loginUser={loginUser}*/}
 
-                        // checkingId={checkingId}
-                    />
+                    {/*    checkingId={checkingId}*/}
+                    {/*/>*/}
                     <Box
                         display="flex"
                         justifyContent="center"

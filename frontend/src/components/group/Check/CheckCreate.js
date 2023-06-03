@@ -12,6 +12,7 @@ import AddMemo from "./Comment/AddMemo";
 import {useState, useEffect} from "react";
 import CheckProgress from "./CheckProgress";
 import * as React from "react";
+import MemoView from "./Comment/MemoView";
 
 const CheckCreate = (props) => {
     const { groupId, loginUser, setCheckingId } = props;
@@ -41,7 +42,10 @@ const CheckCreate = (props) => {
     return (
         <>
             <CheckCard checkingId={checking_id} loginUser={loginUser} setIsCheck={setIsCheck}/>
-            <AddMemo memos={memos} setMemos={setMemos} loginUser={loginUser} checkingId={checkingId} setIsMemo={setIsMemo}/>
+            <MemoView loginUser={loginUser}
+
+                      checkingId={checkingId}
+            />
             {/*<CheckRead checkingId={checkingId} />*/}
             <CheckProgress checkingId={checkingId} />
         </>

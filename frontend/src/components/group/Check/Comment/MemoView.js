@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -11,25 +11,34 @@ const App = (props) => {
     console.log("MemoView에서 loginUser", loginUser)
 
     const [memos, setMemos] = useState([
-        {
-            id: 1,
-            title: '메모1',
-            content: '내용1',
-            date: new Date().getTime()
-        },
-        {
-            id: 2,
-            title: '메모2',
-            content: '내용2',
-            date: new Date().getTime()
-        },
-        {
-            id: 3,
-            title: '메모3',
-            content: '내용3',
-            date: new Date().getTime()
-        }
     ]);
+
+    const fetchData = async () => {
+        try {
+            const response = await fetch('/checking/comment/read', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ checkingId: checkingId }), // Replace 'your-checking-id' with the actual checking ID
+            });
+
+            if (response.ok) {
+                const commentsData = await response.json();
+                setMemos(commentsData);
+            } else {
+                // Handle error response
+                console.error('Error:', response.status);
+            }
+        } catch (error) {
+            // Handle network error
+            console.error('Error:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     const onModify = (id, newTitle, newContent) => {
         setMemos(

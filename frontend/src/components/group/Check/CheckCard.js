@@ -22,52 +22,39 @@ const CheckCard = (props) => {
 
     console.log("여기서 checkingId", checkingId)
 
-    // const handleLike = async () => {
-    //     console.log("여기서 checkingId222", checkingId)
-    //     try {
-    //         const response = await axios.post("/checking/update/like", {
-    //             good: true, // Replace with your logic to determine the like value
-    //             userId: loginUser.userId,
-    //             checkingId: checkingId,
-    //         });
-    //         const updatedChecking = response.data;
-    //         alert("Updated Checking:", updatedChecking);
-    //         // Perform any additional actions with the updated checking
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //         // Handle error case
-    //     }
-    // };
-    //
-    // useEffect(() => {
-    //     // Example usage
-    //     handleLike();
-    // }, []);
-
-
-    const handleUpdateClick = async (isGood) => {
+    const handleLike = async () => {
+        console.log("여기서 checkingId222", checkingId)
         try {
-            const response = await axios.post("/checking/update/click", {
-                good: isGood,
-                bad: !isGood,
+            const response = await axios.post("/checking/update/like", {
+                good: true, // Replace with your logic to determine the like value
                 userId: loginUser.userId,
                 checkingId: checkingId,
-                comment: 'This is a comment',
             });
             const updatedChecking = response.data;
-            console.log("Updated Checking:", updatedChecking);
-            // Perform any additional actions with the updated checking
+            alert("GOOD");
             setIsCheck(true);
+            // Perform any additional actions with the updated checking
         } catch (error) {
             console.error("Error:", error);
             // Handle error case
         }
     };
 
-    const handleImageClick = async (type) => {
-        if (type === "good") {
-        } else if (type === "bad") {
-            setBadCount(badCount + 1);
+    const handleDislike = async () => {
+        console.log("여기서 checkingId222", checkingId)
+        try {
+            const response = await axios.post("/checking/update/dislike", {
+                bad: true, // Replace with your logic to determine the like value
+                userId: loginUser.userId,
+                checkingId: checkingId,
+            });
+            const updatedChecking = response.data;
+            alert("BAD");
+            setIsCheck(true);
+            // Perform any additional actions with the updated checking
+        } catch (error) {
+            console.error("Error:", error);
+            // Handle error case
         }
     };
 
@@ -82,7 +69,7 @@ const CheckCard = (props) => {
                 }}
             >
                 <Card sx={{ maxWidth: 345 }}>
-                    <Box sx={{ padding: "0 20px" }} onClick={() => handleUpdateClick(true)}>
+                    <Box sx={{ padding: "0 20px" }} onClick={handleLike}>
                         <img src={checkGood} alt="Good check" style={imgStyle} />
                         <Box
                             display="flex"
@@ -95,7 +82,7 @@ const CheckCard = (props) => {
                     </Box>
                 </Card>
                 <Card sx={{ maxWidth: 345 }}>
-                    <Box sx={{ padding: "0 20px" }} onClick={() => handleUpdateClick(false)}>
+                    <Box sx={{ padding: "0 20px" }} onClick={handleDislike}>
                         <img src={checkBad} alt="Bad check" style={imgStyle} />
                         <Box
                             display="flex"
