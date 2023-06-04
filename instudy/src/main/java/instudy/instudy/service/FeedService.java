@@ -63,4 +63,18 @@ public class FeedService {
         }
         return null;
     }
+
+    public String deleteFeedComment(Long feedId, String comment) {
+        Feed deleteCommentFeed = feedRepository.findByFeedId(feedId);
+        if (deleteCommentFeed != null) {
+            List<String> comments = deleteCommentFeed.getComment();
+            if (comments.contains(comment)) {
+                comments.remove(comment);
+                deleteCommentFeed.setComment(comments);
+                feedRepository.save(deleteCommentFeed);
+                return "delete";
+            }
+        }
+        return null;
+    }
 }

@@ -73,4 +73,16 @@ public class FeedController {
         return feedService.updateFeedComment(feedId, comment);
     }
 
+    // feed 댓글 삭제
+    @RequestMapping(value = "/feed/delete/comment", method = RequestMethod.POST)
+    public String deleteFeedComment(@RequestBody Map<String, String> paramMap) {
+        Long feedId = Long.parseLong(paramMap.get("feedId"));
+        String comment = paramMap.get("comment");
+        if (feedService.deleteFeedComment(feedId, comment).equals("delete")) {
+            return "deleteComment";
+        } else {
+            return "fail";
+        }
+    }
+
 }
