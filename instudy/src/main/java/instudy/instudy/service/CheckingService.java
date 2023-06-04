@@ -192,10 +192,11 @@ public class CheckingService {
         List<String> member = studyGroup.getMember();
         int size = member.size();
 
-        List<String> goodUser = checking.getGoodUser();
-        int goodSize = goodUser.size();
+//        List<String> goodUser = checking.getGoodUser();
+//        int goodSize = goodUser.size();
+        int goodNum = checking.getGoodNum();
 
-        double percentage = (double) goodSize / size;
+        double percentage = (double) goodNum / size;
         return percentage;
 
     }
