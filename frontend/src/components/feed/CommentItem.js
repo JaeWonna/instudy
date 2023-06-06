@@ -1,9 +1,6 @@
-import {Box, Menu, MenuItem} from "@material-ui/core";
 import Avatar from "@mui/material/Avatar";
-import {Stack, TextField} from "@mui/material";
 import React, {useEffect} from "react";
 import IconButton from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
 import CardHeader from "@mui/material/CardHeader";
 import axios from "axios";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -11,12 +8,15 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 const CommentItem = ({comment, user}) => {
 
     const [ProfilePath, SetProfilePath] = React.useState();     //현재 로그인한 유저의 프로필 사진
+    const [commentUser, setCommentUser] = React.useState();
+
     useEffect(()=> {
         axios
             .post("/profile", {
                 user_id : comment.userId
             })
             .then((response) => {
+                setCommentUser(response.data.userId)
                 axios
                     .post("/image/" + response.data.imageId, {
                         imageId : response.data.imageId
@@ -29,6 +29,7 @@ const CommentItem = ({comment, user}) => {
             })
             .catch();
     })
+
 
     const onDelete = () => {
         if(comment.userId === user.userId){
@@ -52,7 +53,7 @@ const CommentItem = ({comment, user}) => {
                 avatar={
                     <Avatar src={"/img/" + ProfilePath} sx={{backgroundColor: '#fff', border: '2px solid #000'}} alt="아바타 이미지" />
                 }
-                title = {<span style={{ fontSize: 12, color: 'gray'}}>dd</span>}
+                title = {<span style={{ fontSize: 12, color: 'gray'}}>{commentUser}</span>}
                 subheader={<span style={{ fontSize: 15, color: 'black'}}>{comment.comment}</span>}
                 action={
                     <div>
