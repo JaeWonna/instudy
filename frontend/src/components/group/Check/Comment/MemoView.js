@@ -6,7 +6,7 @@ import AddMemo from '../../Check/Comment/AddMemo';
 import MemoList from '../../Check/Comment/MemoList';
 
 const App = (props) => {
-    const { loginUser, checkingId } = props;
+    const { loginUser, checkingId, setIsMemo } = props;
 
     console.log("MemoView에서 loginUser", loginUser)
 
@@ -50,6 +50,9 @@ const App = (props) => {
         setMemos(memos.filter(memo => memo.id !== id));
     };
 
+    console.log("여기서 로그인유저", loginUser)
+
+
     return (
         <>
             <Container>
@@ -58,7 +61,7 @@ const App = (props) => {
                 </Row>
                 <Row>
                     <Col>
-                        <AddMemo memos={memos} setMemos={setMemos} loginUser={loginUser} checkingId={checkingId}/>
+                        <AddMemo memos={memos} setMemos={setMemos} loginUser={loginUser} checkingId={checkingId} setIsMemo={setIsMemo}/>
                     </Col>
                     <Col>
                         <MemoList memos={memos} onDelete={onDelete} onModify={onModify}/>

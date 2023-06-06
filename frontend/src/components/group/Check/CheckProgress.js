@@ -45,17 +45,13 @@ function CircularProgressWithLabel(
     );
 }
 
-export default function CheckProgress({groupId}) {
+export default function CheckProgress({groupId, checkingId}) {
     const [progress, setProgress] = React.useState(0);
 
-    const {checkingId} = useParams();
-    const params = useParams();
-    const checking_id = params.checkingId;
-
-    const fetchCheckingPercent = async (checking_id) => {
+    const fetchCheckingPercent = async (checkingId) => {
         try {
             const response = await axios.post("/checking/percent", {
-                checkingId: checking_id,
+                checkingId: checkingId,
             });
             const percent = response.data;
             console.log("Percent:", percent);

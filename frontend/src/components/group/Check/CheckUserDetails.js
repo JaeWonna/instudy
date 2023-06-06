@@ -46,16 +46,33 @@ const CheckUserDetails = (props) => {
             });
             const newChecking = response.data;
             console.log("Created Checking:", newChecking);
-            const newCheckingId = newChecking.checkingId;
 
-            navigate(`/check/${groupId}/${newCheckingId}`); // Redirect to the new URL
+            navigate(`/check/${groupId}/${clickedNum}`); // Redirect to the new URL
         } catch (error) {
             console.error("Error:", error);
             // Handle error case
         }
     };
 
-    console.log("여기서 longinUser", loginUser)
+    const [groupUsers, setGroupUsers] = useState([]);
+
+    useEffect(() => {
+        const fetchGroupUsers = async () => {
+            try {
+                const response = await axios.post(`/checking/read/groupUser`, {
+                    groupId: groupId,
+                });
+                console.log("response.data", response.data);
+                setGroupUsers(response.data);
+            } catch (error) {
+                console.error("Error fetching group users:", error);
+            }
+        };
+
+        fetchGroupUsers();
+    }, [groupId]);
+
+    console.log("여기서 clickedNum", clickedNum)
 
 
     return (
@@ -68,11 +85,11 @@ const CheckUserDetails = (props) => {
                     height="10vh"
                 >
                     <Typography variant="h5" gutterBottom>
-                        유저{clickedNum} 인증 페이지
+                        {clickedNum}의 Todo
                     </Typography>
                 </Box>
                 <MDBCardBody>
-                    <CheckTodoList todos={todos}/>
+                    <CheckTodoList clickedNum={clickedNum}/>
                     {/*<MemoView loginUser={loginUser}*/}
 
                     {/*    checkingId={checkingId}*/}
@@ -84,9 +101,7 @@ const CheckUserDetails = (props) => {
                         height="10vh"
                     >
                         <Button
-                            style={null}
-                            data-mdb-toggle="modal"
-                            data-mdb-target="#exampleModal"
+                            variant="contained"
                             onClick={handleCreateChecking}
                         >
                             인증하기
@@ -98,7 +113,7 @@ const CheckUserDetails = (props) => {
                         alignItems="center"
                         height="10vh"
                     >
-                        <CheckProgress groupId={groupId}/>
+                        {/*<CheckProgress groupId={groupId}/>*/}
 
                     </Box>
 

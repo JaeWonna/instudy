@@ -30,13 +30,6 @@ const GroupUserList = (props) => {
         fetchGroupUsers();
     }, [groupId]);
 
-    const imgData = [
-        { id: '1', img: groupMember },
-        { id: '2', img: groupMember2 },
-        { id: '3', img: groupMember3 },
-        { id: '4', img: groupMember4 },
-    ];
-
     const [users, setUsers] = useState([]);
 
     const readMemberRequest = async () => {
@@ -94,7 +87,7 @@ const GroupUserList = (props) => {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                {imgData.map(member => (
+                {users.map(member => (
                     <CheckUserItem
                         key={member.id}
                         member={member}
@@ -116,13 +109,13 @@ const GroupUserList = (props) => {
                 {/*    </Box>*/}
                 {/*</Container>*/}
 
-            <Grid container spacing={2} columns={16}>
-                {users.map((member, index) => (
-                    <Grid item xs={4}>
-                        <div key={index}>{member && member.userId}</div>
-                    </Grid>
-                ))}
-            </Grid>
+            {/*<Grid container spacing={2} columns={16}>*/}
+            {/*    {users.map((member, index) => (*/}
+            {/*        <Grid item xs={4}>*/}
+            {/*            <div key={index}>{member && member.userId}</div>*/}
+            {/*        </Grid>*/}
+            {/*    ))}*/}
+            {/*</Grid>*/}
 
 
         </div>

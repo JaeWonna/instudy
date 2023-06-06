@@ -89,7 +89,44 @@ export default function Check() {
 
     const [detail, setDetail] = useState(true);
 
-    const [clickedNum, setClickedNum] = useState(1);
+    const [groupUsers, setGroupUsers] = useState([]);
+
+    const [clickedNum, setClickedNum] = useState('');
+
+    useEffect(() => {
+        const fetchGroupUsers = async () => {
+            try {
+                const response = await axios.post(`/checking/read/groupUser`, {
+                    groupId: groupId,
+                });
+                console.log("response.data", response.data);
+                setGroupUsers(response.data);
+            } catch (error) {
+                console.error("Error fetching group users:", error);
+            }
+        };
+
+        fetchGroupUsers();
+    }, [groupId]);
+
+    useEffect(() => {
+        if (groupUsers.length > 0) {
+            setClickedNum(groupUsers[0]?.user_name);
+        }
+    }, [groupUsers]);
+
+    console.log("여기서 groupUser 첫번째 객체", groupUsers[0])
+    console.log("여기서 setClickedNum", clickedNum)
+
+    // useEffect(() => {
+    //     if (groupUsers.length > 0) {
+    //         setClickedNum(groupUsers[0].username);
+    //     }
+    // }, [groupUsers]);
+
+    // const [clickedNum, setClickedNum] = useState('');
+
+    // const [clickedNum, setClickedNum] = useState(groupUsers[0].username);
 
     // console.log("이미지 클릭하고 clickedNum", clickedNum)
     // console.log("groupId", groupId)

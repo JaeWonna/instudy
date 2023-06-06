@@ -13,9 +13,10 @@ import {useState, useEffect} from "react";
 import CheckProgress from "./CheckProgress";
 import * as React from "react";
 import MemoView from "./Comment/MemoView";
+import {LoginUser} from '../../../api/route/loginUser';
 
 const CheckCreate = (props) => {
-    const { groupId, loginUser, setCheckingId } = props;
+    const { groupId, setCheckingId } = props;
 
     const {checkingId} = useParams();
     const params = useParams(); //url로 넘어온 파라미터를 받는 역할 (App.js 의 :id 참고)
@@ -33,18 +34,35 @@ const CheckCreate = (props) => {
 
     const navigate = useNavigate();
 
+    const [loginUser, setLoginUser] = useState('');
+
     useEffect(() => {
-        if (isCheck && isMemo) {
-            navigate(-1); // Navigate back to the previous page
+        const storedUser = sessionStorage.getItem("loginUser");
+        console.log("test");
+        console.log(storedUser);
+        if (storedUser) {
+            const parsedUser = JSON.parse(storedUser).data;
+            setLoginUser(parsedUser);
+        } else {
+            navigate("/signIn");
         }
-    }, [isCheck, isMemo, navigate]);
+    }, [navigate]);
+
+    // useEffect(() => {
+    //     if (isCheck && isMemo) {
+    //         navigate(-1); // Navigate back to the previous page
+    //     }
+    // }, [isCheck, isMemo, navigate]);
+
+    console.log("여기서 로그인유저", loginUser)
+
 
     return (
         <>
             <CheckCard checkingId={checking_id} loginUser={loginUser} setIsCheck={setIsCheck}/>
             <MemoView loginUser={loginUser}
 
-                      checkingId={checkingId}
+                      checkingId={checkingId} setIsMemo={setIsMemo}
             />
             {/*<CheckRead checkingId={checkingId} />*/}
             <CheckProgress checkingId={checkingId} />

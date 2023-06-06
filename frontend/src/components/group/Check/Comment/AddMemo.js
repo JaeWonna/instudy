@@ -6,11 +6,10 @@ import axios from 'axios';
 
 function AddMemo({ memos, setMemos, loginUser, checkingId, setIsMemo }) {
     const [inputs, setInputs] = useState({
-        title: '',
         content: '',
     });
 
-    const { title, content } = inputs;
+    const { content } = inputs;
 
     const onChange = (e) => {
         const { name, value } = e.target;
@@ -43,12 +42,11 @@ function AddMemo({ memos, setMemos, loginUser, checkingId, setIsMemo }) {
     //     }
     // };
 
+    console.log("여기서 로그인유저", loginUser)
+
     const onAdd = () => {
         const memo = {
-            id: nextId.current,
-            title,
             content,
-            date: new Date().getTime(),
         };
 
         setMemos([...memos, memo]);
@@ -76,14 +74,13 @@ function AddMemo({ memos, setMemos, loginUser, checkingId, setIsMemo }) {
         };
 
         setInputs({
-            title: '',
             content: '',
         });
         nextId.current += 1;
 
-        if (memo.content) {
+        // if (memo.content) {
             sendCommentRequest();
-        }
+        // }
     };
 
     return (
