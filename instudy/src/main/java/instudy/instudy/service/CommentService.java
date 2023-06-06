@@ -18,7 +18,7 @@ public class CommentService {
         this.commentRepository = commentRepository;
     }
 
-    public String createComment(Long userId, Long feedId, String comment) {
+    public String createComment(String userId, Long feedId, String comment) {
         Comment createComment = new Comment(userId, feedId, comment);
         commentRepository.save(createComment);
         return "create";

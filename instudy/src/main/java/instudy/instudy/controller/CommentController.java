@@ -23,7 +23,7 @@ public class CommentController {
     @RequestMapping(value = "/comment/create", method = RequestMethod.POST)
     public String createComment(@RequestBody Map<String, String> paramMap) {
         Long feedId = Long.parseLong(paramMap.get("feedId"));
-        Long userId = Long.parseLong(paramMap.get("userId"));
+        String userId = paramMap.get("userId");
         String comment = paramMap.get("comment");
         return commentService.createComment(userId, feedId, comment);
     }

@@ -14,13 +14,13 @@ public class Comment {
     private Long commentId;
 
     @Column
-    private Long userId;
+    private String userId;
     @Column
     private Long feedId;
     @Column
     private String comment;
 
-    public Comment(Long userId, Long feedId, String comment) {
+    public Comment(String userId, Long feedId, String comment) {
         this.userId = userId;
         this.feedId = feedId;
         this.comment = comment;
