@@ -131,9 +131,8 @@ Start the server
 프로젝트는 반드시 C드라이브에 clone합니다.
 
     C://myPlug
-
-
-### `npm install react-router-dom --save`
+    
+### `npm install`
 
 > **Note: 패키지 변화가 없으면 매번 작업을 할 필요가 없습니다.**
 
@@ -149,6 +148,12 @@ package.json에 있는 npm 설치 이력을 토대로 본인 컴퓨터에 패키
     강제로 설치하는 명령어도 있습니다.
 
 각각의 폴더에서 npm 설치 작업을 진행하여야 합니다.
+
+
+### `npm install react-router-dom --save`
+
+> **Note: 패키지 변화가 없으면 매번 작업을 할 필요가 없습니다.**
+
 
 ### `npm install bootstrap`
 
