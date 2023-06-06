@@ -17,7 +17,7 @@ import GroupAssignCard from "./assignment/GroupAssignCard";
 import GroupBottomNav from "../group/GroupBottomNav";
 
 const GroupMainView = (props) => {
-    const {id} = useParams();
+    const {groupId} = useParams();
 
     const [modal, setModal] = useState(false);
 
@@ -26,9 +26,6 @@ const GroupMainView = (props) => {
     const cardStyle = {
         width: '18rem',
     }
-
-    const params = useParams(); //url로 넘어온 파라미터를 받는 역할 (App.js 의 :id 참고)
-    const groupId = params.id; //(params의 :id를 받는 역할)
 
     useEffect( () => {
         getAndSetGroup(groupId);
@@ -74,9 +71,6 @@ const GroupMainView = (props) => {
         >
             {/* 가운데 정렬할 요소들 */}
             <div>
-                <Typography variant="h3" gutterBottom>
-                    그룹{id}
-                </Typography>
                 <Typography variant="h5" gutterBottom>
                     과제
                 </Typography>

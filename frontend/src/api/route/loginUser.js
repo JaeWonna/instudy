@@ -17,9 +17,9 @@ const LoginUser = () => {
         }
     }, [navigate]);
 
-    console.log("mainRoutes에서 loginUser", user);
+    console.log("여기서 loginUser", user);
 
-    return null; // Replace this with your actual JSX content
+    return user; // Replace this with your actual JSX content
 };
 
 export default LoginUser;

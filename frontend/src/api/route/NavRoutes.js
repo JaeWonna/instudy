@@ -15,21 +15,26 @@ const NavRoutes = [
         element: <BottomNav />,
     },
     {
-        path: '/group/:id',
+        path: '/group/:groupId',
         element: <GroupBottomNav />,
     },
     {
-        path: '/todo/:groupId',
+        path: '/check/:groupId',
         element: <GroupBottomNav />,
-    },
-    {
-        path: '/feed/:groupId',
-        element: <GroupBottomNav />,
+        props: true, // Enable passing route parameters as props
     },
     {
         path: '/timer/:groupId',
         element: <GroupBottomNav />,
+        props: true, // Enable passing route parameters as props
     },
+
+    {
+        path: '/feed/:groupId',
+        element: <GroupBottomNav />,
+        props: true, // Enable passing route parameters as props
+    },
+
 
 ];
 export default NavRoutes;
