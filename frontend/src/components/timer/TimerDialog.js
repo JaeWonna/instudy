@@ -79,7 +79,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
 
     const handleTimerListClick = (timerId) => {
         setSelectedTimerId(timerId);
-        createTimer();
+        // createTimer();
         handleOpen();
     }
 
@@ -107,6 +107,8 @@ export default function TimerDialog(props: SimpleDialogProps) {
     const [selectedTimerId, setSelectedTimerId] = useState(null); // Add selectedTimerId state variable
 
     const [newTime, setNewTime] = useState(0);
+
+    console.log("selectedTimerId", selectedTimerId)
 
     return (
         <Box
@@ -144,8 +146,7 @@ export default function TimerDialog(props: SimpleDialogProps) {
                                     userId={userId}
                                     loginUser={loginUser}
                                     timerId={timer.timerId}
-                                    // time={time}
-                                    newTime={newTime}
+                                    time={timer.time}
                                     setTime={setTime}
                                     timerList={timerList}
                                     setTimerList={setTimerList}

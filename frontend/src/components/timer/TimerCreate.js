@@ -109,22 +109,19 @@ export default function TimerCreate(props) {
                 timerId: timerId,
             })
             .then((response) => {
-                console.log("response.data", response.data)
+                console.log("response.data", response.data);
                 if (response.data === "stop") {
+                    // Save the time to session storage
+                    sessionStorage.setItem('time', time.toString());
+
                     alert("타이머 멈춤");
-                    setTimerList((prevTimerList) => [
-                        ...prevTimerList,
-                        {
-                            timerId: timerId,
-                            time: time,
-                        }
-                    ]);
                 }
             })
             .catch((error) => {
                 console.error('Error occurred while stopping the timer', error);
             });
     };
+
 
     const saveTimer = (timerId) => {
         console.log("userId", userId)
