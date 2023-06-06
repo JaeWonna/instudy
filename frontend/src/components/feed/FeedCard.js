@@ -17,9 +17,14 @@ import {styled} from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import axios from "axios";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {Button, Menu, MenuItem} from "@material-ui/core";
+import {Box, Button, Menu, MenuItem} from "@material-ui/core";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useEffect, useState} from "react";
+import {Stack, TextField} from "@mui/material";
+
+function ReplyComment(props: { responseTo: * }) {
+    return null;
+}
 
 const FeedCard = ({deleteFeed, feedId, user, feed}) => {
 
@@ -42,6 +47,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
     })
 
     const [imagePath, setImagePath] = React.useState();
+    const [ProfilePath, SetProfilePath] = React.useState();
 
     useEffect(() => {
 
@@ -55,6 +61,16 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                 let words = response.data.split('/');
                 console.log(words[8])
                 setImagePath(words[8])
+            })
+            .catch();
+        axios
+            .post("/image/" + user.imageId, {
+                imageId : user.imageId
+            })
+            .then((response) => {
+                let words = response.data.split('/');
+                console.log(words[8])
+                SetProfilePath(words[8])
             })
             .catch();
 
@@ -108,9 +124,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                 <Card sx={{ maxWidth: '100%' }}>
                     <CardHeader
                         avatar={
-                            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                                {feed.userId}
-                            </Avatar>
+                            <Avatar src={"/img/" + ProfilePath}  sx={{ bgcolor: red[500] }} alt="아바타 이미지" />
                         }
                         action={
                             <div>
@@ -195,6 +209,22 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <Typography paragraph>
+                                {/*<Box sx={{ m: 2 }} >*/}
+                                {/*    <Stack direction="row" spacing={2}>*/}
+                                {/*        <Avatar sx={{ bgcolor: 'orangered' }}>{feed.userId.slice(0, 2)}</Avatar>*/}
+                                {/*        <TextField*/}
+                                {/*            focused*/}
+                                {/*            fullWidth*/}
+                                {/*            label="댓글 달기..."*/}
+                                {/*            id="outlined-size-small"*/}
+                                {/*            defaultValue=""*/}
+                                {/*            size="small"*/}
+                                {/*        />*/}
+                                {/*    </Stack>*/}
+                                {/*    <Box sx={{ padding: "20px 20px" }}>{feed.content}</Box>*/}
+                                {/*    <ReplyComment responseTo={feed.content} />*/}
+                                {/*    <hr style={{ borderTop: '1px solid gray' }} />*/}
+                                {/*</Box >*/}
                                 {feed.content}
                             </Typography>
                         </CardContent>
