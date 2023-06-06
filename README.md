@@ -152,18 +152,9 @@ package.json에 있는 npm 설치 이력을 토대로 본인 컴퓨터에 패키
 
 ### `npm install react-router-dom --save`
 
-> **Note: 패키지 변화가 없으면 매번 작업을 할 필요가 없습니다.**
-
-
 ### `npm install bootstrap`
 
-> **Note: 패키지 변화가 없으면 매번 작업을 할 필요가 없습니다.**
-
-
 ### `npm install axios`
-
-> **Note: 패키지 변화가 없으면 매번 작업을 할 필요가 없습니다.**
-
 
 ### `npm install http-proxy-middleware --save`
 
