@@ -22,19 +22,45 @@ import ProfileGroupCard from "../components/Profile/ProfileGroupCard";
 export default function Profile() {
     const [loginUser, setLoginUser] = useState({});
     const navigate = useNavigate();
+    const [imagePath, setImagePath] = React.useState();
 
     const onClickModify = () => {
         navigate("/profileModify");
     };
 
-    useEffect(()=> {
+    // useEffect(()=> {
+    //     const storedUser = sessionStorage.getItem("loginUser");
+    //     console.log("test");
+    //     console.log(storedUser);
+    //     if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+    //         const parsedUser = JSON.parse(storedUser).data;
+    //         setLoginUser(parsedUser);
+    //     } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+    //         navigate("/signIn");
+    //     }
+    //
+    // }, []);
+
+    useEffect(() => {
         const storedUser = sessionStorage.getItem("loginUser");
         console.log("test");
         console.log(storedUser);
-        if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
+        if (storedUser) {
             const parsedUser = JSON.parse(storedUser).data;
             setLoginUser(parsedUser);
-        } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
+            axios
+                .post("/image/" + parsedUser.imageId, {
+                    imageId: parsedUser.imageId
+                })
+                .then((response) => {
+                    let words = response.data.split('/');
+                    console.log(words[8]);
+                    setImagePath(words[8]);
+                })
+                .catch((error) => {
+                    // Handle error if necessary
+                });
+        } else {
             navigate("/signIn");
         }
     }, []);
@@ -46,8 +72,12 @@ export default function Profile() {
                 <div className="col-lg-4">
                     <div className="card mb-4">
                         <div className="card-body text-center">
-                            <img src={profile} className="img-thumbnail" alt="..."/>
-                            <img id="hz" src="../img/profile.png" alt="랜덤짤" width="304" height="228"/>
+                            <img
+                                src= {"/img/" + imagePath}
+                                className="img-thumbnail"
+                                alt="..."
+                            />
+                            {/*<img id="hz" src="../img/profile.png" alt="랜덤짤" width="304" height="228"/>*/}
                             <h5 className="my-3">{loginUser.user_name}</h5>
                             <p className="text-muted mb-1">Full Stack Developer</p>
                             <p className="text-muted mb-4">{loginUser.email}</p>

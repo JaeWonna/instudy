@@ -12,6 +12,7 @@ import { styled } from '@mui/material/styles';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import axios from "axios";
 import {Button} from "react-bootstrap";
+import ImageUpload from "../../api/image/ImageUpload"
 
 const ProfileModify = () => {
 
@@ -96,6 +97,7 @@ const ProfileModify = () => {
                 name: values.name,
                 email: values.email,
                 password: values.password,
+                imageId: imageId
             })
                 .then((response) => {
                     if (response.data === false) {
@@ -109,13 +111,23 @@ const ProfileModify = () => {
     };
 
 
+    let imageId;
+
+    const getImageId = (x) => {
+        console.log(x);
+        imageId = x;
+    }
+
     return (
         <div>
             <div className="row">
                 <div className="col-lg-5">
                     <div className="card mb-4">
                         <div className="card-body text-center">
-                            <img src={profile} className="img-thumbnail" alt="..." width={265} height={265}/>
+                            {/*<img src={profile} className="img-thumbnail" alt="..." width={265} height={265}/>*/}
+                            <ImageUpload
+                                getImageId = {getImageId}
+                            />
                             <h5 className="my-3">{loginUser.user_name}</h5>
                             <p className="text-muted mb-1">Full Stack Developer</p>
                             <p className="text-muted mb-4">{loginUser.email}</p>

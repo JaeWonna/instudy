@@ -43,7 +43,7 @@ const ImageUpload = ({getImageId}) => {
             const response = await axios.post("/image/upload", formData);
             alert(response.data);
             setImageId(response.data);
-            setImage({ preview: '', data: '' });
+           // setImage({ preview: '', data: '' });
         } catch (error) {
             console.log(error);
         }
@@ -66,7 +66,6 @@ const ImageUpload = ({getImageId}) => {
                 <input className='form-control' type='file' multiple="multiple" name='file' onChange={handleFileChange}></input>
                 </form>
             </Stack>
-            {image.preview && <>
                 <Box my={3}>
                     <img src={image.preview} width='300' height='300' />
                 </Box>
@@ -77,8 +76,7 @@ const ImageUpload = ({getImageId}) => {
                     onClick={handleUpload}
                 >업로드 하기
                 </Button>
-                </>
-            }
+
         </FormControl>
     );
 };
