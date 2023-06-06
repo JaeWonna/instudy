@@ -16,11 +16,11 @@ public class Comment {
     @Column
     private String userId;
     @Column
-    private String feedId;
+    private Long feedId;
     @Column
     private String comment;
 
-    public Comment(String userId, String feedId, String comment) {
+    public Comment(String userId, Long feedId, String comment) {
         this.userId = userId;
         this.feedId = feedId;
         this.comment = comment;

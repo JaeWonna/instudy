@@ -47,8 +47,10 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
         heartUser: feed.heartUser
     })
 
-    const [imagePath, setImagePath] = React.useState();
-    const [ProfilePath, SetProfilePath] = React.useState();
+    const [imagePath, setImagePath] = React.useState();     //피드에 올린 사진
+    const [FeedProfilePath, SetFeedProfilePath] = React.useState();     //피드를 올린 유저의 프로필 사진
+    const [ProfilePath, SetProfilePath] = React.useState();     //현재 로그인한 유저의 프로필 사진
+
 
     useEffect(() => {
 
@@ -60,18 +62,34 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
             })
             .then((response) => {
                 let words = response.data.split('/');
-                console.log(words[8])
                 setImagePath(words[8])
             })
             .catch();
+
         axios
             .post("/image/" + user.imageId, {
                 imageId : user.imageId
             })
             .then((response) => {
                 let words = response.data.split('/');
-                console.log(words[8])
                 SetProfilePath(words[8])
+            })
+            .catch();
+
+        axios
+            .post("/profile", {
+                user_id : feed.userId
+            })
+            .then((response) => {
+                axios
+                    .post("/image/" + response.data.imageId, {
+                        imageId : response.data.imageId
+                    })
+                    .then((response) => {
+                        let words = response.data.split('/');
+                        SetFeedProfilePath(words[8])
+                    })
+                    .catch();
             })
             .catch();
 
@@ -125,7 +143,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                 <Card sx={{ maxWidth: '100%' }}>
                     <CardHeader
                         avatar={
-                            <Avatar src={"/img/" + ProfilePath}  sx={{ bgcolor: red[500] , border: '2px solid #000'}} alt="아바타 이미지" />
+                            <Avatar src={"/img/" + FeedProfilePath}  sx={{backgroundColor: '#fff', border: '2px solid #000'}} alt="아바타 이미지" />
                         }
                         action={
                             <div>
@@ -166,7 +184,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
 
                        }
 
-                        title={user.user_name}
+                        title={feed.userId}
                         subheader="September 14, 2016"
                     />
                     <CardMedia
@@ -215,7 +233,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                             <Typography paragraph>
                                 <Box sx={{ m: 2 }} >
                                     <Stack direction="row" spacing={2}>
-                                        <Avatar src={"/img/" + ProfilePath}  sx={{ bgcolor: red[500], border: '2px solid #000' }} alt="아바타 이미지" />                                        <TextField
+                                        <Avatar src={"/img/" + ProfilePath}  sx={{backgroundColor: '#fff', border: '2px solid #000' }} alt="아바타 이미지" />                                        <TextField
                                             focused
                                             fullWidth
                                             label="댓글 달기..."
