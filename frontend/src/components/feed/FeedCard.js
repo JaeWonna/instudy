@@ -22,6 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {useEffect, useState} from "react";
 import {Stack, TextField} from "@mui/material";
 import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
+import CreateFeedComment from "./CreateFeedComment";
 
 function ReplyComment(props: { responseTo: * }) {
     return null;
@@ -229,26 +230,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                         </ExpandMore>
                     </CardActions>
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
-                        <CardContent>
-                            <Typography paragraph>
-                                <Box sx={{ m: 2 }} >
-                                    <Stack direction="row" spacing={2}>
-                                        <Avatar src={"/img/" + ProfilePath}  sx={{backgroundColor: '#fff', border: '2px solid #000' }} alt="아바타 이미지" />                                        <TextField
-                                            focused
-                                            fullWidth
-                                            label="댓글 달기..."
-                                            id="outlined-size-small"
-                                            defaultValue=""
-                                            size="small"
-                                        />
-                                    </Stack>
-                                    <Box sx={{ padding: "20px 20px" }}>{feed.content}</Box>
-                                    <ReplyComment responseTo={feed.content} />
-                                    <hr style={{ borderTop: '1px solid gray' }} />
-                                </Box >
-                                {/*{feed.content}*/}
-                            </Typography>
-                        </CardContent>
+                        <CreateFeedComment ProfilePath = {ProfilePath} feed = {feed} user = {user}/>
                     </Collapse>
                 </Card>
         </div>
