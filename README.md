@@ -130,7 +130,7 @@ Start the server
 
 프로젝트는 반드시 C드라이브에 clone합니다.
 
-    C://myPlug
+    C://instudy
     
 ### `npm install`
 
