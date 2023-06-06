@@ -20,7 +20,6 @@ const GroupUserList = (props) => {
                 const response = await axios.post(`/checking/read/groupUser`, {
                     groupId: groupId,
                 });
-                console.log("response.data", response.data);
                 setGroupUsers(response.data);
             } catch (error) {
                 console.error("Error fetching group users:", error);
@@ -42,7 +41,6 @@ const GroupUserList = (props) => {
         try {
             const response = await axios.post(url, readMemberData);
             const users = response.data;
-            console.log('group user list에서:', users);
             setUsers(users);
             // 요청 성공 후 처리할 작업 수행
         } catch (error) {
@@ -65,7 +63,6 @@ const GroupUserList = (props) => {
         try {
             // 함수 호출
             await readMemberRequest();
-            console.log("checkingId", users)
             // setCheckingId(readCheckingData.checkingId);
             // 요청 성공 후 처리할 작업 수행
         } catch (error) {

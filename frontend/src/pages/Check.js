@@ -24,8 +24,6 @@ export default function Check() {
 
     useEffect(()=> {
         const storedUser = sessionStorage.getItem("loginUser");
-        console.log("test");
-        console.log(storedUser);
         if (storedUser) { // 세션에 로그인한 유저가 저장되었을 때
             const parsedUser = JSON.parse(storedUser).data;
             setLoginUser(parsedUser);
@@ -36,20 +34,17 @@ export default function Check() {
 
     const params = useParams();
     const groupId = params.groupId;
-    console.log("groupId ", groupId);
 
     const [todos, setTodos] = useState([]);
 
     useEffect(() => {
         if (loginUser.userId) {
-            console.log("투두 읽는 useEffect");
             axios
                 .post("/checking/read/todo", {
                     userId: loginUser.userId
                 })
                 .then((response) => {
                     const todoData = response.data; // 투두 데이터
-                    console.log("투두 response", todoData);
                     setTodos(todoData);
                 })
                 .catch((error) => {
@@ -57,10 +52,6 @@ export default function Check() {
                 });
         }
     }, [loginUser]);
-
-    console.log("Check에서 loginUser", loginUser)
-
-    console.log("todos", todos)
 
     const [group, setGroup] = useState([]);
 
@@ -70,10 +61,7 @@ export default function Check() {
                 loginUser: loginUser.user_name,
             })
             .then((res) => {
-                console.log(res.data);
                 setGroup(res.data);
-                console.log("test");
-                console.log(group);
             })
             .catch();
 
@@ -99,7 +87,6 @@ export default function Check() {
                 const response = await axios.post(`/checking/read/groupUser`, {
                     groupId: groupId,
                 });
-                console.log("response.data", response.data);
                 setGroupUsers(response.data);
             } catch (error) {
                 console.error("Error fetching group users:", error);
@@ -115,36 +102,19 @@ export default function Check() {
         }
     }, [groupUsers]);
 
-    console.log("여기서 groupUser 첫번째 객체", groupUsers[0])
-    console.log("여기서 setClickedNum", clickedNum)
-
-    // useEffect(() => {
-    //     if (groupUsers.length > 0) {
-    //         setClickedNum(groupUsers[0].username);
-    //     }
-    // }, [groupUsers]);
-
-    // const [clickedNum, setClickedNum] = useState('');
-
-    // const [clickedNum, setClickedNum] = useState(groupUsers[0].username);
-
-    // console.log("이미지 클릭하고 clickedNum", clickedNum)
-    // console.log("groupId", groupId)
-    // console.log("group[groupId]", group[groupId])
-
     return (
         <div>
             <div className="col-md-10" style={child}>
                 <MDBCard className="mb-5">
-                    <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        height="10vh"
-                    >
-                        <Typography variant="h5" gutterBottom>
-                            {group.length > 0 && group[groupId]?.groupName}</Typography>
-                    </Box>
+                    {/*<Box*/}
+                    {/*    display="flex"*/}
+                    {/*    justifyContent="center"*/}
+                    {/*    alignItems="center"*/}
+                    {/*    height="10vh"*/}
+                    {/*>*/}
+                    {/*    <Typography variant="h5" gutterBottom>*/}
+                    {/*        {group.length > 0 && group[groupId]?.groupName}</Typography>*/}
+                    {/*</Box>*/}
                     <MDBCardBody>
                         <GroupUserList loginUser={loginUser} groupId={groupId} clickedNum={clickedNum} setClickedNum={setClickedNum} setDetail={setDetail}/>
                         {/*<img src={groupMember} alt="Generic placeholder"*/}

@@ -20,8 +20,6 @@ import {useNavigate} from "react-router-dom";
 const CheckUserDetails = (props) => {
     const {clickedNum, todos, loginUser, groupId} = props;
 
-    // console.log("todos", todos);
-
     const handleButtonClick = () => {
         // Handle button click logic here
     };
@@ -30,8 +28,6 @@ const CheckUserDetails = (props) => {
     const [badCount, setBadCount] = useState(0);
 
     const totalCount = goodCount - badCount;
-
-    console.log("groupId", groupId)
 
     const [checkingId, setCheckingId] = useState(0);
 
@@ -45,7 +41,6 @@ const CheckUserDetails = (props) => {
                 content: "This is a content",
             });
             const newChecking = response.data;
-            console.log("Created Checking:", newChecking);
 
             navigate(`/check/${groupId}/${clickedNum}`); // Redirect to the new URL
         } catch (error) {
@@ -62,7 +57,6 @@ const CheckUserDetails = (props) => {
                 const response = await axios.post(`/checking/read/groupUser`, {
                     groupId: groupId,
                 });
-                console.log("response.data", response.data);
                 setGroupUsers(response.data);
             } catch (error) {
                 console.error("Error fetching group users:", error);
@@ -71,9 +65,6 @@ const CheckUserDetails = (props) => {
 
         fetchGroupUsers();
     }, [groupId]);
-
-    console.log("여기서 clickedNum", clickedNum)
-
 
     return (
         <>

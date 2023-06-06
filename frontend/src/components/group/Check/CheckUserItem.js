@@ -18,7 +18,6 @@ const CheckUserItem = (props) => {
                 content: "This is a content",
             });
             const newChecking = response.data;
-            console.log("Created Checking:", newChecking);
 
             navigate(`/check/${groupId}/${member.userId}`); // Redirect to the new URL
         } catch (error) {
@@ -31,14 +30,12 @@ const CheckUserItem = (props) => {
     const [ProfilePath, SetProfilePath] = React.useState();
 
     useEffect(() => {
-        console.log("멤버 이미지 아이디", member.imageId)
         axios
             .post("/image/" + member.imageId, {
                 imageId : member.imageId
             })
             .then((response) => {
                 let words = response.data.split('/');
-                console.log("멤버이미지",words[8])
                 SetProfilePath(words[8])
             })
             .catch();
@@ -55,7 +52,6 @@ const CheckUserItem = (props) => {
                     setClickedNum(member.userId);
                     setDetail(true);
                     handleCreateChecking();
-                    console.log("clickedNum", clickedNum);
                 }}
             />
             <Typography>{member.userId}</Typography>
