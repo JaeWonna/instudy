@@ -21,6 +21,7 @@ import {Box, Button, Menu, MenuItem} from "@material-ui/core";
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useEffect, useState} from "react";
 import {Stack, TextField} from "@mui/material";
+import ModeCommentOutlinedIcon from '@mui/icons-material/ModeCommentOutlined';
 
 function ReplyComment(props: { responseTo: * }) {
     return null;
@@ -124,7 +125,7 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                 <Card sx={{ maxWidth: '100%' }}>
                     <CardHeader
                         avatar={
-                            <Avatar src={"/img/" + ProfilePath}  sx={{ bgcolor: red[500] }} alt="아바타 이미지" />
+                            <Avatar src={"/img/" + ProfilePath}  sx={{ bgcolor: red[500] , border: '2px solid #000'}} alt="아바타 이미지" />
                         }
                         action={
                             <div>
@@ -183,6 +184,9 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                         </Typography>
                     </CardContent>
                     <CardActions disableSpacing>
+                        {/*<IconButton>*/}
+                        {/*    <ModeCommentOutlinedIcon/>*/}
+                        {/*</IconButton>*/}
                         <IconButton aria-label="add to favorites">
                             {
                                 heart.heartUser.filter(isUser).length > 0
@@ -191,12 +195,12 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                                     :
                                     <FavoriteBorderIcon onClick={onClickHeart}/>
                             }
-
                         </IconButton>
                         {/*<IconButton aria-label="share">*/}
                         {/*    <ShareIcon />*/}
                         {/*</IconButton>*/}
                         {heart.heartNum}
+
                         <ExpandMore
                             expand={expanded}
                             onClick={handleExpandClick}
@@ -209,23 +213,22 @@ const FeedCard = ({deleteFeed, feedId, user, feed}) => {
                     <Collapse in={expanded} timeout="auto" unmountOnExit>
                         <CardContent>
                             <Typography paragraph>
-                                {/*<Box sx={{ m: 2 }} >*/}
-                                {/*    <Stack direction="row" spacing={2}>*/}
-                                {/*        <Avatar sx={{ bgcolor: 'orangered' }}>{feed.userId.slice(0, 2)}</Avatar>*/}
-                                {/*        <TextField*/}
-                                {/*            focused*/}
-                                {/*            fullWidth*/}
-                                {/*            label="댓글 달기..."*/}
-                                {/*            id="outlined-size-small"*/}
-                                {/*            defaultValue=""*/}
-                                {/*            size="small"*/}
-                                {/*        />*/}
-                                {/*    </Stack>*/}
-                                {/*    <Box sx={{ padding: "20px 20px" }}>{feed.content}</Box>*/}
-                                {/*    <ReplyComment responseTo={feed.content} />*/}
-                                {/*    <hr style={{ borderTop: '1px solid gray' }} />*/}
-                                {/*</Box >*/}
-                                {feed.content}
+                                <Box sx={{ m: 2 }} >
+                                    <Stack direction="row" spacing={2}>
+                                        <Avatar src={"/img/" + ProfilePath}  sx={{ bgcolor: red[500], border: '2px solid #000' }} alt="아바타 이미지" />                                        <TextField
+                                            focused
+                                            fullWidth
+                                            label="댓글 달기..."
+                                            id="outlined-size-small"
+                                            defaultValue=""
+                                            size="small"
+                                        />
+                                    </Stack>
+                                    <Box sx={{ padding: "20px 20px" }}>{feed.content}</Box>
+                                    <ReplyComment responseTo={feed.content} />
+                                    <hr style={{ borderTop: '1px solid gray' }} />
+                                </Box >
+                                {/*{feed.content}*/}
                             </Typography>
                         </CardContent>
                     </Collapse>
