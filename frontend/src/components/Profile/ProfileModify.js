@@ -25,6 +25,8 @@ const ProfileModify = () => {
         // email: loginUser.email,
         // password: loginUser.password,
     );
+    const [imagePath, setImagePath] = React.useState();
+    const [imageM, setImageM] = React.useState(false);
 
     const updateUser = () => {
         console.log(values)
@@ -73,6 +75,18 @@ const ProfileModify = () => {
                 email: parsedUser.email,
                 password: parsedUser.password,
             });
+            axios
+                .post("/image/" + parsedUser.imageId, {
+                    imageId: parsedUser.imageId
+                })
+                .then((response) => {
+                    let words = response.data.split('/');
+                    console.log(words[8]);
+                    setImagePath(words[8]);
+                })
+                .catch((error) => {
+                    // Handle error if necessary
+                });
         } else { // 세션에 저장된 유저가 null일 때 로그인 페이지로 이동
             navigate("/signIn");
         }
@@ -110,6 +124,9 @@ const ProfileModify = () => {
                 .catch();
     };
 
+    const imageModify = () => {
+        setImageM(true)
+    }
 
     let imageId;
 
@@ -124,10 +141,23 @@ const ProfileModify = () => {
                 <div className="col-lg-5">
                     <div className="card mb-4">
                         <div className="card-body text-center">
-                            {/*<img src={profile} className="img-thumbnail" alt="..." width={265} height={265}/>*/}
-                            <ImageUpload
-                                getImageId = {getImageId}
-                            />
+                            {
+                                imageM === false ?
+                                    <div>
+                                        <img
+                                            src={"/img/" + imagePath}
+                                            className="img-thumbnail"
+                                            alt="..."
+                                        />
+                                        <div className="d-flex justify-content-center mb-2 mt-2">
+                                        <button type="button" className="btn btn-primary" onClick={imageModify}>이미지 수정</button>
+                                        </div>
+                                    </div>
+                                :
+                                <ImageUpload
+                                    getImageId = {getImageId}
+                                />
+                            }
                             <h5 className="my-3">{loginUser.user_name}</h5>
                             <p className="text-muted mb-1">Full Stack Developer</p>
                             <p className="text-muted mb-4">{loginUser.email}</p>
