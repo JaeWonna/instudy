@@ -96,13 +96,13 @@
 Clone the project
 
 ```bash
-  git clone https://github.com/KGU-Team-Avocado/avocado-hero-web.git
+  git clone https://github.com/yeonsu00/instudy.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd avocado-hero-web
+  cd frontend
 ```
 
 Install dependencies
