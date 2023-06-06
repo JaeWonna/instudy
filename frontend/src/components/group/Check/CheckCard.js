@@ -20,6 +20,7 @@ const CheckCard = (props) => {
     };
 
     const handleLike = async () => {
+        setGoodCount(goodCount + 1);
         try {
             const response = await axios.post("/checking/update/like", {
                 good: true, // Replace with your logic to determine the like value
@@ -37,6 +38,7 @@ const CheckCard = (props) => {
     };
 
     const handleDislike = async () => {
+        setBadCount(badCount + 1);
         try {
             const response = await axios.post("/checking/update/dislike", {
                 bad: true, // Replace with your logic to determine the like value

@@ -5,8 +5,8 @@ import CircularProgress, {
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import axios from "axios";
-import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import CheckIcon from '@mui/icons-material/Check';
 import Card from "@mui/material/Card";
 import CardContent from '@mui/material/CardContent';
@@ -47,50 +47,28 @@ function CircularProgressWithLabel(
     );
 }
 
-export default function CheckProgress({groupId, checkingId}) {
-    const [progress, setProgress] = React.useState(0);
-
-    const fetchCheckingPercent = async (checkingId) => {
-        try {
-            const response = await axios.post("/checking/percent", {
-                checkingId: checkingId,
-            });
-            const percent = response.data;
-            console.log("Percent:", percent);
-            setProgress(percent);
-        } catch (error) {
-            console.error("Error:", error);
-        }
-    };
-
-    fetchCheckingPercent(checkingId);
-
+export default function CheckProgress({ checkingId, totalCount }) {
+    const [progress, setProgress] = useState(0);
     const [members, setMembers] = useState([]);
     const [checks, setChecks] = useState([]);
+
+    const {groupId} = useParams();
 
     useEffect(() => {
         const fetchMembersAndChecks = async () => {
             try {
-                const [membersResponse, checksResponse] = await Promise.all([
-                    axios.post("/checking/read/groupUser", {
-                        groupId: groupId,
-                    }),
-                    axios.post("/checking/groupRead", {
-                        groupId: groupId,
-                    }),
-                ]);
-
+                const membersResponse = await axios.post("/checking/read/groupUser", {
+                    groupId: groupId,
+                });
                 const membersData = membersResponse.data;
-                const checksData = checksResponse.data;
-
                 setMembers(membersData);
-                setChecks(checksData);
+
+                console.log("Members length:", membersData.length);
 
                 const totalCount = membersData.length;
-                const performedChecksCount = checksData.length;
+                setProgress(totalCount > 0 ? (checks.length / totalCount) * 100 : 0);
 
-                const percent = (performedChecksCount / totalCount) * 100;
-                setProgress(percent);
+                console.log("Total count:", totalCount);
             } catch (error) {
                 console.error("Error:", error);
             }
@@ -99,7 +77,7 @@ export default function CheckProgress({groupId, checkingId}) {
         fetchMembersAndChecks();
     }, []);
 
-    if (progress >= 50) {
+    if (totalCount >= Math.ceil(members.length / 2)) {
         return (
             <Box
                 display="flex"
@@ -110,23 +88,22 @@ export default function CheckProgress({groupId, checkingId}) {
                 <Card variant="outlined" sx={{ maxWidth: 345 }}>
                     <CardContent>
                         <Typography variant="h5" component="div">
-                                <>
-                                    <CheckCircleIcon color="success" fontSize="large" />
-                                    인증 완료
-                                </>
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                            {progress}% Complete
+                            <>
+                                <CheckCircleIcon color="success" fontSize="large" />
+                                인증 완료
+                            </>
                         </Typography>
                     </CardContent>
                 </Card>
             </Box>
-        ); // Render the other component when progress is 50% or above
+        );
     }
+
+    const percent = (totalCount / members.length) * 100;
 
     return (
         <>
-            <CircularProgressWithLabel value={progress} />
+            <CircularProgressWithLabel value={percent} />
         </>
     );
 }

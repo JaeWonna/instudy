@@ -81,33 +81,7 @@ const CheckUserDetails = (props) => {
                 </Box>
                 <MDBCardBody>
                     <CheckTodoList clickedNum={clickedNum}/>
-                    {/*<MemoView loginUser={loginUser}*/}
-
-                    {/*    checkingId={checkingId}*/}
-                    {/*/>*/}
-                    <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        height="10vh"
-                    >
-                        <Button
-                            variant="contained"
-                            onClick={handleCreateChecking}
-                        >
-                            인증하기
-                        </Button>
-                    </Box>
-                    <Box
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        height="10vh"
-                    >
-                        {/*<CheckProgress groupId={groupId}/>*/}
-
-                    </Box>
-
+                    <CheckCreate groupId={groupId}/>
                 </MDBCardBody>
             </MDBCard>
         </>

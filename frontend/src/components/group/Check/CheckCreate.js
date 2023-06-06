@@ -56,16 +56,21 @@ const CheckCreate = (props) => {
 
     console.log("여기서 로그인유저", loginUser)
 
+    const [goodCount, setGoodCount] = useState(0);
+    const [badCount, setBadCount] = useState(0);
+
+    const totalCount = goodCount - badCount;
+
 
     return (
         <>
-            <CheckCard checkingId={checking_id} loginUser={loginUser} setIsCheck={setIsCheck}/>
+            <CheckCard checkingId={checking_id} loginUser={loginUser} setIsCheck={setIsCheck} setGoodCount={setGoodCount} setBadCount={setBadCount} goodCount={goodCount} badCount={badCount}/>
             <MemoView loginUser={loginUser}
 
                       checkingId={checkingId} setIsMemo={setIsMemo}
             />
             {/*<CheckRead checkingId={checkingId} />*/}
-            <CheckProgress checkingId={checkingId} />
+            <CheckProgress totalCount={totalCount} groupId={groupId}/>
         </>
     );
 };
