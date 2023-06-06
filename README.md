@@ -91,7 +91,7 @@
 
 
 
-## ✨ Run Locally
+## ✨ How to Start
 
 Clone the project
 
