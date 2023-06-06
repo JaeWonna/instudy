@@ -29,4 +29,8 @@ public class CommentService {
         commentRepository.delete(deleteComment);
         return "delete";
     }
+
+    public List<Comment> findByfeedId(Long feedId) {
+        return commentRepository.findByFeedId(feedId);
+    }
 }
