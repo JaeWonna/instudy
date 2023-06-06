@@ -109,6 +109,10 @@ Install dependencies
 
 ```bash
   npm install
+  npm install react-router-dom --save
+  npm install bootstrap
+  npm install axios
+  npm install http-proxy-middleware --save
 ```
 
 Start the server
