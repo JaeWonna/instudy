@@ -9,6 +9,8 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import CheckIcon from '@mui/icons-material/Check';
 import Card from "@mui/material/Card";
+import CardContent from '@mui/material/CardContent';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 function CircularProgressWithLabel(
     props: CircularProgressProps & { value: number },
@@ -99,11 +101,27 @@ export default function CheckProgress({groupId, checkingId}) {
 
     if (progress >= 50) {
         return (
-            <div>
-                <Card sx={{ maxWidth: 345 }}>
-                인증 완료<CheckIcon />
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                height="20vh"
+            >
+                <Card variant="outlined" sx={{ maxWidth: 345 }}>
+                    <CardContent>
+                        <Typography variant="h5" component="div">
+                                <>
+                                    <CheckCircleIcon color="success" fontSize="large" />
+                                    인증 완료
+                                </>
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                            {progress}% Complete
+                        </Typography>
+                    </CardContent>
                 </Card>
-            </div>); // Render the other component when progress is 50% or above
+            </Box>
+        ); // Render the other component when progress is 50% or above
     }
 
     return (

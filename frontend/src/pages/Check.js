@@ -9,6 +9,9 @@ import {Typography, Box} from "@mui/material";
 import GroupUserList from "../components/group/Check/GroupUserList";
 import CheckTodoList from "../components/group/Check/CheckTodoList";
 import CheckUserDetails from "../components/group/Check/CheckUserDetails";
+import CheckCard from "../components/group/Check/CheckCard";
+import MemoView from "../components/group/Check/Comment/MemoView";
+import CheckProgress from "../components/group/Check/CheckProgress";
 
 export default function Check() {
     const child = {

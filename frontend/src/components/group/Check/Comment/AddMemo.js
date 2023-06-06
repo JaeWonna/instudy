@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import axios from 'axios';
+import {Box} from "@material-ui/core";
+import SendIcon from '@mui/icons-material/Send';
 
 function AddMemo({ memos, setMemos, loginUser, checkingId, setIsMemo }) {
     const [inputs, setInputs] = useState({
@@ -85,20 +87,40 @@ function AddMemo({ memos, setMemos, loginUser, checkingId, setIsMemo }) {
 
     return (
         <>
-            <TextField
-                required
-                id="outlined-required"
-                label="내용"
-                name="content"
-                onChange={onChange}
-                value={content}
-                defaultValue="Hello World"
-            />
-            <Stack spacing={2} direction="row">
-                <Button variant="contained" onClick={onAdd}>
-                    등록
-                </Button>
-            </Stack>
+            {/*<TextField*/}
+            {/*    required*/}
+            {/*    id="outlined-required"*/}
+            {/*    label="내용"*/}
+            {/*    name="content"*/}
+            {/*    onChange={onChange}*/}
+            {/*    value={content}*/}
+            {/*    defaultValue="Hello World"*/}
+            {/*/>*/}
+            {/*<Stack spacing={2} direction="row">*/}
+            {/*    <Button variant="contained" onClick={onAdd}>*/}
+            {/*        등록*/}
+            {/*    </Button>*/}
+            {/*</Stack>*/}
+
+            <Box
+                sx={{
+                    width: 500,
+                    maxWidth: '100%',
+                }}
+            >
+                <TextField fullWidth label="댓글을 작성해주세요" id="fullWidth" name="content"
+                           onChange={onChange}
+                           value={content}
+                           defaultValue="Hello World"/>
+                <Stack direction="row" spacing={2}>
+                    <Button variant="contained" endIcon={<SendIcon />} onClick={onAdd}>
+                        Send
+                    </Button>
+                </Stack>
+            </Box>
+
+
+
         </>
     );
 }

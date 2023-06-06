@@ -13,17 +13,13 @@ const CheckCard = (props) => {
     const {groupId} = useParams();
     const params = useParams(); //url로 넘어온 파라미터를 받는 역할 (App.js 의 :id 참고)
     const group_id = params.groupId; //(params의 :id를 받는 역할)
-    // console.log("groupId ", group_id)
 
     const imgStyle = {
         width: "70px",
         margin: "10px",
     };
 
-    console.log("여기서 checkingId", checkingId)
-
     const handleLike = async () => {
-        console.log("여기서 checkingId222", checkingId)
         try {
             const response = await axios.post("/checking/update/like", {
                 good: true, // Replace with your logic to determine the like value
@@ -41,7 +37,6 @@ const CheckCard = (props) => {
     };
 
     const handleDislike = async () => {
-        console.log("여기서 checkingId222", checkingId)
         try {
             const response = await axios.post("/checking/update/dislike", {
                 bad: true, // Replace with your logic to determine the like value
