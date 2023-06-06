@@ -94,7 +94,7 @@ const ProfileGroupView = (props) => {
                                         <ProfileGroupCard
                                             key={group.group_id}
                                             group={group}
-                                            handleGroupCard={handleGroupCard} classes={classes}
+                                            handleGroupCard={handleGroupCard} classes={classes} groupId={group.groupId}
                                         />
                                 ))
                             }

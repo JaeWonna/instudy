@@ -6,15 +6,15 @@ import { Card, CardContent, Typography, Grid } from "@mui/material";
 import * as React from "react";
 
 const ProfileGroupCard = (props) => {
-    const { group, classes } = props;
+    const { group, classes, groupId } = props;
 
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(props.path);
+        navigate(`/group/${groupId}`);
     };
 
-    console.log("group", group)
+
 
     return (
         <>
