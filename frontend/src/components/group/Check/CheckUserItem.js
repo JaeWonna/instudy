@@ -1,5 +1,5 @@
 import { Typography } from "@material-ui/core";
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import CheckUserDetails from "./CheckUserDetails";
 import Avatar from "@mui/material/Avatar";
 import axios from "axios";
@@ -28,27 +28,28 @@ const CheckUserItem = (props) => {
     };
 
     const [imgPath, setImgPath] = useState('');
+    const [ProfilePath, SetProfilePath] = React.useState();
 
-    const fetchImage = async (imageId) => {
-        try {
-            const response = await axios.post(`/image/${imageId}`);
-            const imagePath = response.data;
-            // Handle the imagePath, e.g., display the image or update state
-            console.log("Image path:", imagePath);
-            setImgPath(imagePath);
-        } catch (error) {
-            // Handle the error
-            console.error("Error fetching image:", error);
-        }
-    };
+    useEffect(() => {
+        console.log("멤버 이미지 아이디", member.imageId)
+        axios
+            .post("/image/" + member.imageId, {
+                imageId : member.imageId
+            })
+            .then((response) => {
+                let words = response.data.split('/');
+                console.log("멤버이미지",words[8])
+                SetProfilePath(words[8])
+            })
+            .catch();
 
-    fetchImage(member.imageId);
+    })
 
     return (
         <>
             <Avatar
                 alt="Remy Sharp"
-                src={imgPath}
+                src={"/img/" + ProfilePath}
                 // src={fetchImage(member.imageId)}
                 onClick={() => {
                     setClickedNum(member.userId);
