@@ -6,12 +6,10 @@
 
 ## 🙂 Intro
 
-- 팀 프로젝트의 구성부터 종료 이후 까지 관리하는 플랫폼 입니다.
-![App Screenshot](screenshots/intro1.png)
 - 플랫폼 구조
-![App Screenshot](screenshots/intro2.png)
+![App Screenshot](screenshots/intro1.png)
 - 프로그램 구조
-![App Screenshot](screenshots/intro3.png)
+![App Screenshot](screenshots/intro2.png)
 
 ## 👤 Authors
 
