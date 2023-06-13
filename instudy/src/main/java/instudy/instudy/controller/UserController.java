@@ -98,6 +98,26 @@ public class UserController {
         userService.save(user);
     }
 
+    @PostMapping("/profileModify/info")
+    public ResponseEntity<Void> updateInfo(@RequestBody Map<String, String> ParamMap) {
+        String userId = ParamMap.get("userId");
+        String name = ParamMap.get("name");
+        String email = ParamMap.get("email");
+        String password = ParamMap.get("password");
+        userService.updateInfo(userId, name, email, password);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/profileModify/image")
+    public ResponseEntity<Void> updateImage(@RequestBody Map<String, String> ParamMap) {
+        String userId = ParamMap.get("userId");
+        Long imageId = Long.parseLong(ParamMap.get("imageId"));
+        userService.updateImage(userId, imageId);
+        return ResponseEntity.ok().build();
+    }
+
+    
+    // 밑에 있던거는 원래 있던거
     @PostMapping("/profileModify")
     public ResponseEntity<Void> userUpdate(@RequestBody Map<String, String> ParamMap) {
 

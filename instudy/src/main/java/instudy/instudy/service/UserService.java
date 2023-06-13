@@ -58,7 +58,7 @@ public class UserService {
 //        return userRepository.findByUserId(userId);
     }
 
-    // 유저 이름으로 유저 찾기
+    // 유저 이름으로 유저 찾기 !!
     public User findOne(String userId) {
         return userRepository.findByUserId(userId)
                 .orElse(null);
@@ -81,4 +81,23 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void updateInfo(String userId, String name, String email, String password) {
+        User user = userRepository.findByUserId(userId).orElseThrow(() ->
+                new IllegalArgumentException("회원찾기 실패")
+        );
+
+        user.setUser_name(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        userRepository.save(user);
+    }
+
+    public void updateImage(String userId, Long imageId) {
+        User user = userRepository.findByUserId(userId).orElseThrow(() ->
+                new IllegalArgumentException("회원찾기 실패")
+        );
+
+        user.setImageId(imageId);
+        userRepository.save(user);
+    }
 }
